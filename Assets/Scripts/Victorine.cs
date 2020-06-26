@@ -52,7 +52,7 @@ public class Victorine : MonoBehaviour
     private float timeTenSec = 10f;
 
     public User user;
-    public GameObject Rating;
+    //public GameObject Rating;
 
     private void Awake()//Бесполезно
     {
@@ -125,9 +125,9 @@ public class Victorine : MonoBehaviour
             //timeCount.text = Convert.ToString(time).Remove(7);
             //trueAnswers.text = Convert.ToString(_trueAnswers);
             //countAnswers.text = Convert.ToString(_countAnswers);
-            Rating.SetActive(true);
+            //Rating.SetActive(true);
             ratingScore.text = Convert.ToString(_ratingScore);
-                //victorinePanel.SetActive(false);
+            victorinePanel.SetActive(false);
             lampochka = true;
             ratingPanel.SetActive(true);
         }
@@ -189,7 +189,7 @@ public class Victorine : MonoBehaviour
     
 }
 
-[System.Serializable]
+[System.Serializable]   
 public class QuestionList
 {
     public string Question;

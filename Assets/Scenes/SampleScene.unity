@@ -4001,7 +4001,6 @@ MonoBehaviour:
   Bird2: {fileID: 3231092471660471648}
   time: 0
   ratingScore: {fileID: 1987196270719277718}
-  Rating: {fileID: 1700586233}
 --- !u!81 &466198763
 AudioListener:
   m_ObjectHideFlags: 0
