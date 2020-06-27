@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using DodoDataModel;
 public class GameManager : MonoBehaviour
 {
-    public bool timer;
+    public bool timer, GameStart = false;
     public Text Text;
     // Start is called before the first frame update
     float time = 5.5f;
@@ -23,15 +23,16 @@ public class GameManager : MonoBehaviour
     public User user;
     // Start is called before the first frame update
 
-    void Nachalo(string w)
-    {
-        StartButtton.SetActive(true);
-    }
+    //void Nachalo(string w)
+    //{
+    //    StartButtton.SetActive(true);
+    //}
 
     public void StartGame(string w)
     {
         _dispatcher.Enqueue(() =>
         {
+            GameStart = true;
             StartButtton.SetActive(false);
             Text.gameObject.SetActive(true);
             Debug.Log("Игра началась");
@@ -47,10 +48,10 @@ public class GameManager : MonoBehaviour
     }
     public void FoundTarget(string w)
     {
-        _dispatcher.Enqueue(() =>
-        {
+
+        
             StartButtton.SetActive(true);
-        });
+        
     }
     public async void FoundMessage()
     {
@@ -90,7 +91,7 @@ public class GameManager : MonoBehaviour
                 .Build();
 
             // subscribe to method on server
-            this.hubConnection.On<string>("OnRoomComlete", Nachalo);
+            //this.hubConnection.On<string>("OnRoomComlete", Nachalo);
             this.hubConnection.On<string>("StartGame", StartGame);
             this.hubConnection.On<string>("getSpeed", getSpeed);
             this.hubConnection.On<string>("LostTarget", LostTarget);
@@ -134,16 +135,24 @@ public class GameManager : MonoBehaviour
         if (ImageTarget.activeInHierarchy == true)
         {
             SearchBoxLabel.SetActive(false);
-            FoundMessage();
-
+            if (GameStart == false)
+            {
+                FoundMessage();
+            }
         }
         if (ImageTarget.activeInHierarchy == false)
         {
             SearchBoxLabel.SetActive(true);
-            DeleteTarget();
+            if (GameStart == false)
+            {
+                DeleteTarget();
+            }
+            
         }
         if (timer == true)
         {
+            //GameStart = true;
+            StartButtton.SetActive(false);
             time -= Time.deltaTime;
             Text.text = Convert.ToString(Mathf.RoundToInt(time));
             if (time <= 0)

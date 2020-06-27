@@ -3993,7 +3993,7 @@ MonoBehaviour:
   - {fileID: 8910050968487492891}
   - {fileID: 8910050967783549727}
   qText: {fileID: 8910050967841265193}
-  endPosition: {fileID: 1644386964}
+  endPosition: {fileID: 1931549604}
   victorinePanel: {fileID: 8910050967267587990}
   ratingPanel: {fileID: 1987196270483397030}
   AnswersTable: {fileID: 8910050967267587990}
@@ -4080,6 +4080,7 @@ MonoBehaviour:
   Target: {fileID: 1949776224475507}
   Victorine: {fileID: 8910050967267587990}
   CanvasPizza: {fileID: 4164422382547253668}
+  GameManager: {fileID: 574894747}
 --- !u!4 &475804842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 444890, guid: c36633c911899224da75eeb0b687429a,
@@ -4559,8 +4560,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  GameStart: 0
   Text: {fileID: 8359228110526145257}
   StartButtton: {fileID: 2158540417086678535}
+  ImageTarget: {fileID: 1949776224475507}
+  SearchBoxLabel: {fileID: 4164422382547253668}
   Victorine: {fileID: 8910050967267587990}
   bird1: {fileID: 0}
   bird2: {fileID: 0}
@@ -14677,6 +14681,7 @@ MonoBehaviour:
   Target: {fileID: 1949776224475507}
   Victorine: {fileID: 1584323729}
   CanvasPizza: {fileID: 760541763}
+  GameManager: {fileID: 0}
 --- !u!1001 &1728340880
 PrefabInstance:
   m_ObjectHideFlags: 0
