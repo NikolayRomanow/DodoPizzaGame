@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     float time = 5.5f;
     public GameObject StartButtton;
+    public GameObject ImageTarget, SearchBoxLabel;
     public GameObject Victorine;
     public GameObject bird1;
     public GameObject bird2;
@@ -36,6 +37,32 @@ public class GameManager : MonoBehaviour
             Debug.Log("Игра началась");
             timer = true;
         });
+    }
+    public void LostTarget(string w)
+    {
+        _dispatcher.Enqueue(() =>
+        {
+            StartButtton.SetActive(false);
+        });
+    }
+    public void FoundTarget(string w)
+    {
+        _dispatcher.Enqueue(() =>
+        {
+            StartButtton.SetActive(true);
+        });
+    }
+    public async void FoundMessage()
+    {
+        await hubConnection.InvokeAsync("FoundTarget", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+    }
+    public async void DeleteTarget()
+    {
+        _dispatcher.Enqueue(() =>
+        {        
+            StartButtton.SetActive(false);        
+        });
+        await hubConnection.InvokeAsync("LostTarget", Newtonsoft.Json.JsonConvert.SerializeObject(user));
     }
     async void Start()
     {
@@ -66,6 +93,8 @@ public class GameManager : MonoBehaviour
             this.hubConnection.On<string>("OnRoomComlete", Nachalo);
             this.hubConnection.On<string>("StartGame", StartGame);
             this.hubConnection.On<string>("getSpeed", getSpeed);
+            this.hubConnection.On<string>("LostTarget", LostTarget);
+            this.hubConnection.On<string>("FoundTarget", FoundTarget);
             // start server
             await this.hubConnection.StartAsync();
             // registation client on server 
@@ -102,6 +131,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (ImageTarget.activeInHierarchy == true)
+        {
+            SearchBoxLabel.SetActive(false);
+            FoundMessage();
+
+        }
+        if (ImageTarget.activeInHierarchy == false)
+        {
+            SearchBoxLabel.SetActive(true);
+            DeleteTarget();
+        }
         if (timer == true)
         {
             time -= Time.deltaTime;

@@ -80,9 +80,9 @@ public class Victorine : MonoBehaviour
         {
             timeTenSec-=Time.deltaTime;
         }
-        print(_trueAnswers);
-        print(time);
-        print(_ratingScore);
+        //print(_trueAnswers);
+        //print(time);
+        //print(_ratingScore);
         
         if(QisOn==true)
         {
@@ -100,12 +100,12 @@ public class Victorine : MonoBehaviour
             timeForBuff += Time.deltaTime;
             if (timeForBuff <= 3)
             {
-                Stats.MovementVelocityFirstBird = 0.5f;
+                Stats.MovementVelocitySecondBird = 0.5f;
             }
             if(timeForBuff>=3)
             {
                 timeForBuff = 0;
-                Stats.MovementVelocityFirstBird = 0.25f;
+                Stats.MovementVelocitySecondBird = 0.25f;
                 BuffOn = false;
             }
         }
@@ -119,7 +119,7 @@ public class Victorine : MonoBehaviour
                 _ratingScore = (time) * (_trueAnswers / _countAnswers);
             }
         
-        if (Bird1.transform.position == endPosition.position)
+        if (Bird2.transform.position == endPosition.position)
         {
             //lampochka = true;
             //timeCount.text = Convert.ToString(time).Remove(7);
@@ -169,12 +169,15 @@ public class Victorine : MonoBehaviour
             _trueAnswers++;
             BuffOn = true;
             GameManager.SendMessage("setSpeed");
-            
-           
+            timeForNextQ = 0;
+
+
+
+
         }
         else
         {
-           
+            timeForNextQ = 0;
         }
         _countAnswers++;
         StartCoroutine(KostylNomer2534());
