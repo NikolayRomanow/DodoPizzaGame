@@ -71,12 +71,12 @@ public class Victorine : MonoBehaviour
     {
 
         //print(_countAnswers);
-        if(_countAnswers>4)
+        if (_countAnswers > (_countAnswers-1)) 
         {
             AnswersTable.SetActive(false);
         }
-        
-        if(timeTenSec>=0)
+
+        if (timeTenSec >= 0) 
         {
             timeTenSec-=Time.deltaTime;
         }
@@ -102,7 +102,7 @@ public class Victorine : MonoBehaviour
             {
                 Stats.MovementVelocitySecondBird = 0.5f;
             }
-            if(timeForBuff>=3)
+            if (timeForBuff >= 3) 
             {
                 timeForBuff = 0;
                 Stats.MovementVelocitySecondBird = 0.25f;

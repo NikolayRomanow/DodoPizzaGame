@@ -40,18 +40,12 @@ public class GameManager : MonoBehaviour
         });
     }
     public void LostTarget(string w)
-    {
-        _dispatcher.Enqueue(() =>
-        {
-            StartButtton.SetActive(false);
-        });
+    {       
+            StartButtton.SetActive(false);        
     }
     public void FoundTarget(string w)
-    {
-
-        
-            StartButtton.SetActive(true);
-        
+    {       
+            StartButtton.SetActive(true);        
     }
     public async void FoundMessage()
     {
@@ -152,7 +146,7 @@ public class GameManager : MonoBehaviour
         if (timer == true)
         {
             //GameStart = true;
-            StartButtton.SetActive(false);
+            //StartButtton.SetActive(false);
             time -= Time.deltaTime;
             Text.text = Convert.ToString(Mathf.RoundToInt(time));
             if (time <= 0)
