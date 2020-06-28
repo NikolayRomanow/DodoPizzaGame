@@ -71,7 +71,7 @@ public class Victorine : MonoBehaviour
     {
 
         //print(_countAnswers);
-        if (_countAnswers > (_countAnswers-1)) 
+        if (_countAnswers > (Questions.Length-1)) 
         {
             AnswersTable.SetActive(false);
         }
@@ -127,6 +127,7 @@ public class Victorine : MonoBehaviour
             //countAnswers.text = Convert.ToString(_countAnswers);
             //Rating.SetActive(true);
             ratingScore.text = Convert.ToString(_ratingScore);
+            print("АГа");
             victorinePanel.SetActive(false);
             lampochka = true;
             ratingPanel.SetActive(true);

@@ -40,12 +40,18 @@ public class GameManager : MonoBehaviour
         });
     }
     public void LostTarget(string w)
-    {       
-            StartButtton.SetActive(false);        
+    {
+        if (GameStart == false)
+        {
+            StartButtton.SetActive(false);
+        }
     }
     public void FoundTarget(string w)
-    {       
-            StartButtton.SetActive(true);        
+    {
+        if (GameStart == false)
+        {
+            StartButtton.SetActive(true);
+        }
     }
     public async void FoundMessage()
     {
