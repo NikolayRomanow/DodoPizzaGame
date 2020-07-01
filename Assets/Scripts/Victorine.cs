@@ -54,10 +54,10 @@ public class Victorine : MonoBehaviour
     public User user;
     //public GameObject Rating;
 
-    private void Awake()//Бесполезно
-    {
-        speedBird1 = Bird1.GetComponent<AIMoveFirstBird>();
-    }
+    //private void Awake()//Бесполезно
+    //{
+    //    speedBird1 = Bird1.GetComponent<AIMoveFirstBird>();
+    //}
     private void Start()
     {
         OnClickPlay();
@@ -127,7 +127,7 @@ public class Victorine : MonoBehaviour
             //countAnswers.text = Convert.ToString(_countAnswers);
             //Rating.SetActive(true);
             ratingScore.text = Convert.ToString(_ratingScore);
-            print("АГа");
+            
             victorinePanel.SetActive(false);
             lampochka = true;
             ratingPanel.SetActive(true);

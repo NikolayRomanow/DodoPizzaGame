@@ -12,15 +12,22 @@ public class AIMoveFirstBird : MonoBehaviour
   // public float SpeedRotate = 15f;
 
    private int _count = 0;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Prep")
+        {
+            
+        }
+    }
 
-   private void Update()
+    private void Update()
    {
+        
         if (Stats.isReady==true)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, WayPoints[_count].position, Time.deltaTime * (Stats.MovementVelocityFirstBird-0.1f));
-            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, WayPoints[_count].rotation, Time.deltaTime * Stats.RotateVelocityFirstBird);
-
-            if (this.transform.position == WayPoints[_count].position && this.transform.rotation == WayPoints[_count].rotation)
+            this.transform.position = Vector3.MoveTowards(this.transform.position, WayPoints[_count].position, Time.deltaTime * (Stats.MovementVelocityFirstBird+0.5f));
+            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, WayPoints[_count].rotation, Time.deltaTime * Stats.RotateVelocityFirstBird+0.5f);
+            if (this.transform.position == WayPoints[_count].position /*&& this.transform.rotation == WayPoints[_count].rotation*/)
                 _count++;
         }
    }

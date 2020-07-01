@@ -13,13 +13,13 @@ public class AIMoveSecondBird : MonoBehaviour
     
 
     private void Update()
-    {
+    {   
         if (Stats.isReady == true)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, WayPoints[_count].position, Time.deltaTime * (Stats.MovementVelocitySecondBird - 0.1f));
-            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, WayPoints[_count].rotation, Time.deltaTime * Stats.RotateVelocitySecondBird);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, WayPoints[_count].position, Time.deltaTime * (Stats.MovementVelocitySecondBird + 0.5f/*-0.1f*/));
+            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, WayPoints[_count].rotation, Time.deltaTime * Stats.RotateVelocitySecondBird + 0.5f);
 
-            if (this.transform.position == WayPoints[_count].position && this.transform.rotation == WayPoints[_count].rotation)
+            if (this.transform.position == WayPoints[_count].position /*&& this.transform.rotation == WayPoints[_count].rotation*/)
                 _count++;
         }
     }
