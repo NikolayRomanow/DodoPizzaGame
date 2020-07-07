@@ -2032,8 +2032,7 @@ MonoBehaviour:
   ImageTarget: {fileID: 1949776224475507}
   SearchBoxLabel: {fileID: 4164422382547253668}
   Victorine: {fileID: 8910050967267587990}
-  bird1: {fileID: 0}
-  bird2: {fileID: 0}
+  WaitCanvas: {fileID: 4807663323321723018}
 --- !u!4 &574894749
 Transform:
   m_ObjectHideFlags: 0
@@ -4880,7 +4879,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344744953}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.000000014901145, w: 0.70710677}
-  m_LocalPosition: {x: 0.46217895, y: -1.7924404, z: -6.8798046}
+  m_LocalPosition: {x: 0.432, y: -1.792, z: -6.736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2077172017}
@@ -5265,7 +5264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439699242}
   m_LocalRotation: {x: 0.000000029802322, y: 0.04338084, z: 0.000000074505806, w: 0.99905866}
-  m_LocalPosition: {x: 1.878, y: -1.7924403, z: -8.189}
+  m_LocalPosition: {x: 1.863, y: -1.7924403, z: -8.184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2077172017}

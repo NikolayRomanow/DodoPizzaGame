@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject StartButtton;
     public GameObject ImageTarget, SearchBoxLabel;
     public GameObject Victorine;
-    public GameObject bird1;
-    public GameObject bird2;
+    public GameObject WaitCanvas;
+    //public GameObject bird1;
+    //public GameObject bird2;
     private string url = "http://89.223.126.195:80/hello";
     private HubConnection hubConnection = null;
     private UnityMainThreadDispatcher _dispatcher;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         if (GameStart == false)
         {
             StartButtton.SetActive(true);
+            //WaitCanvas.SetActive(false);
         }
     }
     public async void FoundMessage()
@@ -134,7 +136,9 @@ public class GameManager : MonoBehaviour
     {
         if (ImageTarget.activeInHierarchy == true)
         {
+            
             SearchBoxLabel.SetActive(false);
+            //WaitCanvas.SetActive(true);
             if (GameStart == false)
             {
                 FoundMessage();

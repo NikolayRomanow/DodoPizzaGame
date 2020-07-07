@@ -7,21 +7,24 @@ using Random = System.Random;
 using DodoDataModel;
 
 
-public class Victorine : MonoBehaviour
+public class VictorineForRunner : MonoBehaviour
 {
+    public AudioClip Da, Net,button;
+    public AudioSource TRUE, FALSE,PRESSBUTTON;
     public GameObject GameManager;
-    
+    public GameObject RUN;
+
     public QuestionList[] Questions;
     public Text[] AnswersText;
     public Text qText;
-    public Transform endPosition;
+    //public Transform endPosition;
 
     public GameObject victorinePanel;
     public GameObject ratingPanel;
 
     public GameObject AnswersTable;
-    public GameObject Bird1;
-    public GameObject Bird2;
+    public GameObject Player;
+    //public GameObject Bird2;
 
     private GameObject game;
 
@@ -36,7 +39,7 @@ public class Victorine : MonoBehaviour
     public Text ratingScore;
 
     private AIMoveFirstBird speedBird1;
-    
+
     private List<object> qList;
     private QuestionList crntQ;
     private int randQ;
@@ -48,90 +51,55 @@ public class Victorine : MonoBehaviour
 
     private float timeForNextQ;
     private float timeForBuff;
-    
+
     private float timeTenSec = 10f;
 
-    public User user;
-    //public GameObject Rating;
-
-    //private void Awake()//Бесполезно
-    //{
-    //    speedBird1 = Bird1.GetComponent<AIMoveFirstBird>();
-    //}
+  
+    public void Restart()
+    {
+        Application.LoadLevel(0);
+        Statistic.Score = 0;
+    }
+    public void Menu()
+    {
+        Application.LoadLevel(1);
+    }
     private void Start()
     {
         OnClickPlay();
-        user = new User();
-        user.guid = Guid.NewGuid();
-        user.keyRoom = "lol";
-        
     }
 
     public void Update()
     {
 
-        //print(_countAnswers);
-        if (_countAnswers > (Questions.Length-1)) 
-        {
-            AnswersTable.SetActive(false);
-        }
 
-        if (timeTenSec >= 0) 
+        if (Player.transform.position.y < 1.1f && Player.activeInHierarchy == true)
         {
-            timeTenSec-=Time.deltaTime;
+            RUN.SetActive(true);
         }
-        //print(_trueAnswers);
-        //print(time);
-        //print(_ratingScore);
-        
-        if(QisOn==true)
+        else
         {
-            timeForNextQ += Time.deltaTime;
-            if (timeForNextQ >= 7)
-            {
-                timeForNextQ = 0;
-                StartCoroutine(KostylNomer2534());
-                QisOn = false;
-            }
+            RUN.SetActive(false);
         }
-        
-        if (BuffOn == true)
+        if (Statistic.OK == false)
         {
-            timeForBuff += Time.deltaTime;
-            if (timeForBuff <= 3)
-            {
-                Stats.MovementVelocitySecondBird = 0.5f;
-            }
-            if (timeForBuff >= 3) 
-            {
-                timeForBuff = 0;
-                Stats.MovementVelocitySecondBird = 0.25f;
-                BuffOn = false;
-            }
+            victorinePanel.SetActive(true);
         }
-
+        if (Statistic.OK == true)
+        {
+            victorinePanel.SetActive(false);
+        }
         if (Stats.isReady == true)
         {
             time += Time.deltaTime;
-        }
-        if (lampochka == false) 
-            {
-                _ratingScore = (time) * (_trueAnswers / _countAnswers);
-            }
-        
-        if (Bird2.transform.position == endPosition.position)
+        }        
+        if(Player.activeInHierarchy==false)
         {
-            //lampochka = true;
-            //timeCount.text = Convert.ToString(time).Remove(7);
-            //trueAnswers.text = Convert.ToString(_trueAnswers);
-            //countAnswers.text = Convert.ToString(_countAnswers);
-            //Rating.SetActive(true);
-            ratingScore.text = Convert.ToString(_ratingScore);
-            
             victorinePanel.SetActive(false);
-            lampochka = true;
             ratingPanel.SetActive(true);
+            Statistic.Speed = 3f;
         }
+        ratingScore.text = Convert.ToString(Statistic.Score);
     }
 
     public void OnClickPlay()
@@ -142,7 +110,7 @@ public class Victorine : MonoBehaviour
             qList = new List<object>(Questions);
             _questionGenerate();
         }
-        
+
     }
 
     void _questionGenerate()
@@ -160,36 +128,49 @@ public class Victorine : MonoBehaviour
     }
 
     public async void AnswersButtons(int index)
-    {   
+    {
         print(AnswersText[index].ToString());
         QisOn = true;
         if (AnswersText[index].text.ToString() == crntQ.Answer[0])
-        {           
+        {
             //speedBird1.SpeedMove += 0.1f;     Заменил на использование статического класса.
-            _trueAnswers++;
-            BuffOn = true;
-            GameManager.SendMessage("setSpeed");
-            timeForNextQ = 0;
+            // _trueAnswers++;
+            // BuffOn = true;
+            // GameManager.SendMessage("setSpeed");
+            //timeForNextQ = 0;
+            Statistic.Speed = 9f;
+            Statistic.OK = true;
+            Statistic.time = 0;
+            Statistic.VoprosOtvet = true;
+            Statistic.Score++;
+            TRUE.PlayOneShot(Da);
+            PRESSBUTTON.PlayOneShot(button);
+            
+
         }
         else
         {
-            timeForNextQ = 0;
+            Statistic.Speed = 9f;
+            Statistic.OK = true;
+            Statistic.VoprosOtvet = false;
+            FALSE.PlayOneShot(Net);
+            PRESSBUTTON.PlayOneShot(button);
         }
         _countAnswers++;
         StartCoroutine(KostylNomer2534());
     }
 
-    IEnumerator KostylNomer2534()
+    public IEnumerator KostylNomer2534()
     {
         yield return new WaitForSeconds(0.5f);
         qList.RemoveAt(randQ);
         _questionGenerate();
     }
-    
+
 }
 
-[System.Serializable]   
-public class QuestionList
+[System.Serializable]
+public class QuestionLists
 {
     public string Question;
     public string[] Answer = new string[3];
