@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Run : MonoBehaviour
 {
+    public Animator Animator;
     public AudioClip jump;
     public AudioSource JUMP;
     public Vector3 Vector3, Jump;
@@ -20,20 +21,26 @@ public class Run : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Prov" && Statistic.VoprosOtvet == true)
+        if (Statistic.BOOL == true)
         {
-            rb.AddForce(Jump * 180);
-            Statistic.Speed = 3f;
-            JUMP.PlayOneShot(jump);
-        }
-        if (other.tag =="Prep")
-        {
-            gameObject.SetActive(false);
-        }
-        if (other.tag == "NewVopros")
-        {
-            Statistic.OK = false;
-            Statistic.VoprosOtvet = false;
+            if (other.tag == "Prov" && Statistic.VoprosOtvet == true)
+            {
+                rb.AddForce(Jump * 180);
+                Statistic.Speed = 3f;
+                JUMP.PlayOneShot(jump, 0.5F);
+            }
+            if (other.tag == "Prep")
+            {
+                //gameObject.SetActive(false);
+                Animator.SetTrigger("Start");
+                Statistic.Speed = 0;
+                Statistic.Jiv = false;
+            }
+            if (other.tag == "NewVopros")
+            {
+                Statistic.OK = false;
+                Statistic.VoprosOtvet = false;
+            }
         }
     }
     // Update is called once per frame

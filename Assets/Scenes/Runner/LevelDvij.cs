@@ -15,8 +15,14 @@ public class LevelDvij : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3.z = gameObject.transform.position.z + 1;
-        gameObject.transform.position = Vector3.MoveTowards(transform.position, Vector3, Time.deltaTime * Statistic.Speed);
-        Destroy(gameObject, 20f);
+        if (Statistic.BOOL == true)
+        {
+            Vector3.z = gameObject.transform.position.z - 1;
+            gameObject.transform.position = Vector3.MoveTowards(transform.position, Vector3, Time.deltaTime * Statistic.Speed);
+            if (gameObject.transform.position.z > 100)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

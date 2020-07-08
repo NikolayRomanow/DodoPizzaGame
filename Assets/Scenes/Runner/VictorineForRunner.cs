@@ -53,53 +53,77 @@ public class VictorineForRunner : MonoBehaviour
     private float timeForBuff;
 
     private float timeTenSec = 10f;
+    public Animator Animator;
+    public GameObject NewVopros, PlayCanvas;
 
-  
     public void Restart()
     {
-        Application.LoadLevel(0);
+        //Application.LoadLevel(0);
+        NewVopros.SetActive(true);        
         Statistic.Score = 0;
+        Statistic.Jiv = true;
+        Statistic.Speed = 3f;
+        Statistic.OK =false;
+        ratingPanel.SetActive(false);
+        //Animator.SetTrigger("Start");
+        Animator.SetTrigger("Menu");
+        
     }
     public void Menu()
     {
-        Application.LoadLevel(1);
+        //Application.LoadLevel(1);
+        PlayCanvas.SetActive(true);
+        ratingPanel.SetActive(false);
     }
     private void Start()
     {
-        OnClickPlay();
+        OnClickPlay(); 
+       // Animator.SetTrigger("Menu");
     }
 
     public void Update()
     {
+       
+        if (Statistic.BOOL == true)
+        {
 
 
-        if (Player.transform.position.y < 1.1f && Player.activeInHierarchy == true)
-        {
-            RUN.SetActive(true);
+            if (Player.transform.position.y < 1.1f && Player.activeInHierarchy == true)
+            {
+                RUN.SetActive(true);
+            }
+            else
+            {
+                RUN.SetActive(false);
+            }
+            if (Statistic.Speed == 0)
+            {
+                RUN.SetActive(false);
+            }
+            if (Statistic.OK == false)
+            {
+                victorinePanel.SetActive(true);
+            }
+            if (Statistic.OK == true)
+            {
+                victorinePanel.SetActive(false);
+            }
+            if (Stats.isReady == true)
+            {
+                time += Time.deltaTime;
+            }
+            if (Player.activeInHierarchy == false || Statistic.Jiv == false)
+            {
+                victorinePanel.SetActive(false);
+                ratingPanel.SetActive(true);
+                //Statistic.Speed = 3f;
+            }
+            if(Statistic.Jiv == true)
+            {
+                ratingPanel.SetActive(false);
+            }
+            ratingScore.text = Convert.ToString(Statistic.Score);
         }
-        else
-        {
-            RUN.SetActive(false);
-        }
-        if (Statistic.OK == false)
-        {
-            victorinePanel.SetActive(true);
-        }
-        if (Statistic.OK == true)
-        {
-            victorinePanel.SetActive(false);
-        }
-        if (Stats.isReady == true)
-        {
-            time += Time.deltaTime;
-        }        
-        if(Player.activeInHierarchy==false)
-        {
-            victorinePanel.SetActive(false);
-            ratingPanel.SetActive(true);
-            Statistic.Speed = 3f;
-        }
-        ratingScore.text = Convert.ToString(Statistic.Score);
     }
 
     public void OnClickPlay()
@@ -143,7 +167,7 @@ public class VictorineForRunner : MonoBehaviour
             Statistic.time = 0;
             Statistic.VoprosOtvet = true;
             Statistic.Score++;
-            TRUE.PlayOneShot(Da);
+            TRUE.PlayOneShot(Da, 0.5F);
             PRESSBUTTON.PlayOneShot(button);
             
 
@@ -153,7 +177,7 @@ public class VictorineForRunner : MonoBehaviour
             Statistic.Speed = 9f;
             Statistic.OK = true;
             Statistic.VoprosOtvet = false;
-            FALSE.PlayOneShot(Net);
+            FALSE.PlayOneShot(Net,0.5F);
             PRESSBUTTON.PlayOneShot(button);
         }
         _countAnswers++;
