@@ -2226,6 +2226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd2138c8b9e95d4583f78612f50cd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  State: 0
   Da: {fileID: 8300000, guid: e58590e339af0434c97a34d6937ac10c, type: 3}
   Net: {fileID: 8300000, guid: c1b22d2f7cdc70044b1c56e18a94ae12, type: 3}
   button: {fileID: 8300000, guid: 618d62c8766608c4abaf89c2fdd58313, type: 3}

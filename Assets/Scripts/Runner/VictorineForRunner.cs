@@ -9,6 +9,8 @@ using DodoDataModel;
 
 public class VictorineForRunner : MonoBehaviour
 {
+    public StateGame State = StateGame.menu;
+
     public AudioClip Da, Net,button;
     public AudioSource TRUE, FALSE,PRESSBUTTON;
     public GameObject GameManager;
@@ -56,6 +58,8 @@ public class VictorineForRunner : MonoBehaviour
     public Animator Animator, ScoreZone, StartBack;
     public GameObject NewVopros, PlayCanvas;
 
+
+
     public void Restart()
     {
         //Application.LoadLevel(0);
@@ -64,11 +68,12 @@ public class VictorineForRunner : MonoBehaviour
         Statistic.Jiv = true;
         Statistic.Speed = 3f;
         //Statistic.OK =false;
-        //ratingPanel.SetActive(false);
+        
         //Animator.SetTrigger("Start");
         Animator.SetTrigger("Menu");
         ScoreZone.SetTrigger("off");
-        
+        ratingPanel.SetActive(false);
+
 
 
     }
@@ -81,11 +86,13 @@ public class VictorineForRunner : MonoBehaviour
         StartBack.SetTrigger("on");
         Statistic.Jiv = true;
     }
+
     private void Start()
     {
         OnClickPlay(); 
        // Animator.SetTrigger("Menu");
     }
+
     public void ScoreZoneOn()
     {
         ScoreZone.SetTrigger("off");
@@ -135,7 +142,7 @@ public class VictorineForRunner : MonoBehaviour
                 //ratingPanel.SetActive(false);
                 //ScoreZoneOn();
             }
-            ratingScore.text = Convert.ToString(Statistic.Score);
+            ratingScore.text = Statistic.Score.ToString();
         }
     }
 
@@ -214,7 +221,12 @@ public class QuestionLists
 }
 
 
-
+public enum StateGame
+{
+    menu,
+    game,
+    score
+}
 
 
 
