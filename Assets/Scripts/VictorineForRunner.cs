@@ -53,7 +53,7 @@ public class VictorineForRunner : MonoBehaviour
     private float timeForBuff;
 
     private float timeTenSec = 10f;
-    public Animator Animator;
+    public Animator Animator, ScoreZone, StartBack;
     public GameObject NewVopros, PlayCanvas;
 
     public void Restart()
@@ -63,22 +63,32 @@ public class VictorineForRunner : MonoBehaviour
         Statistic.Score = 0;
         Statistic.Jiv = true;
         Statistic.Speed = 3f;
-        Statistic.OK =false;
-        ratingPanel.SetActive(false);
+        //Statistic.OK =false;
+        //ratingPanel.SetActive(false);
         //Animator.SetTrigger("Start");
         Animator.SetTrigger("Menu");
+        ScoreZone.SetTrigger("off");
         
+
+
     }
     public void Menu()
     {
         //Application.LoadLevel(1);
-        PlayCanvas.SetActive(true);
-        ratingPanel.SetActive(false);
+        //PlayCanvas.SetActive(true);
+        //ratingPanel.SetActive(false);
+        ScoreZone.SetTrigger("off");
+        StartBack.SetTrigger("on");
+        Statistic.Jiv = true;
     }
     private void Start()
     {
         OnClickPlay(); 
        // Animator.SetTrigger("Menu");
+    }
+    public void ScoreZoneOn()
+    {
+        ScoreZone.SetTrigger("off");
     }
 
     public void Update()
@@ -116,11 +126,14 @@ public class VictorineForRunner : MonoBehaviour
             {
                 victorinePanel.SetActive(false);
                 ratingPanel.SetActive(true);
+                //ScoreZone.SetTrigger("on");
+
                 //Statistic.Speed = 3f;
             }
-            if(Statistic.Jiv == true)
+            if (Statistic.Jiv == true)
             {
-                ratingPanel.SetActive(false);
+                //ratingPanel.SetActive(false);
+                //ScoreZoneOn();
             }
             ratingScore.text = Convert.ToString(Statistic.Score);
         }

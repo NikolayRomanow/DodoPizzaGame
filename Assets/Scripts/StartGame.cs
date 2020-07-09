@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
-    public Animator Animator;
+    public Animator Animator,StartBack;
     public GameObject CanvasPlay;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,8 @@ public class StartGame : MonoBehaviour
         Statistic.Speed = 3f;
         Statistic.BOOL = true;
         Animator.SetTrigger("Menu");
-        CanvasPlay.SetActive(false);
+        StartBack.SetTrigger("off");
+        //CanvasPlay.SetActive(false);
 
 
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Run : MonoBehaviour
 {
     public Animator Animator;
-    public AudioClip jump;
-    public AudioSource JUMP;
+    public AudioClip jump, crash;
+    public AudioSource JUMP, CRASH;
     public Vector3 Vector3, Jump;
     Rigidbody rb;    
     // Start is called before the first frame update
@@ -29,12 +29,17 @@ public class Run : MonoBehaviour
                 Statistic.Speed = 3f;
                 JUMP.PlayOneShot(jump, 0.5F);
             }
+            if (other.tag == "Prov" && Statistic.VoprosOtvet == false)
+            {
+                CRASH.PlayOneShot(crash, 0.5F);
+            }
             if (other.tag == "Prep")
             {
                 //gameObject.SetActive(false);
                 Animator.SetTrigger("Start");
                 Statistic.Speed = 0;
                 Statistic.Jiv = false;
+                //CRASH.PlayOneShot(crash, 0.5F);
             }
             if (other.tag == "NewVopros")
             {
