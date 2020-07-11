@@ -1,34 +1,133 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace SupremumStudio
 {
-    public class QuizView: MonoBehaviour
+    public class QuizView : MonoBehaviour
     {
         public Text QuestionText;
         public Text[] Answer;
         public Button[] AnswerButton;
 
+        private string currentAnswer;
+        private List<QuestionModel> questions;
+
+        private int currentQuesion = 0;
+        private int countQuestionFile;
+        public int CurrentQuestion
+        {
+            get
+            {
+                return currentQuesion;
+            }
+            set
+            {
+                if (value == 3)
+                {
+                    currentQuesion = 0;
+                }
+                else
+                {
+                    currentQuesion = value;
+                }
+            }
+        }
+
+
         private void Start()
         {
-            AnswerButton[0].onClick.AddListener(()=> { });
+            ReadQuestion();
+            SetQuestion(); // Можно использовать из другого класса
+
+            foreach (var item in AnswerButton)  // TODO: not work in for
+            {
+                item.onClick.AddListener(() =>
+                {
+                    if (item.GetComponentInChildren<Text>().text == currentAnswer) //TODO: переосмыслить
+                    {
+                        Debug.Log("Правильно");
+                        NextQuestion();
+                    }
+                    else
+                    {
+                        Debug.Log("Не правильно");
+                    }
+                });
+            }
         }
+
+        private void ReadQuestion()
+        {
+            var JsonQuestion = Resources.Load<TextAsset>("Questions/Question"); // прочитать файл
+            questions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString()); // распознать его
+            countQuestionFile = questions.Count;
+            Debug.Log("Count Question: " + countQuestionFile);
+            Shuffle(questions); // перемешать вопросы
+        }
+
+        private void SetQuestion()
+        {
+            SetQuiz(questions[CurrentQuestion].TextQuestion, questions[CurrentQuestion].Answer);
+            currentAnswer = questions[CurrentQuestion].Answer[0];
+        }
+
+        private void NextQuestion()
+        {
+            CurrentQuestion++;
+            SetQuestion();
+        }
+
 
         public void SetQuiz(string questionText, string[] answer)
         {
             QuestionText.text = questionText; // установить вопрос
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < answer.Length; i++)
             {
                 Answer[i].text = answer[i]; // установить ответы
             }
+            Shuffle(Answer);
         }
 
+        public void Shuffle(Text[] answer)
+        {
+            for (int i = 0; i < answer.Length; i++)
+            {
+                int r = Random.Range(0, answer.Length);
+                var t = answer[i].text;
+                answer[i].text = answer[r].text;
+                answer[r].text = t;
+
+            }
+        }
+
+        public void Shuffle(List<QuestionModel> model)
+        {
+            for (int i = 0; i < model.Count; i++)
+            {
+                int r = Random.Range(0, model.Count);
+                var t = model[i];
+                model[i] = model[r];
+                model[r] = t;
+            }
+        }
+
+
+
+        private void OnDisable()
+        {
+            foreach (var item in AnswerButton)
+            {
+                item.onClick.RemoveAllListeners(); // отписаться от всех событий
+            }
+        }
 
 
     }

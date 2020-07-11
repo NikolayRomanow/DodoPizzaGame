@@ -7,7 +7,7 @@ using Newtonsoft;
 
 namespace SupremumStudio
 {
-    class QuestionModel
+    public class QuestionModel
     {
         public string TextQuestion = String.Empty;
         public string[] Answer = new string[3];

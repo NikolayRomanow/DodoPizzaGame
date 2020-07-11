@@ -10,11 +10,11 @@ namespace SupremumStudio
         //UI Element
 
 
-        private void SetQuestion()
-        {
-            TextAsset JsonQuestion = Resources.Load<TextAsset>("Questions/Question");
-            List<QuestionModel> questions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString());
-        }
+        //private void SetQuestion()
+        //{
+        //    TextAsset JsonQuestion = Resources.Load<TextAsset>("Questions/Question");
+        //    List<QuestionModel> questions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString());
+        //}
 
 
 
