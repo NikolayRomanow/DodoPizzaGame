@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         QuizView.CorrectAnswer += QuizView_CorrectAnswer;
         QuizView.InCorrectAnswer += QuizView_InCorrectAnswer;
         Run.QuizView = QuizView;
+        QuizView.Quiz = Quiz;
         
     }
 
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Run_NewVopros()
     {
-        //QuizView.NextQuestion();        
+        Quiz.NextQuestion();        
     }
 
     private void Run_Death()

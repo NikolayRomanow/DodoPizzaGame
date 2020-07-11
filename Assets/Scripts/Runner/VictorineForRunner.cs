@@ -131,19 +131,19 @@ public class VictorineForRunner : MonoBehaviour
             {
                 time += Time.deltaTime;
             }
-            if (Player.activeInHierarchy == false || Statistic.Jiv == false)
-            {
-                //victorinePanel.SetActive(false);
-                //ratingPanel.SetActive(true);
-                //ScoreZone.SetTrigger("on");
+            //if (Player.activeInHierarchy == false || Statistic.Jiv == false)
+            //{
+            //    //victorinePanel.SetActive(false);
+            //    //ratingPanel.SetActive(true);
+            //    //ScoreZone.SetTrigger("on");
 
-                //Statistic.Speed = 3f;
-            }
-            if (Statistic.Jiv == true)
-            {
-                //ratingPanel.SetActive(false);
-                //ScoreZoneOn();
-            }
+            //    //Statistic.Speed = 3f;
+            //}
+            //if (Statistic.Jiv == true)
+            //{
+            //    //ratingPanel.SetActive(false);
+            //    //ScoreZoneOn();
+            //}
             ratingScore.text = Statistic.Score.ToString();
         }
     }
@@ -187,7 +187,7 @@ public class VictorineForRunner : MonoBehaviour
             Statistic.Speed = 9f;
             //Statistic.OK = true;
             Statistic.time = 0;
-            Statistic.VoprosOtvet = true;
+           // Statistic.VoprosOtvet = true;
             Statistic.Score++;
             TRUE.PlayOneShot(Da, 0.5F);
             PRESSBUTTON.PlayOneShot(button);
@@ -197,8 +197,8 @@ public class VictorineForRunner : MonoBehaviour
         else
         {
             Statistic.Speed = 9f;
-            Statistic.OK = true;
-            Statistic.VoprosOtvet = false;
+            //Statistic.OK = true;
+            //Statistic.VoprosOtvet = false;
             FALSE.PlayOneShot(Net,0.5F);
             PRESSBUTTON.PlayOneShot(button);
         }

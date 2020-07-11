@@ -45,9 +45,9 @@ public class Run : MonoBehaviour
             if (other.tag == "Prep")
             {
                 Death();
-                Animator.SetTrigger("Start");
+                //Animator.SetTrigger("Start");
                 Statistic.Speed = 0;
-                ScoreZone.SetTrigger("on");
+                //ScoreZone.SetTrigger("on");
 
                 //Statistic.Jiv = false;
                 //CRASH.PlayOneShot(crash, 0.5F);

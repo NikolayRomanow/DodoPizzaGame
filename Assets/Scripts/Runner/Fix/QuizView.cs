@@ -13,7 +13,7 @@ namespace SupremumStudio
     public class QuizView : MonoBehaviour
     {
 
-        Quiz Quiz;
+        public Quiz Quiz;
         public Animator VictorineZone;
         public bool IsCorrectAnswer { get; private set; }       
         public event Action CorrectAnswer;

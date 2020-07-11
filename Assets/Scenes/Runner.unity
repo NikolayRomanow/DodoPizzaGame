@@ -891,7 +891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10303644, y: 0.03149044}
   m_AnchorMax: {x: 0.88866985, y: 0.25269708}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -784, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &280494150
@@ -1447,8 +1447,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 739707887}
-        m_MethodName: StartGamee
+      - m_Target: {fileID: 739707889}
+        m_MethodName: StartTheGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1574,6 +1574,97 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4b1086431eef8d4299a5bfa6ea8563d, type: 3}
+--- !u!1 &551144306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 551144307}
+  - component: {fileID: 551144310}
+  - component: {fileID: 551144309}
+  - component: {fileID: 551144308}
+  m_Layer: 0
+  m_Name: NewVopros (3)
+  m_TagString: NewVopros
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &551144307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551144306}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.067376874, y: 11.049814, z: -890.6}
+  m_LocalScale: {x: 22.45897, y: 22.45897, z: 22.45897}
+  m_Children: []
+  m_Father: {fileID: 6634133009346615981}
+  m_RootOrder: 153
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &551144308
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551144306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &551144309
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551144306}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &551144310
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551144306}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &680893683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,6 +1991,7 @@ GameObject:
   - component: {fileID: 739707883}
   - component: {fileID: 739707887}
   - component: {fileID: 739707888}
+  - component: {fileID: 739707889}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2019,8 +2111,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3b3132cd3a1f94d8d0772f45a7b722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIController: {fileID: 739707889}
   Run: {fileID: 6140358586210947750}
   QuizView: {fileID: 810207645}
+  Quiz: {fileID: 810207647}
+--- !u!114 &739707889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739707882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948c9ba5f0b00c3499c7c535f5dd67d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainCamera: {fileID: 810207644}
+  VictorineZone: {fileID: 1714301918}
+  ScoreZone: {fileID: 1564902585}
+  StartBack: {fileID: 903058941}
+  Start: 0
 --- !u!1 &752468535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,6 +2252,7 @@ GameObject:
   - component: {fileID: 810207640}
   - component: {fileID: 810207643}
   - component: {fileID: 810207645}
+  - component: {fileID: 810207647}
   - component: {fileID: 810207646}
   - component: {fileID: 810207644}
   m_Layer: 0
@@ -2641,15 +2753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7263b475b3b9346b23d12c69926cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestionText: {fileID: 918897779}
-  Answer:
-  - {fileID: 139970433}
-  - {fileID: 739058029}
-  - {fileID: 1317976425}
-  AnswerButton:
-  - {fileID: 1309678990}
-  - {fileID: 1171529323}
-  - {fileID: 52894831}
+  Quiz: {fileID: 810207647}
   VictorineZone: {fileID: 1714301918}
 --- !u!114 &810207646
 MonoBehaviour:
@@ -2663,9 +2767,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948c9ba5f0b00c3499c7c535f5dd67d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 810207644}
-  StartBack: {fileID: 0}
+  MainCamera: {fileID: 810207644}
+  VictorineZone: {fileID: 1714301918}
   ScoreZone: {fileID: 1564902585}
+  StartBack: {fileID: 903058941}
+  Start: 0
+--- !u!114 &810207647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810207639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d33d36ddd78b3745bb7fe562c1eed4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 918897779}
+  Answer:
+  - {fileID: 139970433}
+  - {fileID: 739058029}
+  - {fileID: 1317976425}
+  AnswerButton:
+  - {fileID: 1309678990}
+  - {fileID: 1171529323}
+  - {fileID: 52894831}
+  currentAnswer: 
+  currentQuesion: -1
+  countQuestionFile: 0
+  VictorineZone: {fileID: 1714301918}
 --- !u!1 &903058936
 GameObject:
   m_ObjectHideFlags: 0
@@ -4069,7 +4200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10303644, y: 0.75922066}
   m_AnchorMax: {x: 0.88866985, y: 0.9403516}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 784, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1474905411
@@ -4363,7 +4494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02076886, y: 0.14603108}
   m_AnchorMax: {x: 0.47613, y: 0.42176625}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -784, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1564902584
@@ -6174,7 +6305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2106229487
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15798,7 +15929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 457034, guid: c069f86af9cf0ae4385fae143ea2984d, type: 3}
       propertyPath: m_RootOrder
-      value: 79
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 457034, guid: c069f86af9cf0ae4385fae143ea2984d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20614,6 +20745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 810207644}
+  ScoreZone: {fileID: 0}
   jump: {fileID: 8300000, guid: d2233702714b2564a9806193500edba0, type: 3}
   crash: {fileID: 8300000, guid: f81b6e42ef9e3b146a2a4fd5d6745557, type: 3}
   JUMP: {fileID: 1060441675}
@@ -21111,6 +21243,7 @@ Transform:
   - {fileID: 308601587}
   - {fileID: 705680620}
   - {fileID: 268064696}
+  - {fileID: 551144307}
   m_Father: {fileID: 0}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
