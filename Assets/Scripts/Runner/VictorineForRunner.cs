@@ -64,15 +64,17 @@ public class VictorineForRunner : MonoBehaviour
     {
         //Application.LoadLevel(0);
         NewVopros.SetActive(true);        
+        
+        //Statistic.Jiv = true;
         Statistic.Score = 0;
-        Statistic.Jiv = true;
         Statistic.Speed = 3f;
+        Animator.SetTrigger("Menu");
+        ScoreZone.SetTrigger("off");
         //Statistic.OK =false;
         
         //Animator.SetTrigger("Start");
-        Animator.SetTrigger("Menu");
-        ScoreZone.SetTrigger("off");
-        ratingPanel.SetActive(false);
+        
+        //ratingPanel.SetActive(false);
 
 
 
@@ -84,7 +86,7 @@ public class VictorineForRunner : MonoBehaviour
         //ratingPanel.SetActive(false);
         ScoreZone.SetTrigger("off");
         StartBack.SetTrigger("on");
-        Statistic.Jiv = true;
+        //Statistic.Jiv = true;
     }
 
     private void Start()
@@ -117,22 +119,22 @@ public class VictorineForRunner : MonoBehaviour
             {
                 RUN.SetActive(false);
             }
-            if (Statistic.OK == false)
-            {
-                victorinePanel.SetActive(true);
-            }
-            if (Statistic.OK == true)
-            {
-                victorinePanel.SetActive(false);
-            }
+            //if (Statistic.OK == false)
+            //{
+            //    victorinePanel.SetActive(true);
+            //}
+            //if (Statistic.OK == true)
+            //{
+            //    victorinePanel.SetActive(false);
+            //}
             if (Stats.isReady == true)
             {
                 time += Time.deltaTime;
             }
             if (Player.activeInHierarchy == false || Statistic.Jiv == false)
             {
-                victorinePanel.SetActive(false);
-                ratingPanel.SetActive(true);
+                //victorinePanel.SetActive(false);
+                //ratingPanel.SetActive(true);
                 //ScoreZone.SetTrigger("on");
 
                 //Statistic.Speed = 3f;
@@ -183,7 +185,7 @@ public class VictorineForRunner : MonoBehaviour
             // GameManager.SendMessage("setSpeed");
             //timeForNextQ = 0;
             Statistic.Speed = 9f;
-            Statistic.OK = true;
+            //Statistic.OK = true;
             Statistic.time = 0;
             Statistic.VoprosOtvet = true;
             Statistic.Score++;

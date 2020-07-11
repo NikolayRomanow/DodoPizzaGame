@@ -263,18 +263,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 52894832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 810207643}
-        m_MethodName: AnswersButtons
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &52894832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,7 +1279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07972537, y: 0.12169066}
   m_AnchorMax: {x: 0.92823523, y: 0.3068205}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0.0000076294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &433260130
@@ -1744,7 +1733,7 @@ GameObject:
   m_Layer: 0
   m_Name: NewVopros (2)
   m_TagString: NewVopros
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1910,6 +1899,7 @@ GameObject:
   - component: {fileID: 739707884}
   - component: {fileID: 739707883}
   - component: {fileID: 739707887}
+  - component: {fileID: 739707888}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2017,6 +2007,20 @@ MonoBehaviour:
   Animator: {fileID: 810207644}
   StartBack: {fileID: 903058941}
   CanvasPlay: {fileID: 903058936}
+--- !u!114 &739707888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739707882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3b3132cd3a1f94d8d0772f45a7b722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Run: {fileID: 6140358586210947750}
+  QuizView: {fileID: 810207645}
 --- !u!1 &752468535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,6 +2140,8 @@ GameObject:
   - component: {fileID: 810207641}
   - component: {fileID: 810207640}
   - component: {fileID: 810207643}
+  - component: {fileID: 810207645}
+  - component: {fileID: 810207646}
   - component: {fileID: 810207644}
   m_Layer: 0
   m_Name: Main Camera
@@ -2221,7 +2227,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810207639}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbd2138c8b9e95d4583f78612f50cd3f, type: 3}
   m_Name: 
@@ -2623,6 +2629,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &810207645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810207639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7263b475b3b9346b23d12c69926cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestionText: {fileID: 918897779}
+  Answer:
+  - {fileID: 139970433}
+  - {fileID: 739058029}
+  - {fileID: 1317976425}
+  AnswerButton:
+  - {fileID: 1309678990}
+  - {fileID: 1171529323}
+  - {fileID: 52894831}
+  VictorineZone: {fileID: 1714301918}
+--- !u!114 &810207646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810207639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948c9ba5f0b00c3499c7c535f5dd67d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 810207644}
+  StartBack: {fileID: 0}
+  ScoreZone: {fileID: 1564902585}
 --- !u!1 &903058936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,18 +3560,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1171529324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 810207643}
-        m_MethodName: AnswersButtons
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1171529324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3642,18 +3674,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1309678991}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 810207643}
-        m_MethodName: AnswersButtons
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1309678991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3924,7 +3945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07972537, y: 0.38024998}
   m_AnchorMax: {x: 0.92823523, y: 0.55875003}
-  m_AnchoredPosition: {x: 0, y: 0.000019073486}
+  m_AnchoredPosition: {x: 0, y: 0.000015258789}
   m_SizeDelta: {x: 0, y: -0.0000076294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1421808216
@@ -4650,7 +4671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1714301914
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5969,7 +5990,7 @@ GameObject:
   m_Layer: 0
   m_Name: NewVopros (1)
   m_TagString: NewVopros
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -19821,18 +19842,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4380711455367490156}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 810207643}
-        m_MethodName: AnswersButtons
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!224 &4380711455367490158
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20150,18 +20160,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4380711456002241455}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 810207643}
-        m_MethodName: AnswersButtons
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!224 &4380711456002241449
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20426,18 +20425,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4380711456018661726}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 810207643}
-        m_MethodName: AnswersButtons
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &5915997999880745262
 GameObject:
   m_ObjectHideFlags: 0
@@ -20632,6 +20620,7 @@ MonoBehaviour:
   CRASH: {fileID: 1935883285}
   Vector3: {x: 0, y: 0, z: 0}
   Jump: {x: 0, y: 0, z: 0}
+  QuizView: {fileID: 0}
 --- !u!1 &6140358586210947751
 GameObject:
   m_ObjectHideFlags: 0

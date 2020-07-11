@@ -26,11 +26,11 @@ public class StartGame : MonoBehaviour
     {
        // Application.LoadLevel(0);
         Statistic.Score = 0;
-        Statistic.Jiv = true;
         Statistic.Speed = 3f;
-        Statistic.BOOL = true;
         Animator.SetTrigger("Menu");
         StartBack.SetTrigger("off");
+        //Statistic.Jiv = true;
+        //Statistic.BOOL = true;       
         //CanvasPlay.SetActive(false);
 
 
