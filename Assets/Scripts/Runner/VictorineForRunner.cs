@@ -66,7 +66,7 @@ public class VictorineForRunner : MonoBehaviour
         NewVopros.SetActive(true);        
         
         //Statistic.Jiv = true;
-        Statistic.Score = 0;
+        
         Statistic.Speed = 3f;
         Animator.SetTrigger("Menu");
         ScoreZone.SetTrigger("off");
@@ -103,7 +103,7 @@ public class VictorineForRunner : MonoBehaviour
     public void Update()
     {
        
-        if (Statistic.BOOL == true)
+        if (Statistic.isGameStart == true)
         {
 
 
@@ -144,7 +144,7 @@ public class VictorineForRunner : MonoBehaviour
             //    //ratingPanel.SetActive(false);
             //    //ScoreZoneOn();
             //}
-            ratingScore.text = Statistic.Score.ToString();
+            
         }
     }
 
@@ -186,9 +186,9 @@ public class VictorineForRunner : MonoBehaviour
             //timeForNextQ = 0;
             Statistic.Speed = 9f;
             //Statistic.OK = true;
-            Statistic.time = 0;
+            
            // Statistic.VoprosOtvet = true;
-            Statistic.Score++;
+            
             TRUE.PlayOneShot(Da, 0.5F);
             PRESSBUTTON.PlayOneShot(button);
             

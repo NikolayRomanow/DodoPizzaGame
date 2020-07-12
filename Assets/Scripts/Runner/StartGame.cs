@@ -25,7 +25,7 @@ public class StartGame : MonoBehaviour
     public void StartGamee()
     {
        // Application.LoadLevel(0);
-        Statistic.Score = 0;
+
         Statistic.Speed = 3f;
         Animator.SetTrigger("Menu");
         StartBack.SetTrigger("off");

@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class LevelDvij : MonoBehaviour
 {
-    public Vector3 Vector3;
-    // Start is called before the first frame update
-    void Start()
+    public void MovePlatform()
     {
-        Vector3.x = 0;
-        Vector3.y = 0;
+        if (Statistic.isGameStart == true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, transform.position.z - 1), Time.deltaTime * Statistic.Speed);
+        }
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
-        if (Statistic.BOOL == true)
-        {
-            Vector3.z = gameObject.transform.position.z - 1;
-            gameObject.transform.position = Vector3.MoveTowards(transform.position, Vector3, Time.deltaTime * Statistic.Speed);
-            if (gameObject.transform.position.z > 100)
-            {
-                Destroy(gameObject);
-            }
-        }
+        MovePlatform();
     }
 }

@@ -1,31 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UIController : MonoBehaviour
 {
     public Animator MainCamera, VictorineZone, ScoreZone, StartBack;
     public bool Start;
-
+    public event Action StartGame;
+    public event Action RestartGame;
     public void StartTheGame()
     {
-        Statistic.Score = 0;
-        Statistic.Speed = 3f;
+        StartGame();        
         MainCameraOn();
-        //VictorineZoneOn();
-        StartBackOff();
-        Statistic.BOOL = true;
-        
+        StartBackOff();        
     }
     public void RestartTheGame()
     {
-        Statistic.Score = 0;
-        Statistic.Speed = 3f;
+        RestartGame();        
         MainCameraOff();
         ScoreZoneOff();
     }
     public void ScoreZoneOn()
-    {   
+    {
         ScoreZone.SetTrigger("on");
     }
     public void ScoreZoneOff()
@@ -43,7 +40,6 @@ public class UIController : MonoBehaviour
     public void MainCameraOn()
     {
         MainCamera.SetTrigger("Menu");
-
     }
     public void MainCameraOff()
     {

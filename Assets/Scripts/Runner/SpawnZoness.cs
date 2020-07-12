@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class SpawnZoness : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public GameObject GameZone, Point;
-    void Start()
-    {
-        
-    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if (other.tag == "Player")
         {
-            Instantiate(GameZone, Point.transform.position, Quaternion.identity);
+            //Instantiate(GameZone, Point.transform.position, Quaternion.identity);
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
         
     }
+    private void OnDisable()
+    {
+        
+    }
+
 }
