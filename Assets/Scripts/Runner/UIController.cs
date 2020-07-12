@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     public bool Start;
     public event Action StartGame;
     public event Action RestartGame;
+    public event Action BackToMenu;
     public void StartTheGame()
     {
         StartGame();        
@@ -18,8 +19,14 @@ public class UIController : MonoBehaviour
     public void RestartTheGame()
     {
         RestartGame();        
-        MainCameraOff();
+        MainCameraOn();
         ScoreZoneOff();
+    }
+    public void BackToTheMenu()
+    {
+        BackToMenu();
+        ScoreZoneOff();
+        StartBackOn();
     }
     public void ScoreZoneOn()
     {

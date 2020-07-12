@@ -9,7 +9,7 @@ using SupremumStudio;
 using System;
 
 public class GameManager : MonoBehaviour
-{   
+{
     private float Rating;
     public UIController UIController;
     public Run Run;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public SpeedController SpeedController;
     public SoundController SoundController;
     private void Awake()
-    {        
+    {
         Run.SoundOfDeath += Run_SoundOfDeath;
         Run.Death += Run_Death;
         Run.NewVopros += Run_NewVopros;
@@ -27,18 +27,24 @@ public class GameManager : MonoBehaviour
         QuizView.CorrectAnswer += QuizView_CorrectAnswer;
         QuizView.InCorrectAnswer += QuizView_InCorrectAnswer;
         UIController.StartGame += UIController_StartGame;
-        UIController.RestartGame += UIController_RestartGame;        
+        UIController.RestartGame += UIController_RestartGame;
+        UIController.BackToMenu += UIController_BackToMenu;
         Run.QuizView = QuizView;
         QuizView.Quiz = Quiz;
         GameScore = new Score();
     }
+    //TODO: Разобраться с проблемой двойной анимации на тригере Prep.
+
+
+
     //public static Action myStart = () => { Debug.Log("myStart"); };
     //public static Action myUpdate = () => { Debug.Log("myUpdate"); };
 
-    //private void Start()
-    //{
-    //    myStart();
-    //}
+    private void Start()
+    {
+        //myStart();
+        SoundController.SoundInMenuOn();
+    }
     //private void Update()
     //{
     //    myUpdate();
@@ -46,37 +52,52 @@ public class GameManager : MonoBehaviour
     public void SetSpeed(float speed)
     {
         Statistic.Speed = speed;
-    }    
+    }
 
     private void UIController_RestartGame()
     {
         SetSpeed(3);
+        SoundController.SoundOfPressedButton();
+        SoundController.SoundInGameOn();
+    }
+    private void UIController_BackToMenu()
+    {
+        SoundController.SoundOfPressedButton();
+        SoundController.SoundInMenuOn();
     }
 
     private void UIController_StartGame()
-    { 
+    {
         Statistic.isGameStart = true;
-        SetSpeed(3);     
+        SetSpeed(3);
+        SoundController.SoundOfPressedButton();
+        SoundController.SoundInGameOn();
+        SoundController.SoundInMenuOff();
     }
 
     private void QuizView_InCorrectAnswer()
     {
-        SetSpeed(9);        
+        SoundController.SoundOfInCorrectAnswer();
+        UIController.VictorineZoneOff();
+        SetSpeed(9);
     }
 
     private void QuizView_CorrectAnswer()
     {
-        SetSpeed(9);       
+        SoundController.SoundOfCorrectAnswer();
+        UIController.VictorineZoneOff();
+        SetSpeed(9);
     }
 
     private void Run_NewVopros()
     {
-        Quiz.NextQuestion();        
+        Quiz.NextQuestion();
     }
 
     private void Run_Death()
     {
         SetSpeed(0);
+        SoundController.SoundInGameOff();
         UIController.VictorineZoneOff();
         UIController.ScoreZoneOn();
         UIController.MainCameraOff();
@@ -84,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     private void Run_SoundOfDeath()
     {
-        
+        SoundController.SoundOfCrash();
     }
-        
+
 }

@@ -20,14 +20,14 @@ namespace SupremumStudio
         public event Action InCorrectAnswer;
 
         
-        public void AnimationOn()
-        {
-            Quiz.VictorineZone.SetTrigger("on");
-        }
-        public void AnimationOff()
-        {
-            Quiz.VictorineZone.SetTrigger("off");
-        }
+        //public void AnimationOn()
+        //{
+        //    Quiz.VictorineZone.SetTrigger("on");
+        //}
+        //public void AnimationOff()
+        //{
+        //    Quiz.VictorineZone.SetTrigger("off");
+        //}
         private void Start()
         {
             Quiz.ReadQuestion();
@@ -40,13 +40,13 @@ namespace SupremumStudio
                     if (item.GetComponentInChildren<Text>().text == Quiz.currentAnswer) //TODO: переосмыслить
                     {   
                         CorrectAnswer();
-                        AnimationOff();
+                        //AnimationOff();
                         IsCorrectAnswer = true;
                     }
                     else
                     {   
                         InCorrectAnswer();
-                        AnimationOff();
+                       // AnimationOff();
                         IsCorrectAnswer = false;
                     }
                 });
