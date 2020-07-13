@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SupremumStudio;
 using System;
+using DodoDataModel;
+using Microsoft.AspNetCore.SignalR.Client;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +21,13 @@ public class GameManager : MonoBehaviour
     public Score GameScore;
     public SpeedController SpeedController;
     public SoundController SoundController;
-    private void Awake()
+    
+    //Серверная инициализация
+    private string url = "http://89.223.126.195:80/hello";
+    private HubConnection hubConnection = null;
+    private UnityMainThreadDispatcher _dispatcher;
+    public User user = new User();
+    private async void Awake()
     {
         Run.SoundOfDeath += Run_SoundOfDeath;
         Run.Death += Run_Death;
@@ -32,6 +41,7 @@ public class GameManager : MonoBehaviour
         Run.QuizView = QuizView;
         QuizView.Quiz = Quiz;
         GameScore = new Score();
+        
     }
     //TODO: Разобраться с проблемой двойной анимации на тригере Prep.
 
@@ -40,11 +50,43 @@ public class GameManager : MonoBehaviour
     //public static Action myStart = () => { Debug.Log("myStart"); };
     //public static Action myUpdate = () => { Debug.Log("myUpdate"); };
 
-    private void Start()
+    private async void Start()
     {
         //myStart();
         SoundController.SoundInMenuOn();
+        _dispatcher = UnityMainThreadDispatcher.Instance();
+        await this.StartSignalRAsync();
     }
+
+    async Task StartSignalRAsync()
+    {
+        if (this.hubConnection == null)
+        {
+            // create hub and settings
+            this.hubConnection = new HubConnectionBuilder()
+                .WithUrl(url, options => { })
+                .Build();
+            
+            // start server
+            await this.hubConnection.StartAsync();
+            
+            if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
+            {
+                PlayerPrefs.SetString("GUID", Guid.NewGuid().ToString());
+                user.guid = PlayerPrefs.GetString("GUID");
+                user.Name = "Player";
+                await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user)); 
+            }
+            else
+            {
+                user.guid = PlayerPrefs.GetString("GUID");
+                user.Rating = 0;
+                user.Score = 0; 
+                user.Name = "Player";
+            }
+        }
+    }
+
     //private void Update()
     //{
     //    myUpdate();
@@ -56,6 +98,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_RestartGame()
     {
+        user.Score = 0;
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
         SoundController.SoundInGameOn();
@@ -94,13 +137,15 @@ public class GameManager : MonoBehaviour
         Quiz.NextQuestion();
     }
 
-    private void Run_Death()
+    private async void Run_Death()
     {
         SetSpeed(0);
         SoundController.SoundInGameOff();        
         UIController.VictorineZoneOff();
         UIController.ScoreZoneOn();
         UIController.MainCameraOff();
+        user.Score = Statistic.Scores;
+        await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
     }
 
     private void Run_SoundOfDeath()

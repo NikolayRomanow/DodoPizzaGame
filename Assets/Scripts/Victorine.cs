@@ -62,9 +62,6 @@ public class Victorine : MonoBehaviour
     {
         OnClickPlay();
         user = new User();
-        user.guid = Guid.NewGuid();
-        user.keyRoom = "lol";
-        
     }
 
     public void Update()
