@@ -20,7 +20,7 @@ public class SoundController : MonoBehaviour
     public void SoundOfPressedButton()
     {
         //PRESSBUTTON.PlayOneShot(pressbutton, 0.5F);
-        BUTTON.PlayOneShot(button, 0.5F);
+        //BUTTON.PlayOneShot(button, 0.5F);
     }
     public void SoundOfCorrectAnswer()
     {

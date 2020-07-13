@@ -11,5 +11,6 @@ namespace SupremumStudio
     {
         public string TextQuestion = String.Empty;
         public string[] Answer = new string[3];
+        public int Weight { get; set; }
     }
 }

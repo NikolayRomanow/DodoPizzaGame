@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
     private void Run_Death()
     {
         SetSpeed(0);
-        SoundController.SoundInGameOff();
+        SoundController.SoundInGameOff();        
         UIController.VictorineZoneOff();
         UIController.ScoreZoneOn();
         UIController.MainCameraOff();

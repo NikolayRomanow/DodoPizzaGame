@@ -19,6 +19,7 @@ namespace SupremumStudio
         public Button[] AnswerButton;
 
         public string currentAnswer;
+        public int currentWeight;
         public List<QuestionModel> questions;
 
         public int currentQuesion = -1;
@@ -54,14 +55,18 @@ namespace SupremumStudio
             //List<QuestionModel> questions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString());
             SetQuiz(questions[CurrentQuestion].TextQuestion, questions[CurrentQuestion].Answer);
             currentAnswer = questions[CurrentQuestion].Answer[0];
+            currentWeight = questions[CurrentQuestion].Weight;
         }
         public void ReadQuestion()
         {
-            var JsonQuestion = Resources.Load<TextAsset>("Questions/Question"); // прочитать файл
+            //var JsonQuestion = Resources.Load<TextAsset>("Questions/Question"); // прочитать файл
+            var JsonQuestion = Resources.Load<TextAsset>("Questions/test"); // прочитать файл
             questions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString()); // распознать его
             countQuestionFile = questions.Count;
             Debug.Log("Count Question: " + countQuestionFile);
             Shuffle(questions); // перемешать вопросы
+            //SendWeight(questions);
+            
         }
         public void NextQuestion()
         {
@@ -115,6 +120,13 @@ namespace SupremumStudio
         {
             VictorineZone.SetTrigger("off");
         }
+        //public void SendWeight(List<QuestionModel> model)
+        //{
+        //    for (int i = 0; i < model.Count; i++)
+        //    {
+        //        Statistic.Scores += model[i].Weight;                
+        //    }
+        //}
 
     }
 }

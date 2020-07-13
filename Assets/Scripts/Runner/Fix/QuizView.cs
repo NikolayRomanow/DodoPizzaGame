@@ -42,6 +42,7 @@ namespace SupremumStudio
                         CorrectAnswer();
                         //AnimationOff();
                         IsCorrectAnswer = true;
+                        Statistic.Scores += Quiz.currentWeight;
                     }
                     else
                     {   
