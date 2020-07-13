@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public Score GameScore;
     public SpeedController SpeedController;
     public SoundController SoundController;
-    
+
     //Серверная инициализация
     private string url = "http://89.223.126.195:80/hello";
     private HubConnection hubConnection = null;
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         Run.QuizView = QuizView;
         QuizView.Quiz = Quiz;
         GameScore = new Score();
-        
+
     }
     //TODO: Разобраться с проблемой двойной анимации на тригере Prep.
 
@@ -66,22 +66,22 @@ public class GameManager : MonoBehaviour
             this.hubConnection = new HubConnectionBuilder()
                 .WithUrl(url, options => { })
                 .Build();
-            
+
             // start server
             await this.hubConnection.StartAsync();
-            
+
             if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
             {
                 PlayerPrefs.SetString("GUID", Guid.NewGuid().ToString());
                 user.guid = PlayerPrefs.GetString("GUID");
                 user.Name = "Player";
-                await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user)); 
+                await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
             }
             else
             {
                 user.guid = PlayerPrefs.GetString("GUID");
                 user.Rating = 0;
-                user.Score = 0; 
+                user.Score = 0;
                 user.Name = "Player";
             }
         }
@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
     private void UIController_RestartGame()
     {
         user.Score = 0;
+        Quiz.ResetQuiz();
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
         SoundController.SoundInGameOn();
@@ -125,8 +126,10 @@ public class GameManager : MonoBehaviour
         SetSpeed(9);
     }
 
-    private void QuizView_CorrectAnswer()
+    private void QuizView_CorrectAnswer(float deltaTime)
     {
+        
+        GameScore.AddScore(deltaTime, Quiz.currentQuesion + 1);
         SoundController.SoundOfCorrectAnswer();
         UIController.VictorineZoneOff();
         SetSpeed(9);
@@ -135,22 +138,27 @@ public class GameManager : MonoBehaviour
     private void Run_NewVopros()
     {
         Quiz.NextQuestion();
+        QuizView.QuestinIsTrueOn();
     }
 
     private async void Run_Death()
     {
         SetSpeed(0);
-        SoundController.SoundInGameOff();        
+        SoundController.SoundInGameOff();
         UIController.VictorineZoneOff();
         UIController.ScoreZoneOn();
         UIController.MainCameraOff();
-        user.Score = Statistic.Scores;
+        user.Score = GameScore.GetTotalScore();
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
     }
 
     private void Run_SoundOfDeath()
     {
         SoundController.SoundOfCrash();
+    }
+    private void Update()
+    {
+        Debug.Log(GameScore.GetTotalScore());
     }
 
 }

@@ -16,6 +16,7 @@ public class Score
     }
     public int GetTotalScore()
     {
-        return (int)score;
+        return (int)(score * 100);
     }
+    
 }

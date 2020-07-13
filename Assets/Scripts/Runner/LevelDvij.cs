@@ -16,7 +16,6 @@ public class LevelDvij : MonoBehaviour
 
     void Update()
     {
-        MovePlatform();
-        print(Statistic.Scores);
+        MovePlatform();        
     }
 }
