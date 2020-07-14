@@ -8,10 +8,28 @@ public class SoundController : MonoBehaviour
     public AudioSource JUMP, CRASH, CORRECT, INCORRECT, PRESSBUTTON, RUN;
     public AudioClip button, correctanswer, incorrectanswer, crash2, formenu, forgame;
     public AudioSource BUTTON, CORRECTANSWER, INCORRECTANSWER, CRASH2, FORMENU, FORGAME;//TODO
+    public GameObject SoundOff, SoundOn;
+    public float Volume = 0.5f;
+    public void VolumeOn()
+    {
+        Volume = 0.5F;
+        FORGAME.volume = 0.5f;
+        FORMENU.volume = 0.5f;
+        SoundOff.SetActive(false);
+        SoundOn.SetActive(true);
+    }
+    public void VolumeOff()
+    {
+        Volume = 0F;
+        FORGAME.volume = 0;
+        FORMENU.volume = 0;
+        SoundOn.SetActive(false);
+        SoundOff.SetActive(true);
+    }
     public void SoundOfCrash()
     {
         //CRASH.PlayOneShot(crash, 0.5F);
-        CRASH2.PlayOneShot(crash2, 0.5F);
+        CRASH2.PlayOneShot(crash2, Volume);
     }
     public void SoundOfRun()
     {
@@ -25,17 +43,17 @@ public class SoundController : MonoBehaviour
     public void SoundOfCorrectAnswer()
     {
         //CORRECT.PlayOneShot(correct, 0.5F);
-        CORRECT.PlayOneShot(correct, 0.5F);
+        CORRECT.PlayOneShot(correct, Volume);
     }
     public void SoundOfInCorrectAnswer()
     {
         //INCORRECT.PlayOneShot(incorrect, 0.5F);
-        INCORRECT.PlayOneShot(incorrect, 0.5F);
+        INCORRECT.PlayOneShot(incorrect, Volume);
 
     }
     public void SoundOfJump()
     {
-        JUMP.PlayOneShot(jump, 0.5F);
+        JUMP.PlayOneShot(jump, Volume);
     }
     public void SoundInMenuOn()
     {

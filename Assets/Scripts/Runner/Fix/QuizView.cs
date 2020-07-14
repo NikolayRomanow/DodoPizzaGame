@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using TMPro;
 
 namespace SupremumStudio
 {
     public class QuizView : MonoBehaviour
     {
 
-        public Text QuestionText;
+        public TextMeshProUGUI QuestionText;
         public Text[] Answer;
         public Button[] AnswerButton;        
 
@@ -37,7 +38,7 @@ namespace SupremumStudio
         private void Start()
         {
             Quiz.QuestionChanged += Quiz_QuestionChanged;
-            TimeForQuestion = 6f;
+            TimeForQuestion = 12f;
             Quiz.ReadQuestions();
             //SetQuestion(); // Можно использовать из другого класса
 
@@ -75,7 +76,7 @@ namespace SupremumStudio
 
         public void ResetTime()
         {
-            TimeForQuestion = 6f;
+            TimeForQuestion = 12f;
             CurrentTime = 0;
         }
         public void QuestinIsTrueOn()
@@ -91,6 +92,10 @@ namespace SupremumStudio
             TimeForQuestion -= Time.deltaTime;
             CurrentTime += Time.deltaTime;
             DeltaTime = TimeForQuestion - CurrentTime;
+            if(DeltaTime<0)
+            {
+                DeltaTime = 0;
+            }
         }
         public float SendScore()
         {

@@ -21,7 +21,7 @@ namespace SupremumStudio
         public List<QuestionModel> averageQuestions;
         // Сложные вопросы
         public List<QuestionModel> hardQuestions;
-        public int currentQuesion = -1;
+        public int currentQuestion = -1;
         public int countQuestionFile;
         public bool IsCorrectAnswer { get; private set; }
         public event Action QuestionChanged;
@@ -29,18 +29,21 @@ namespace SupremumStudio
         {
             get
             {
-                return currentQuesion;
+                return currentQuestion;
             }
-            set
-            {  if (value == questions.Count)
-                {
-                    currentQuesion = 0;
-                }
-            else
-                {
-                    currentQuesion = value;
-                }
+            set 
+            { 
+                currentQuestion = value; 
             }
+            //{  if (value == questions.Count)
+            //    {
+            //        currentQuesion = 0;
+            //    }
+            //else
+            //    {
+            //        currentQuesion = value;
+            //    }
+            
         }
         //UI Element
         //private void SetQuestion()
@@ -53,17 +56,37 @@ namespace SupremumStudio
         //}
         public (string, string[]) GetQuestionData()
         {
+            
             List<QuestionModel> questions = GetCurrentQuestionsCollection();
             //Debug.Log(CurrentQuestion);
-            currentAnswer = questions[CurrentQuestion].Answer[0];
+            if (CurrentQuestion == questions.Count)
+            {
+                currentAnswer = string.Empty;
+                currentWeight = 0;
+                return ("Как вы думаете разработчики выиграют?", new string[] { "Нет", "Нет", "Нет" });
+            }
+            else
+            {
+                currentAnswer = questions[CurrentQuestion].Answer[0];
+                currentWeight = questions[CurrentQuestion].Weight;
+                return (questions[CurrentQuestion].TextQuestion, questions[CurrentQuestion].Answer);
+            }
             
-            currentWeight = questions[CurrentQuestion].Weight;
-            return (questions[CurrentQuestion].TextQuestion, questions[CurrentQuestion].Answer);
             
         }
         public void ResetQuiz()
         {
             CurrentQuestion = -1;
+            ShuffleAllQuestions();
+        }
+        public void ShuffleAllQuestions()
+        {
+            Shuffle(simpleQuestions); // перемешать вопросы
+            Shuffle(averageQuestions); // перемешать вопросы
+            Shuffle(hardQuestions);
+            questions = new List<QuestionModel>(simpleQuestions);
+            questions.AddRange(averageQuestions);
+            questions.AddRange(hardQuestions);
         }
         private List<QuestionModel> GetCurrentQuestionsCollection()
         {
@@ -84,7 +107,9 @@ namespace SupremumStudio
         public void ReadQuestions()
         {
             //var JsonQuestion = Resources.Load<TextAsset>("Questions/Question"); // прочитать файл
-            var JsonQuestion = Resources.Load<TextAsset>("Questions/test"); // прочитать файл
+            //var JsonQuestion = Resources.Load<TextAsset>("Questions/test"); // прочитать файл
+            var JsonQuestion = Resources.Load<TextAsset>("Questions/QuestionsFromNikita"); // прочитать файл
+            //var JsonQuestion = Resources.Load<TextAsset>("Questions/test2"); // прочитать файл
             List<QuestionModel> allQuestions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString()); // распознать его
             OrderByWeight(allQuestions);            
             //questions = allQuestions;

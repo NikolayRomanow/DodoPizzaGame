@@ -1,15 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class UIController : MonoBehaviour
 {
     public Animator MainCamera, VictorineZone, ScoreZone, StartBack;
+    public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu;
     public bool Start;
     public event Action StartGame;
     public event Action RestartGame;
     public event Action BackToMenu;
+
+    public void SetBestRating(int bestRating)
+    {
+        BestRatingInMenu.text = bestRating.ToString();
+        BestRatingInRestartMenu.text = bestRating.ToString();
+    }
+    public void SetCurrentRating(int currentRating)
+    {
+        CurrentRatingInRestartMenu.text = currentRating.ToString();
+    }
     public void StartTheGame()
     {
         StartGame();        

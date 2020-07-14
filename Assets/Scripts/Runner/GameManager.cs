@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public Score GameScore;
     public SpeedController SpeedController;
     public SoundController SoundController;
+    public int bestRating, currentRating;
 
     //Серверная инициализация
     private string url = "http://89.223.126.195:80/hello";
@@ -52,7 +53,9 @@ public class GameManager : MonoBehaviour
 
     private async void Start()
     {
+        GameScore.ResetScore();
         //myStart();
+        SaveRating();
         SoundController.SoundInMenuOn();
         _dispatcher = UnityMainThreadDispatcher.Instance();
         await this.StartSignalRAsync();
@@ -98,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_RestartGame()
     {
+        GameScore.ResetScore();
         user.Score = 0;
         Quiz.ResetQuiz();
         SetSpeed(3);
@@ -106,12 +110,15 @@ public class GameManager : MonoBehaviour
     }
     private void UIController_BackToMenu()
     {
+        GameScore.ResetScore();
+        Quiz.ResetQuiz();
         SoundController.SoundOfPressedButton();
         SoundController.SoundInMenuOn();
     }
 
     private void UIController_StartGame()
     {
+        GameScore.ResetScore();
         Statistic.isGameStart = true;
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
@@ -129,7 +136,7 @@ public class GameManager : MonoBehaviour
     private void QuizView_CorrectAnswer(float deltaTime)
     {
         
-        GameScore.AddScore(deltaTime, Quiz.currentQuesion + 1);
+        GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
         SoundController.SoundOfCorrectAnswer();
         UIController.VictorineZoneOff();
         SetSpeed(9);
@@ -145,8 +152,14 @@ public class GameManager : MonoBehaviour
     {
         SetSpeed(0);
         SoundController.SoundInGameOff();
-        UIController.VictorineZoneOff();
+        if (QuizView.QuestionIsOn == true)
+        {
+            UIController.VictorineZoneOff();
+        }
         UIController.ScoreZoneOn();
+        SaveRating();
+        UIController.SetBestRating(bestRating);
+        UIController.SetCurrentRating(GameScore.GetTotalScore());
         UIController.MainCameraOff();
         user.Score = GameScore.GetTotalScore();
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
@@ -156,9 +169,19 @@ public class GameManager : MonoBehaviour
     {
         SoundController.SoundOfCrash();
     }
-    private void Update()
+    public void SaveRating()
     {
-        Debug.Log(GameScore.GetTotalScore());
+        bestRating = PlayerPrefs.GetInt("BestScore");
+        if (GameScore.GetTotalScore() > bestRating)
+        {   
+            PlayerPrefs.SetInt("BestScore", GameScore.GetTotalScore());            
+        }
+        bestRating = PlayerPrefs.GetInt("BestScore");
     }
+    
+    //private void Update()
+    //{
+    //    Debug.Log(GameScore.GetTotalScore());
+    //}
 
 }
