@@ -127,18 +127,19 @@ public class GameManager : MonoBehaviour
     }
 
     private void QuizView_InCorrectAnswer()
-    {
+    {   UIController.VictorineZoneOff();
         SoundController.SoundOfInCorrectAnswer();
-        UIController.VictorineZoneOff();
+        UIController.CanvasVictorineZoneOff();
         SetSpeed(9);
     }
 
     private void QuizView_CorrectAnswer(float deltaTime)
     {
-        
+        UIController.VictorineZoneOff();
         GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
         SoundController.SoundOfCorrectAnswer();
-        UIController.VictorineZoneOff();
+        UIController.CanvasVictorineZoneOff();
+
         SetSpeed(9);
     }
 
@@ -146,12 +147,14 @@ public class GameManager : MonoBehaviour
     {
         Quiz.NextQuestion();
         QuizView.QuestinIsTrueOn();
+        UIController.CanvasVictorineZoneOn();
     }
 
     private async void Run_Death()
     {
         SetSpeed(0);
         SoundController.SoundInGameOff();
+        UIController.CanvasScoreZoneOn();
         if (QuizView.QuestionIsOn == true)
         {
             UIController.VictorineZoneOff();
