@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-    public AudioClip jump, crash, correct, incorrect, pressbutton, run;
-    public AudioSource JUMP, CRASH, CORRECT, INCORRECT, PRESSBUTTON, RUN;
+    //public AudioClip jump, crash, correct, incorrect, pressbutton, run;
+    //public AudioSource JUMP, CRASH, CORRECT, INCORRECT, PRESSBUTTON, RUN;
     public AudioClip button, correctanswer, incorrectanswer, crash2, formenu, forgame;
     public AudioSource BUTTON, CORRECTANSWER, INCORRECTANSWER, CRASH2, FORMENU, FORGAME;//TODO
     public GameObject SoundOff, SoundOn;
@@ -42,18 +42,18 @@ public class SoundController : MonoBehaviour
     }
     public void SoundOfCorrectAnswer()
     {
-        //CORRECT.PlayOneShot(correct, 0.5F);
-        CORRECT.PlayOneShot(correct, Volume);
+        
+        //CORRECT.PlayOneShot(correct, Volume);
     }
     public void SoundOfInCorrectAnswer()
     {
-        //INCORRECT.PlayOneShot(incorrect, 0.5F);
-        INCORRECT.PlayOneShot(incorrect, Volume);
+        
+        //INCORRECT.PlayOneShot(incorrect, Volume);
 
     }
     public void SoundOfJump()
     {
-        JUMP.PlayOneShot(jump, Volume);
+        //JUMP.PlayOneShot(jump, Volume);
     }
     public void SoundInMenuOn()
     {

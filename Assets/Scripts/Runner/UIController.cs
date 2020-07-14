@@ -6,15 +6,15 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
-      
     public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu;
     public bool Start;
     public event Action StartGame;
     public event Action RestartGame;
     public event Action BackToMenu;
 
+    
     public void SetBestRating(int bestRating)
     {
         BestRatingInMenu.text = bestRating.ToString();
@@ -85,6 +85,14 @@ public class UIController : MonoBehaviour
         StartBackOn();
         CanvasScoreZoneOff();
         CanvasStartBackOn();
+    }
+    public void TimerOn()
+    {
+        Timer.SetTrigger("on");
+    }
+    public void TimerOff()
+    {
+        Timer.SetTrigger("off");
     }
     public void ScoreZoneOn()
     {

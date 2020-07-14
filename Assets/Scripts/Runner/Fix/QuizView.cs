@@ -26,7 +26,22 @@ namespace SupremumStudio
         public event Action<float> CorrectAnswer;
         public event Action InCorrectAnswer;
 
-        
+        public Slider Timer;
+
+        public void SetSliderMaxValue()
+        {
+            Timer.maxValue = 1500;
+            Timer.value = TimeForQuestion*100;
+        }
+        public void SetSliderValue()
+        {
+            Timer.value = (int)TimeForQuestion*100;
+        }
+        public void ResetSliderValue()
+        {
+            Timer.value = 1500;
+        }
+
         public void AnimationOn()
         {
             VictorineZone.SetTrigger("on");
@@ -37,8 +52,9 @@ namespace SupremumStudio
         //}
         private void Start()
         {
+            SetSliderMaxValue();
             Quiz.QuestionChanged += Quiz_QuestionChanged;
-            TimeForQuestion = 12f;
+            TimeForQuestion = 15f;
             Quiz.ReadQuestions();
             //SetQuestion(); // Можно использовать из другого класса
 
@@ -76,7 +92,7 @@ namespace SupremumStudio
 
         public void ResetTime()
         {
-            TimeForQuestion = 12f;
+            TimeForQuestion = 15f;
             CurrentTime = 0;
         }
         public void QuestinIsTrueOn()
@@ -106,9 +122,11 @@ namespace SupremumStudio
             //print(TimeForQuestion);
             //print(CurrentTime);
             //print(DeltaTime);
+            
             if (QuestionIsOn == true)
             {
                 CalcTime();
+                SetSliderValue();
             }
         }
 
