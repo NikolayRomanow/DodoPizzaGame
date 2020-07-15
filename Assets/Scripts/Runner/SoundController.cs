@@ -44,11 +44,13 @@ public class SoundController : MonoBehaviour
     {
         
         //CORRECT.PlayOneShot(correct, Volume);
+        CORRECTANSWER.PlayOneShot(correctanswer, Volume);
     }
     public void SoundOfInCorrectAnswer()
     {
         
         //INCORRECT.PlayOneShot(incorrect, Volume);
+        INCORRECTANSWER.PlayOneShot(incorrectanswer, Volume);
 
     }
     public void SoundOfJump()
