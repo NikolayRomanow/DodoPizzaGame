@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         Run.Death += Run_Death;
         Run.NewVopros += Run_NewVopros;
         Run.CheckArrived += SetSpeed;
+        Run.WinOrNot += Run_WinOrNot;
         QuizView.CorrectAnswer += QuizView_CorrectAnswer;
         QuizView.InCorrectAnswer += QuizView_InCorrectAnswer;
         UIController.StartGame += UIController_StartGame;
@@ -44,6 +45,23 @@ public class GameManager : MonoBehaviour
         GameScore = new Score();
 
     }
+
+    private void Run_WinOrNot()
+    {
+        if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
+        {
+            SetSpeed(0);
+            UIController.WinZoneOn();
+            SoundController.SoundInGameOff();
+            UIController.CanvasScoreZoneOn();
+            UIController.ScoreZoneOn();
+            SaveRating();
+            UIController.SetBestRating(bestRating);
+            UIController.SetCurrentRating(GameScore.GetTotalScore());
+            UIController.MainCameraOff();
+        }
+    }
+
     //TODO: Разобраться с проблемой двойной анимации на тригере Prep.
 
 
@@ -92,8 +110,9 @@ public class GameManager : MonoBehaviour
 
     //private void Update()
     //{
-    //    myUpdate();
-    //}    
+    //    print(Quiz.CurrentQuestion);
+    //    print(Quiz.questions.Count);
+    //}
     public void SetSpeed(float speed)
     {
         Statistic.Speed = speed;
@@ -101,19 +120,29 @@ public class GameManager : MonoBehaviour
 
     private void UIController_RestartGame()
     {
+        if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
+        {
+            UIController.WinZoneOff();
+        }
         GameScore.ResetScore();
         user.Score = 0;
         Quiz.ResetQuiz();
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
         SoundController.SoundInGameOn();
+        
     }
     private void UIController_BackToMenu()
-    {
+    { 
+        if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
+        {
+            UIController.WinZoneOff();
+        }
         GameScore.ResetScore();
         Quiz.ResetQuiz();
         SoundController.SoundOfPressedButton();
         SoundController.SoundInMenuOn();
+       
     }
 
     private void UIController_StartGame()
@@ -127,7 +156,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void QuizView_InCorrectAnswer()
-    {   UIController.VictorineZoneOff();
+    {   
+        UIController.VictorineZoneOff();
         UIController.TimerOff();
         SoundController.SoundOfInCorrectAnswer();
         UIController.CanvasVictorineZoneOff();
@@ -142,15 +172,43 @@ public class GameManager : MonoBehaviour
         UIController.CanvasVictorineZoneOff();
         UIController.TimerOff();
         SetSpeed(9);
+        //if(Quiz.CurrentQuestion==Quiz.questions.Count-1)
+        //{
+        //    SetSpeed(0);
+        //    SoundController.SoundInGameOff();
+        //    UIController.CanvasScoreZoneOn();
+        //    UIController.ScoreZoneOn();
+        //    SaveRating();
+        //    UIController.SetBestRating(bestRating);
+        //    UIController.SetCurrentRating(GameScore.GetTotalScore());
+        //    UIController.MainCameraOff();
+        //}
+
     }
 
     private void Run_NewVopros()
     {
-        QuizView.ResetSliderValue();
-        Quiz.NextQuestion();
-        QuizView.QuestinIsTrueOn();
-        UIController.CanvasVictorineZoneOn();
-        UIController.TimerOn();
+        //if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
+        //{
+        //    SetSpeed(0);
+        //    SoundController.SoundInGameOff();
+        //    UIController.CanvasScoreZoneOn();
+        //    UIController.ScoreZoneOn();
+        //    SaveRating();
+        //    UIController.SetBestRating(bestRating);
+        //    UIController.SetCurrentRating(GameScore.GetTotalScore());
+        //    UIController.MainCameraOff();
+        //}
+        //else
+        //{
+            QuizView.IsCorrectAnswerFalse();
+            QuizView.ResetTime();
+            QuizView.ResetSliderValue();
+            Quiz.NextQuestion();
+            QuizView.QuestinIsTrueOn();
+            UIController.CanvasVictorineZoneOn();
+            UIController.TimerOn();
+        //}
     }
 
     private async void Run_Death()

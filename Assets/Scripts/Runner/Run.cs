@@ -9,11 +9,13 @@ using SupremumStudio;
 public class Run : MonoBehaviour
 {
     Rigidbody rb;
+    GameObject FirstVopros;
     [HideInInspector]
     public QuizView QuizView;
     public static event Action SoundOfDeath;
     public static event Action Death;
     public static event Action NewVopros;
+    public static event Action WinOrNot;
     public static event Action<float> CheckArrived;
 
 
@@ -21,6 +23,7 @@ public class Run : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        FirstVopros = GameObject.FindGameObjectWithTag("FirstVopros");
     }
     public void Jump()
     {
@@ -46,6 +49,16 @@ public class Run : MonoBehaviour
         {
             NewVopros();
         }
+        if (other.tag == "FirstVopros")
+        {               
+            NewVopros();
+            FirstVopros.SetActive(false);
+        }
+        if (other.tag == "WinOrNot")
+        {
+            WinOrNot();
+        }
+
     }
     private void Update()
     {

@@ -41,10 +41,15 @@ namespace SupremumStudio
         {
             Timer.value = 1500;
         }
+        
 
         public void AnimationOn()
         {
             VictorineZone.SetTrigger("on");
+        }
+        public void IsCorrectAnswerFalse()
+        {
+            IsCorrectAnswer = false;
         }
         //public void AnimationOff()
         //{

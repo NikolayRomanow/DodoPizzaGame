@@ -6,7 +6,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu;
     public bool Start;
@@ -93,6 +93,14 @@ public class UIController : MonoBehaviour
     public void TimerOff()
     {
         Timer.SetTrigger("off");
+    }
+    public void WinZoneOn()
+    {
+        WinZone.SetTrigger("on");
+    }
+    public void WinZoneOff()
+    {
+        WinZone.SetTrigger("off");
     }
     public void ScoreZoneOn()
     {

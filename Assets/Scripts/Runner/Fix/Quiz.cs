@@ -12,7 +12,7 @@ namespace SupremumStudio
 {
     public class Quiz : MonoBehaviour
     {
-        private List<QuestionModel> questions;
+        public List<QuestionModel> questions;
         public string currentAnswer;
         public int currentWeight;
         // Простые вопросы
@@ -25,6 +25,7 @@ namespace SupremumStudio
         public int countQuestionFile;
         public bool IsCorrectAnswer { get; private set; }
         public event Action QuestionChanged;
+        //public event Action OutOfQuestion;
         public int CurrentQuestion
         {
             get
@@ -61,6 +62,7 @@ namespace SupremumStudio
             //Debug.Log(CurrentQuestion);
             if (CurrentQuestion == questions.Count)
             {
+
                 currentAnswer = string.Empty;
                 currentWeight = 0;
                 return ("Как вы думаете разработчики выиграют?", new string[] { "Нет", "Нет", "Нет" });

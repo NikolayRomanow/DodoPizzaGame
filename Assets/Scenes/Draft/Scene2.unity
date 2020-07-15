@@ -2025,14 +2025,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3b3132cd3a1f94d8d0772f45a7b722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 0
-  GameStart: 0
-  Text: {fileID: 8359228110526145257}
-  StartButtton: {fileID: 2158540417086678535}
-  ImageTarget: {fileID: 1949776224475507}
-  SearchBoxLabel: {fileID: 4164422382547253668}
-  Victorine: {fileID: 8910050967267587990}
-  WaitCanvas: {fileID: 4807663323321723018}
+  UIController: {fileID: 0}
+  Run: {fileID: 0}
+  QuizView: {fileID: 0}
+  Quiz: {fileID: 0}
+  SpeedController: {fileID: 0}
+  SoundController: {fileID: 0}
+  bestRating: 0
+  currentRating: 0
 --- !u!4 &574894749
 Transform:
   m_ObjectHideFlags: 0
@@ -2408,6 +2408,7 @@ GameObject:
   - component: {fileID: 635770073}
   - component: {fileID: 635770072}
   - component: {fileID: 635770075}
+  - component: {fileID: 635770077}
   m_Layer: 0
   m_Name: DodoBirdClassic
   m_TagString: Untagged
@@ -2530,6 +2531,19 @@ MonoBehaviour:
   - {fileID: 161958946}
   - {fileID: 1284511636}
   - {fileID: 1247379874}
+--- !u!65 &635770077
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635770071}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.61, y: 1, z: 0.34}
+  m_Center: {x: 0, y: 0.53, z: 0}
 --- !u!1 &638269030
 GameObject:
   m_ObjectHideFlags: 0
@@ -6241,7 +6255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720859728}
   m_LocalRotation: {x: -0.7071068, y: 0.00000008940694, z: -0.00000008940694, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.004, z: 0}
   m_LocalScale: {x: 100.00014, y: 100.0001, z: 100.0002}
   m_Children: []
   m_Father: {fileID: 635770074}
@@ -16786,6 +16800,7 @@ GameObject:
   - component: {fileID: 6935401237971098958}
   - component: {fileID: 6935401237972393320}
   - component: {fileID: 6935401237973524392}
+  - component: {fileID: 6935401237971321199}
   m_Layer: 0
   m_Name: Pref.001
   m_TagString: Untagged
@@ -16793,6 +16808,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!65 &6935401237971321199
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935401237971321198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9762816, y: 0.025520096, z: 3.1269455}
+  m_Center: {x: 0, y: -0.000000014901161, z: 0.000000009313226}
 --- !u!33 &6935401237972393320
 MeshFilter:
   m_ObjectHideFlags: 0
