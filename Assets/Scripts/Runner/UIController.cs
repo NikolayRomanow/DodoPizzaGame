@@ -6,7 +6,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu;
     public bool Start;
@@ -60,7 +60,22 @@ public class UIController : MonoBehaviour
     {
         CanvasVictorineZone.interactable = false;
     }
+    public void ARScene()
+    {
+        Application.LoadLevel(1);
+    }
 
+    public void InfoButtonOn()
+    {
+        StartBackOff();
+        InfoPanelOn();
+    }
+    public void InfoButtonOff()
+    {
+        InfoPanelOff();
+        StartBackOn();
+        
+    }
     public void StartTheGame()
     {
         StartGame();        
@@ -76,7 +91,6 @@ public class UIController : MonoBehaviour
         CanvasStartBack.interactable = false;
         CanvasScoreZoneOff();
         CanvasStartBackOn();
-
     }
     public void BackToTheMenu()
     {
@@ -85,6 +99,14 @@ public class UIController : MonoBehaviour
         StartBackOn();
         CanvasScoreZoneOff();
         CanvasStartBackOn();
+    }
+    public void InfoPanelOn()
+    {
+        InfoPanel.SetTrigger("on");
+    }
+    public void InfoPanelOff()
+    {
+        InfoPanel.SetTrigger("off");
     }
     public void TimerOn()
     {

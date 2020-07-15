@@ -124,10 +124,11 @@ namespace SupremumStudio
         }
         private void Update()
         {
+            
             //print(TimeForQuestion);
             //print(CurrentTime);
             //print(DeltaTime);
-            
+
             if (QuestionIsOn == true)
             {
                 CalcTime();
