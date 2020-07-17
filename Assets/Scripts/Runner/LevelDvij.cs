@@ -8,7 +8,8 @@ public class LevelDvij : MonoBehaviour
     {
         if (Statistic.isGameStart == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, transform.position.z - 1), Time.deltaTime * Statistic.Speed);
+            //transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, transform.position.z - 1), Time.deltaTime * Statistic.Speed);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y , transform.position.z - 1), Time.deltaTime * Statistic.Speed);
         }
     }
 

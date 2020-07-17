@@ -8,7 +8,8 @@ public class MovingPlatform : MonoBehaviour
 
     void Update()
     {
-        if(gameObject.transform.position.z<-17)
+        //if(gameObject.transform.position.z<-17)
+        if (gameObject.transform.position.z < -59)
         {
             gameObject.transform.position = Point.transform.position;
         }
