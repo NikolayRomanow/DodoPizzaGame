@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     public int bestRating, currentRating;
 
     //Серверная инициализация
-    private string url = "http://89.223.126.195:80/hello";
+    private string url = "http://localhost:5001/hello";
+    //private string url = "http://89.223.126.195:80/hello";
     private HubConnection hubConnection = null;
     private UnityMainThreadDispatcher _dispatcher;
     public User user = new User();
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviour
 
     private async void Start()
     {
+        //PlayerPrefs.SetString("GUID", String.Empty);
+        //PlayerPrefs.SetInt("BestScore", 0);
         GameScore.ResetScore();
         //myStart();
         SaveRating();
@@ -90,7 +93,7 @@ public class GameManager : MonoBehaviour
 
             // start server
             await this.hubConnection.StartAsync();
-
+            
             if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
             {
                 PlayerPrefs.SetString("GUID", Guid.NewGuid().ToString());
@@ -101,9 +104,15 @@ public class GameManager : MonoBehaviour
             else
             {
                 user.guid = PlayerPrefs.GetString("GUID");
-                user.Rating = 0;
-                user.Score = 0;
                 user.Name = "Player";
+                string temp = await hubConnection.InvokeAsync<string>("CheckUser", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                if (temp == "false")
+                {
+                    user.guid = PlayerPrefs.GetString("GUID");
+                    user.Name = "Player";
+                    user.Score = PlayerPrefs.GetInt("BestScore");
+                    await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                }
             }
         }
     }
@@ -226,8 +235,12 @@ public class GameManager : MonoBehaviour
         UIController.SetBestRating(bestRating);
         UIController.SetCurrentRating(GameScore.GetTotalScore());
         UIController.MainCameraOff();
+        user.Score = PlayerPrefs.GetInt("BestScore");
+        await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         user.Score = GameScore.GetTotalScore();
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        UIController.SetRatingInMenu(temp);
     }
 
     private void Run_SoundOfDeath()

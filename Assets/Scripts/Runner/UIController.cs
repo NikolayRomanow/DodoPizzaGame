@@ -8,13 +8,18 @@ public class UIController : MonoBehaviour
 {
     public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
-    public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu;
+    public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu, RatingInMenu, RatingInRestartMenu;
     public bool Start;
     public event Action StartGame;
     public event Action RestartGame;
     public event Action BackToMenu;
 
-    
+    public void SetRatingInMenu(int rating)
+    {
+        RatingInMenu.text = rating.ToString();
+        RatingInRestartMenu.text = rating.ToString();
+    }
+
     public void SetBestRating(int bestRating)
     {
         BestRatingInMenu.text = bestRating.ToString();
