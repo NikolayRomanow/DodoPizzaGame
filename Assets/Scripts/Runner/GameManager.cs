@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     public int bestRating, currentRating;
 
     //Серверная инициализация
-    private string url = "http://localhost:5001/hello";
-    //private string url = "http://89.223.126.195:80/hello";
+    //private string url = "http://localhost:5001/hello";
+    private string url = "http://89.223.126.195:80/hello";
     private HubConnection hubConnection = null;
     private UnityMainThreadDispatcher _dispatcher;
     public User user = new User();
