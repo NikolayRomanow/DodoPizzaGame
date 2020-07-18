@@ -114,6 +114,7 @@ public class UIController : MonoBehaviour
         CanvasScoreZoneOff();
         CanvasStartBackOn();
         DodoIdle.SetActive(true);
+        RunnerDodo.SetActive(false);
         StartCoroutine(StayRunner());
         MainCamera.Play("ToHomeCamera");
         FirstVoprosTrigger.SetActive(true);
@@ -181,6 +182,7 @@ public class UIController : MonoBehaviour
     IEnumerator StayRunner()
     {
         yield return new WaitForSeconds(1);
+        RunnerDodo.SetActive(true);
         RunnerDodo.GetComponent<Animator>().Play("Ride");
     }
 }
