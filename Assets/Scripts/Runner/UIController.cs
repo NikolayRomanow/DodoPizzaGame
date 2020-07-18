@@ -13,6 +13,11 @@ public class UIController : MonoBehaviour
     public event Action StartGame;
     public event Action RestartGame;
     public event Action BackToMenu;
+    public GameObject DodoIdle;
+    public GameObject RunnerDodo;
+    public GameObject FirstVoprosTrigger;
+
+    private Animator Animator;
 
     public void SetRatingInMenu(int rating)
     {
@@ -83,6 +88,7 @@ public class UIController : MonoBehaviour
     }
     public void StartTheGame()
     {
+        Destroy(DodoIdle);
         StartGame();        
         MainCameraOn();
         StartBackOff();
@@ -90,6 +96,9 @@ public class UIController : MonoBehaviour
     }
     public void RestartTheGame()
     {
+        FirstVoprosTrigger.SetActive(true);
+        Animator = RunnerDodo.GetComponent<Animator>();
+        Animator.Play("Ride");
         RestartGame();        
         MainCameraOn();
         ScoreZoneOff();

@@ -35,7 +35,7 @@ namespace SupremumStudio
         }
         public void SetSliderValue()
         {
-            Timer.value = (int)TimeForQuestion*100;
+            Timer.value = TimeForQuestion*100;
         }
         public void ResetSliderValue()
         {
