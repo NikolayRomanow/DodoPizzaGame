@@ -88,7 +88,7 @@ public class UIController : MonoBehaviour
     }
     public void StartTheGame()
     {
-        Destroy(DodoIdle);
+        DodoIdle.SetActive(false);
         StartGame();        
         MainCameraOn();
         StartBackOff();
@@ -113,6 +113,11 @@ public class UIController : MonoBehaviour
         StartBackOn();
         CanvasScoreZoneOff();
         CanvasStartBackOn();
+        DodoIdle.SetActive(true);
+        StartCoroutine(StayRunner());
+        MainCamera.Play("ToHomeCamera");
+        FirstVoprosTrigger.SetActive(true);
+
     }
     public void InfoPanelOn()
     {
@@ -171,5 +176,11 @@ public class UIController : MonoBehaviour
     public void StartBackOff()
     {        
         StartBack.SetTrigger("off");        
+    }
+
+    IEnumerator StayRunner()
+    {
+        yield return new WaitForSeconds(1);
+        RunnerDodo.GetComponent<Animator>().Play("Ride");
     }
 }
