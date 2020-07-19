@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
 
     //Серверная инициализация
+    private bool isConnect = false;
     public float timeTenSec = 10f;
     //private string url = "http://localhost:5001/hello";
     private string url = "http://89.223.126.195:80/hello";
@@ -133,25 +134,30 @@ public class GameManager : MonoBehaviour
 
     private async void Update()
     {
-        if(timeTenSec>=0)
+        if (isConnect == false)
         {
-            if (this.hubConnection.State.ToString() == "Connected")
+            if (timeTenSec >= 0)
             {
-                //Debug.Log("Подключен");
-                UIController.NewStartPanel.gameObject.SetActive(true);
-                UIController.NewStartPanel.Play("on");
-                UIController.LoadPanel.gameObject.SetActive(false);
-                int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-                UIController.SetRatingInMenu(temp);
-                timeTenSec = -3;
+                if (this.hubConnection.State.ToString() == "Connected")
+                {
+                    //Debug.Log("Подключен");
+                    UIController.NewStartPanel.gameObject.SetActive(true);
+                    UIController.StartBackOn();
+                    UIController.LoadPanel.gameObject.SetActive(false);
+                    isConnect = true;
+                    timeTenSec = -3;
+                    int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                    UIController.SetRatingInMenu(temp);
+                }
+
+                timeTenSec -= Time.deltaTime;
             }
-            
-            timeTenSec-=Time.deltaTime;
-        }
-        if(timeTenSec < 0 && timeTenSec > -3)
-        {
-            //Debug.Log("Нет конекта");
-            UIController.InternetErorr();
+            if (timeTenSec < 0 && timeTenSec > -3 && isConnect == false)
+            {
+                Debug.Log("Нет конекта");
+                UIController.InternetErorr();
+                isConnect = true;
+            }
         }
     }
 

@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour
         ConnectionOffinRestartPanel.SetActive(true);
         RatingInMenu.text = "";
         RatingInRestartMenu.text = "";
+        StartBackOn();
     }
 
     public void SetRatingInMenu(int rating)
