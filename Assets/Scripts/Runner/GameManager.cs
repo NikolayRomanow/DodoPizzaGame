@@ -250,6 +250,7 @@ public class GameManager : MonoBehaviour
         //}
         //else
         //{
+            QuizView.ResetColors();
             QuizView.IsCorrectAnswerFalse();
             QuizView.ResetTime();
             QuizView.ResetSliderValue();

@@ -22,7 +22,7 @@ namespace SupremumStudio
         public Animator VictorineZone;
         public float TimeForQuestion, CurrentTime, DeltaTime;
         public bool QuestionIsOn = false;
-        public bool? IsCorrectAnswer { get; private set; }       
+        public bool? IsCorrectAnswer { get; private set; }
         public event Action<float> CorrectAnswer;
         public event Action InCorrectAnswer;
 
@@ -31,17 +31,20 @@ namespace SupremumStudio
         public void SetSliderMaxValue()
         {
             Timer.maxValue = 1800;
-            Timer.value = TimeForQuestion*100;
+            Timer.value = TimeForQuestion * 100;
         }
         public void SetSliderValue()
         {
-            Timer.value = TimeForQuestion*100;
+            Timer.value = TimeForQuestion * 100;
         }
         public void ResetSliderValue()
         {
             Timer.value = 1800;
         }
-        
+
+
+        public Color newColor;
+
 
         public void AnimationOn()
         {
@@ -68,21 +71,22 @@ namespace SupremumStudio
                 item.onClick.AddListener(() =>
                 {
                     if (item.GetComponentInChildren<Text>().text == Quiz.currentAnswer) //TODO: переосмыслить
-                    {   
+                    {
                         CorrectAnswer(SendScore());
                         //AnimationOff();
                         IsCorrectAnswer = true;
                         QuestinIsTrueOff();
                         ResetTime();
-                        
+                        item.GetComponentInChildren<Image>().color = Color.green;
                     }
                     else
-                    {   
+                    {
                         InCorrectAnswer();
-                       // AnimationOff();
+                        // AnimationOff();
                         IsCorrectAnswer = false;
                         QuestinIsTrueOff();
                         ResetTime();
+                        item.GetComponentInChildren<Image>().color = Color.red;
                     }
                 });
             }
@@ -92,8 +96,16 @@ namespace SupremumStudio
         {
             AnimationOn();
             var data = Quiz.GetQuestionData();
-            SetQuiz(data.Item1,data.Item2);
+            SetQuiz(data.Item1, data.Item2);
             IsCorrectAnswer = null;
+        }
+        public void ResetColors()
+        {
+            for (int i = 0; i <=2; i++)
+            {
+                AnswerButton[i].GetComponentInChildren<Image>().color = new Color(0, 0, 0, 0.5f);
+            }
+
         }
 
         public void ResetTime()
@@ -114,7 +126,7 @@ namespace SupremumStudio
             TimeForQuestion -= Time.deltaTime;
             CurrentTime += Time.deltaTime;
             DeltaTime = TimeForQuestion - CurrentTime;
-            if(DeltaTime<0)
+            if (DeltaTime < 0)
             {
                 DeltaTime = 0;
             }
@@ -125,7 +137,7 @@ namespace SupremumStudio
         }
         private void Update()
         {
-            
+
             //print(TimeForQuestion);
             //print(CurrentTime);
             //print(DeltaTime);
