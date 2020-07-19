@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        UIController.NewStartPanel.gameObject.SetActive(false);
         //PlayerPrefs.SetString("GUID", String.Empty);
         //PlayerPrefs.SetInt("BestScore", 0);
         GameScore.ResetScore();
@@ -133,15 +134,21 @@ public class GameManager : MonoBehaviour
         {
             if (this.hubConnection.State.ToString() == "Connected")
             {
-                //Debug.Log("Конект");
+                Debug.Log("Подключен");
+                UIController.NewStartPanel.gameObject.SetActive(true);
+                UIController.NewStartPanel.Play("on");
+                UIController.LoadPanel.gameObject.SetActive(false);
                 timeTenSec = -3;
             }
-            Debug.Log(timeTenSec);
+            
             timeTenSec-=Time.deltaTime;
         }
         if(timeTenSec < 0 && timeTenSec > -3)
         {
-            //Debug.Log("Нет конекта");
+            Debug.Log("Нет конекта");
+            UIController.NewStartPanel.gameObject.SetActive(true);
+            UIController.NewStartPanel.Play("on");
+            UIController.LoadPanel.gameObject.SetActive(false);
         }
     }
 
