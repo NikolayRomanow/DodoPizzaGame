@@ -147,8 +147,8 @@ public class GameManager : MonoBehaviour
                     int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
                     UIController.SetRatingInMenu(temp);
                     UIController.NewStartPanel.gameObject.SetActive(true);
-                    UIController.StartBackOn();
-                    UIController.LoadPanel.gameObject.SetActive(false);
+                    UIController.NewStartPanel.Play("on");
+                    UIController.LoadServer.SetActive(false);
                 }
 
                 timeTenSec -= Time.deltaTime;

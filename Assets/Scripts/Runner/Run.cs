@@ -23,6 +23,8 @@ public class Run : MonoBehaviour
     public GameObject Tile3;
     public GameObject Tile4;
 
+    public UIController UIController;
+
     private Animator Animator;
     private CapsuleCollider Collider;
     public Transform Tile1Transform;
@@ -54,6 +56,8 @@ public class Run : MonoBehaviour
         }
         if (other.tag == "Prov" && QuizView.IsCorrectAnswer == false)
         {
+            UIController.VictorineZoneOff();
+            UIController.TimerOff();
             Statistic.Speed = 3f;
             SoundOfDeath();
             StartCoroutine(ColliderOff2());

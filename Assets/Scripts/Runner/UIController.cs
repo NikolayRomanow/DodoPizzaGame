@@ -6,7 +6,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel, LoadPanel;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenu,BestRatingInRestartMenu, RatingInMenu, RatingInRestartMenu;
     public bool Start;
@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public event Action RestartGame;
     public event Action BackToMenu;
     public GameObject DodoIdle;
+    public GameObject LoadServer;
     public GameObject RunnerDodo;
     public GameObject FirstVoprosTrigger;
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
@@ -23,12 +24,12 @@ public class UIController : MonoBehaviour
     {
         NewStartPanel.gameObject.SetActive(true);
         NewStartPanel.Play("on");
-        LoadPanel.gameObject.SetActive(false);
+        LoadServer.SetActive(false);
         ConnectionOffinStartPanel.SetActive(true);
         ConnectionOffinRestartPanel.SetActive(true);
         RatingInMenu.text = "";
         RatingInRestartMenu.text = "";
-        StartBackOn();
+        NewStartPanel.Play("on");
     }
 
     public void SetRatingInMenu(int rating)
