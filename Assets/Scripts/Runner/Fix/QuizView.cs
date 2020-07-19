@@ -16,13 +16,13 @@ namespace SupremumStudio
 
         public TextMeshProUGUI QuestionText;
         public Text[] Answer;
-        public Button[] AnswerButton;        
+        public Button[] AnswerButton;
 
         public Quiz Quiz;
         public Animator VictorineZone;
         public float TimeForQuestion, CurrentTime, DeltaTime;
         public bool QuestionIsOn = false;
-        public bool IsCorrectAnswer { get; private set; }       
+        public bool? IsCorrectAnswer { get; private set; }       
         public event Action<float> CorrectAnswer;
         public event Action InCorrectAnswer;
 
@@ -93,6 +93,7 @@ namespace SupremumStudio
             AnimationOn();
             var data = Quiz.GetQuestionData();
             SetQuiz(data.Item1,data.Item2);
+            IsCorrectAnswer = null;
         }
 
         public void ResetTime()

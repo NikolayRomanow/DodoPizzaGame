@@ -265,11 +265,11 @@ public class GameManager : MonoBehaviour
         SetSpeed(0);
         SoundController.SoundInGameOff();
         UIController.CanvasScoreZoneOn();
-        if (QuizView.QuestionIsOn == true)
-        {
-            UIController.VictorineZoneOff();
-            UIController.TimerOff();
-        }
+        //if (QuizView.QuestionIsOn == true)
+        //{
+        //    UIController.VictorineZoneOff();
+        //    UIController.TimerOff();
+        //}
         UIController.ScoreZoneOn();
         SaveRating();
         UIController.SetBestRating(bestRating);

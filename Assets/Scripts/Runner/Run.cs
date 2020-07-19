@@ -32,6 +32,15 @@ public class Run : MonoBehaviour
     public Transform Tile3Transform;
     public Transform Tile4Transform;
 
+    private void NotTrueAnswer()
+    {
+        Statistic.Speed = 3f;
+        SoundOfDeath();
+        StartCoroutine(ColliderOff2());
+        StartCoroutine(BadFinish());
+        Animator.Play("Obstacle Failed");
+    }
+
     void Start()
     {
         Collider = GetComponent<CapsuleCollider>();
@@ -56,13 +65,13 @@ public class Run : MonoBehaviour
         }
         if (other.tag == "Prov" && QuizView.IsCorrectAnswer == false)
         {
+            NotTrueAnswer();
+        }
+        if (other.tag == "Prov" && QuizView.IsCorrectAnswer == null)
+        {
             UIController.VictorineZoneOff();
             UIController.TimerOff();
-            Statistic.Speed = 3f;
-            SoundOfDeath();
-            StartCoroutine(ColliderOff2());
-            StartCoroutine(BadFinish());
-            Animator.Play("Obstacle Failed");
+            NotTrueAnswer();
         }
         if (other.tag == "Prep")
         {
