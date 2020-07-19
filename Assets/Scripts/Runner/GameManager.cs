@@ -141,13 +141,14 @@ public class GameManager : MonoBehaviour
                 if (this.hubConnection.State.ToString() == "Connected")
                 {
                     //Debug.Log("Подключен");
+                    isConnect = true;
+                    timeTenSec = -3;
+                    user.guid = PlayerPrefs.GetString("GUID");
+                    int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                    UIController.SetRatingInMenu(temp);
                     UIController.NewStartPanel.gameObject.SetActive(true);
                     UIController.StartBackOn();
                     UIController.LoadPanel.gameObject.SetActive(false);
-                    isConnect = true;
-                    timeTenSec = -3;
-                    int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-                    UIController.SetRatingInMenu(temp);
                 }
 
                 timeTenSec -= Time.deltaTime;
