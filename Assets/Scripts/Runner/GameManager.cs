@@ -10,6 +10,7 @@ using System;
 using DodoDataModel;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEditor;
+using System.Net.Sockets;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,10 +23,10 @@ public class GameManager : MonoBehaviour
     public SpeedController SpeedController;
     public SoundController SoundController;
     public int bestRating, currentRating;
-
+    public float timeTenSec = 10f;
     //Серверная инициализация
-    //private string url = "http://localhost:5001/hello";
-    private string url = "http://89.223.126.195:80/hello";
+    private string url = "http://localhost:5001/hello";
+    //private string url = "http://89.223.126.195:80/hello";
     private HubConnection hubConnection = null;
     private UnityMainThreadDispatcher _dispatcher;
     public User user = new User();
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
     //public static Action myStart = () => { Debug.Log("myStart"); };
     //public static Action myUpdate = () => { Debug.Log("myUpdate"); };
 
-    private async void Start()
+    private void Start()
     {
         //PlayerPrefs.SetString("GUID", String.Empty);
         //PlayerPrefs.SetInt("BestScore", 0);
@@ -79,6 +80,12 @@ public class GameManager : MonoBehaviour
         SaveRating();
         SoundController.SoundInMenuOn();
         _dispatcher = UnityMainThreadDispatcher.Instance();
+        StartServer();
+        
+    }
+
+    private async void StartServer()
+    {
         await this.StartSignalRAsync();
     }
 
@@ -92,6 +99,7 @@ public class GameManager : MonoBehaviour
                 .Build();
 
             // start server
+            
             await this.hubConnection.StartAsync();
             
             if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
@@ -114,14 +122,29 @@ public class GameManager : MonoBehaviour
                     await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
                 }
             }
+            
+        }
+        
+    }
+
+    private void Update()
+    {
+        if(timeTenSec>=0)
+        {
+            if (this.hubConnection.State.ToString() == "Connected")
+            {
+                //Debug.Log("Конект");
+                timeTenSec = -3;
+            }
+            Debug.Log(timeTenSec);
+            timeTenSec-=Time.deltaTime;
+        }
+        if(timeTenSec < 0 && timeTenSec > -3)
+        {
+            //Debug.Log("Нет конекта");
         }
     }
 
-    //private void Update()
-    //{
-    //    print(Quiz.CurrentQuestion);
-    //    print(Quiz.questions.Count);
-    //}
     public void SetSpeed(float speed)
     {
         Statistic.Speed = speed;
@@ -256,10 +279,13 @@ public class GameManager : MonoBehaviour
         }
         bestRating = PlayerPrefs.GetInt("BestScore");
     }
-    
+
     //private void Update()
     //{
     //    Debug.Log(GameScore.GetTotalScore());
     //}
-
+    private void OnDestroy()
+    {
+        hubConnection.StopAsync();
+    }
 }
