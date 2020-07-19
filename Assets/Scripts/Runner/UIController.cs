@@ -16,8 +16,19 @@ public class UIController : MonoBehaviour
     public GameObject DodoIdle;
     public GameObject RunnerDodo;
     public GameObject FirstVoprosTrigger;
-
+    public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
+
+    public void InternetErorr()
+    {
+        NewStartPanel.gameObject.SetActive(true);
+        NewStartPanel.Play("on");
+        LoadPanel.gameObject.SetActive(false);
+        ConnectionOffinStartPanel.SetActive(true);
+        ConnectionOffinRestartPanel.SetActive(true);
+        RatingInMenu.text = "";
+        RatingInRestartMenu.text = "";
+    }
 
     public void SetRatingInMenu(int rating)
     {

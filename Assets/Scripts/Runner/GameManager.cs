@@ -23,10 +23,12 @@ public class GameManager : MonoBehaviour
     public SpeedController SpeedController;
     public SoundController SoundController;
     public int bestRating, currentRating;
-    public float timeTenSec = 10f;
+
+
     //Серверная инициализация
-    private string url = "http://localhost:5001/hello";
-    //private string url = "http://89.223.126.195:80/hello";
+    public float timeTenSec = 10f;
+    //private string url = "http://localhost:5001/hello";
+    private string url = "http://89.223.126.195:80/hello";
     private HubConnection hubConnection = null;
     private UnityMainThreadDispatcher _dispatcher;
     public User user = new User();
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
         //PlayerPrefs.SetString("GUID", String.Empty);
         //PlayerPrefs.SetInt("BestScore", 0);
         GameScore.ResetScore();
+        UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
         //myStart();
         SaveRating();
         SoundController.SoundInMenuOn();
@@ -128,16 +131,18 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void Update()
+    private async void Update()
     {
         if(timeTenSec>=0)
         {
             if (this.hubConnection.State.ToString() == "Connected")
             {
-                Debug.Log("Подключен");
+                //Debug.Log("Подключен");
                 UIController.NewStartPanel.gameObject.SetActive(true);
                 UIController.NewStartPanel.Play("on");
                 UIController.LoadPanel.gameObject.SetActive(false);
+                int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                UIController.SetRatingInMenu(temp);
                 timeTenSec = -3;
             }
             
@@ -145,10 +150,8 @@ public class GameManager : MonoBehaviour
         }
         if(timeTenSec < 0 && timeTenSec > -3)
         {
-            Debug.Log("Нет конекта");
-            UIController.NewStartPanel.gameObject.SetActive(true);
-            UIController.NewStartPanel.Play("on");
-            UIController.LoadPanel.gameObject.SetActive(false);
+            //Debug.Log("Нет конекта");
+            UIController.InternetErorr();
         }
     }
 
