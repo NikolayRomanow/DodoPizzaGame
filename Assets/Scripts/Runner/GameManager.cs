@@ -107,26 +107,7 @@ public class GameManager : MonoBehaviour
             
             await this.hubConnection.StartAsync();
             
-            if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
-            {
-                PlayerPrefs.SetString("GUID", Guid.NewGuid().ToString());
-                user.guid = PlayerPrefs.GetString("GUID");
-                user.Name = "Player";
-                await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-            }
-            else
-            {
-                user.guid = PlayerPrefs.GetString("GUID");
-                user.Name = "Player";
-                string temp = await hubConnection.InvokeAsync<string>("CheckUser", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-                if (temp == "false")
-                {
-                    user.guid = PlayerPrefs.GetString("GUID");
-                    user.Name = "Player";
-                    user.Score = PlayerPrefs.GetInt("BestScore");
-                    await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-                }
-            }
+            
             
         }
         
@@ -143,7 +124,29 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Подключен");
                     isConnect = true;
                     timeTenSec = -3;
-                    user.guid = PlayerPrefs.GetString("GUID");
+                    if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
+                    {
+                        PlayerPrefs.SetString("GUID", Guid.NewGuid().ToString());
+                        user.guid = PlayerPrefs.GetString("GUID");
+                        user.Name = "Player";
+                        await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                    }
+                    else
+                    {
+                        user.guid = PlayerPrefs.GetString("GUID");
+                        user.Name = "Player";
+                        string temp1 = await hubConnection.InvokeAsync<string>("CheckUser", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                        if (temp1 == "false")
+                        {
+                            user.guid = PlayerPrefs.GetString("GUID");
+                            user.Name = "Player";
+                            user.Score = PlayerPrefs.GetInt("BestScore");
+                            await hubConnection.InvokeAsync("Registration", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                        }else
+                        {
+                            await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+                        }
+                    }
                     int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
                     UIController.SetRatingInMenu(temp);
                     UIController.NewStartPanel.gameObject.SetActive(true);
