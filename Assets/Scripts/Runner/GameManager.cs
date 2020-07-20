@@ -196,6 +196,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_StartGame()
     {
+        UIController.SetBestRatingInGame(bestRating);
         GameScore.ResetScore();
         Statistic.isGameStart = true;
         SetSpeed(3);
@@ -205,7 +206,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void QuizView_InCorrectAnswer()
-    {   
+    {
+        
         UIController.VictorineZoneOff();
         UIController.TimerOff();
         SoundController.SoundOfInCorrectAnswer();
@@ -214,9 +216,12 @@ public class GameManager : MonoBehaviour
     }
 
     private void QuizView_CorrectAnswer(float deltaTime)
-    {
+    {       
         UIController.VictorineZoneOff();
         GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
+        BestRatingInGame();
+        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
+        UIController.SetBestRatingInGame(bestRating);
         SoundController.SoundOfCorrectAnswer();
         UIController.CanvasVictorineZoneOff();
         UIController.TimerOff();
@@ -283,6 +288,13 @@ public class GameManager : MonoBehaviour
         int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         UIController.SetRatingInMenu(temp);
     }
+    public void BestRatingInGame()
+    {
+        if (GameScore.GetTotalScore() > bestRating)
+        {
+            bestRating = GameScore.GetTotalScore();
+        }        
+    }
 
     private void Run_SoundOfDeath()
     {
@@ -305,5 +317,9 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         hubConnection.StopAsync();
+    }
+    private void FixedUpdate()
+    {
+        print(bestRating);
     }
 }
