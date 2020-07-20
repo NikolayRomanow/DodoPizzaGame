@@ -62,10 +62,12 @@ public class Run : MonoBehaviour
         {
             CheckArrived(3);
             Jump();
+            QuizView.SetColorGreen();
         }
         if (other.tag == "Prov" && QuizView.IsCorrectAnswer == false)
         {
             NotTrueAnswer();
+            QuizView.SetColorRed();
         }
         if (other.tag == "Prov" && QuizView.IsCorrectAnswer == null)
         {

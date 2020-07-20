@@ -43,9 +43,6 @@ namespace SupremumStudio
         }
 
 
-        public Color newColor;
-
-
         public void AnimationOn()
         {
             VictorineZone.SetTrigger("on");
@@ -75,18 +72,19 @@ namespace SupremumStudio
                         CorrectAnswer(SendScore());
                         //AnimationOff();
                         IsCorrectAnswer = true;
-                        QuestinIsTrueOff();
-                        ResetTime();
-                        item.GetComponentInChildren<Image>().color = Color.green;
+                        //QuestinIsTrueOff();
+                        //ResetTime();
+                        item.GetComponentInChildren<Image>().color = Color.yellow;
+
                     }
                     else
                     {
                         InCorrectAnswer();
                         // AnimationOff();
                         IsCorrectAnswer = false;
-                        QuestinIsTrueOff();
-                        ResetTime();
-                        item.GetComponentInChildren<Image>().color = Color.red;
+                        //QuestinIsTrueOff();
+                        //ResetTime();
+                        item.GetComponentInChildren<Image>().color = Color.yellow;
                     }
                 });
             }
@@ -94,18 +92,39 @@ namespace SupremumStudio
 
         private void Quiz_QuestionChanged()
         {
-            AnimationOn();
+            //AnimationOn();
             var data = Quiz.GetQuestionData();
             SetQuiz(data.Item1, data.Item2);
             IsCorrectAnswer = null;
         }
         public void ResetColors()
         {
-            for (int i = 0; i <=2; i++)
+            for (int i = 0; i <= 2; i++)
             {
                 AnswerButton[i].GetComponentInChildren<Image>().color = new Color(0, 0, 0, 0.5f);
             }
 
+        }
+        public void SetColorGreen()
+        {
+            foreach (var item in AnswerButton) // TODO: not work in for
+            {
+                if (item.GetComponentInChildren<Text>().text == Quiz.currentAnswer) //TODO: переосмыслить
+                {
+                    item.GetComponentInChildren<Image>().color = Color.green;
+                }
+            }
+        }
+        public void SetColorRed()
+        {
+            foreach (var item in AnswerButton) // TODO: not work in for
+            {
+                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer) //TODO: переосмыслить
+                {
+                    item.GetComponentInChildren<Image>().color = Color.red;
+                }
+               
+            }
         }
 
         public void ResetTime()
@@ -121,6 +140,8 @@ namespace SupremumStudio
         {
             QuestionIsOn = false;
         }
+
+
         public void CalcTime()
         {
             TimeForQuestion -= Time.deltaTime;

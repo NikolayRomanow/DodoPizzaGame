@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         SoundController.SoundInMenuOn();
         _dispatcher = UnityMainThreadDispatcher.Instance();
         StartServer();
-        
+
     }
 
     private async void StartServer()
@@ -104,16 +104,16 @@ public class GameManager : MonoBehaviour
                 .Build();
 
             // start server
-            
+
             await this.hubConnection.StartAsync();
 
-            
+
         }
-        
+
     }
 
     private async void Update()
-    {
+    {        
         if (isConnect == false)
         {
             if (timeTenSec >= 0)
@@ -179,10 +179,10 @@ public class GameManager : MonoBehaviour
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
         SoundController.SoundInGameOn();
-        
+
     }
     private void UIController_BackToMenu()
-    { 
+    {
         if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
         {
             UIController.WinZoneOff();
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         Quiz.ResetQuiz();
         SoundController.SoundOfPressedButton();
         SoundController.SoundInMenuOn();
-       
+
     }
 
     private void UIController_StartGame()
@@ -207,24 +207,24 @@ public class GameManager : MonoBehaviour
 
     private void QuizView_InCorrectAnswer()
     {
-        
-        UIController.VictorineZoneOff();
-        UIController.TimerOff();
+
+        //UIController.VictorineZoneOff();
+        //UIController.TimerOff();
         SoundController.SoundOfInCorrectAnswer();
         UIController.CanvasVictorineZoneOff();
         SetSpeed(9);
     }
 
     private void QuizView_CorrectAnswer(float deltaTime)
-    {       
-        UIController.VictorineZoneOff();
+    {
+        //UIController.VictorineZoneOff();
         GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
         BestRatingInGame();
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
         SoundController.SoundOfCorrectAnswer();
         UIController.CanvasVictorineZoneOff();
-        UIController.TimerOff();
+        //UIController.TimerOff();
         SetSpeed(9);
         //if(Quiz.CurrentQuestion==Quiz.questions.Count-1)
         //{
@@ -255,27 +255,34 @@ public class GameManager : MonoBehaviour
         //}
         //else
         //{
-            QuizView.ResetColors();
-            QuizView.IsCorrectAnswerFalse();
-            QuizView.ResetTime();
-            QuizView.ResetSliderValue();
-            Quiz.NextQuestion();
-            QuizView.QuestinIsTrueOn();
-            UIController.CanvasVictorineZoneOn();
+        if (QuizView.QuestionIsOn == false)
+        {
+            UIController.VictorineZoneOn();
             UIController.TimerOn();
+        }
+        QuizView.ResetColors();
+        QuizView.IsCorrectAnswerFalse();
+        QuizView.ResetTime();
+        QuizView.ResetSliderValue();
+        Quiz.NextQuestion();
+        QuizView.QuestinIsTrueOn();
+        UIController.CanvasVictorineZoneOn();
+        
         //}
     }
 
     private async void Run_Death()
     {
+        
         SetSpeed(0);
         SoundController.SoundInGameOff();
         UIController.CanvasScoreZoneOn();
-        //if (QuizView.QuestionIsOn == true)
-        //{
-        //    UIController.VictorineZoneOff();
-        //    UIController.TimerOff();
-        //}
+        if (QuizView.QuestionIsOn == true)
+        {
+            UIController.VictorineZoneOff();
+            UIController.TimerOff();
+        }
+        QuizView.QuestinIsTrueOff();
         UIController.ScoreZoneOn();
         SaveRating();
         UIController.SetBestRating(bestRating);
@@ -293,7 +300,7 @@ public class GameManager : MonoBehaviour
         if (GameScore.GetTotalScore() > bestRating)
         {
             bestRating = GameScore.GetTotalScore();
-        }        
+        }
     }
 
     private void Run_SoundOfDeath()
@@ -304,8 +311,8 @@ public class GameManager : MonoBehaviour
     {
         bestRating = PlayerPrefs.GetInt("BestScore");
         if (GameScore.GetTotalScore() > bestRating)
-        {   
-            PlayerPrefs.SetInt("BestScore", GameScore.GetTotalScore());            
+        {
+            PlayerPrefs.SetInt("BestScore", GameScore.GetTotalScore());
         }
         bestRating = PlayerPrefs.GetInt("BestScore");
     }
@@ -317,9 +324,5 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         hubConnection.StopAsync();
-    }
-    private void FixedUpdate()
-    {
-        print(bestRating);
     }
 }

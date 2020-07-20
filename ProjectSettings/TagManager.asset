@@ -9,6 +9,7 @@ TagManager:
   - NewVopros
   - FirstVopros
   - WinOrNot
+  - ProverkaVoprosa
   layers:
   - Default
   - TransparentFX
