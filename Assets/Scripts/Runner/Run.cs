@@ -34,11 +34,11 @@ public class Run : MonoBehaviour
 
     private void NotTrueAnswer()
     {
-        Statistic.Speed = 3f;
+        //Statistic.Speed = 3f;
         SoundOfDeath();
         StartCoroutine(ColliderOff2());
         StartCoroutine(BadFinish());
-        Animator.Play("Obstacle Failed");
+        Animator.Play("Bad Finish");
     }
 
     void Start()
@@ -68,22 +68,22 @@ public class Run : MonoBehaviour
 
         if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
-            CheckArrived(3);
+            CheckArrived(9);
             JumpR();
             QuizView.SetColorGreen();
         }
         if (other.tag == "ProvL" && QuizView.IsCorrectAnswer == true)
         {
-            CheckArrived(3);
+            CheckArrived(9);
             JumpL();
             QuizView.SetColorGreen();
         }
-        if (other.tag == "Prov" && QuizView.IsCorrectAnswer == false)
+        if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == false)
         {
             NotTrueAnswer();
             QuizView.SetColorRed();
         }
-        if (other.tag == "Prov" && QuizView.IsCorrectAnswer == null)
+        if ((other.tag == "ProvL" || other.tag == "ProvL") && QuizView.IsCorrectAnswer == null)
         {
             UIController.VictorineZoneOff();
             UIController.TimerOff();
@@ -116,7 +116,7 @@ public class Run : MonoBehaviour
     IEnumerator ColliderOff()
     {
         Collider.enabled = false;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         Collider.enabled = true;
     }
 
@@ -124,17 +124,17 @@ public class Run : MonoBehaviour
     {
         Collider.enabled = false;
         yield return new WaitForSeconds(3.0f);
-        Collider.enabled = true;
+        //Collider.enabled = true;
     }
 
     IEnumerator BadFinish()
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(0.0f);
         Death();
-        Tile1.transform.position = Tile1Transform.position;
-        Tile2.transform.position = Tile2Transform.position;
-        Tile3.transform.position = Tile3Transform.position;
-        Tile4.transform.position = Tile4Transform.position;
+        //Tile1.transform.position = Tile1Transform.position;
+        //Tile2.transform.position = Tile2Transform.position;
+        //Tile3.transform.position = Tile3Transform.position;
+        //Tile4.transform.position = Tile4Transform.position;
 
     }
 }
