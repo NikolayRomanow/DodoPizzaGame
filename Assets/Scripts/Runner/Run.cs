@@ -48,20 +48,34 @@ public class Run : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         FirstVopros = GameObject.FindGameObjectWithTag("FirstVopros");
     }
-    public void Jump()
+    public void JumpR()
     {
         //rb.AddForce(new Vector3(0, 2, 0) * 180);
         StartCoroutine(ColliderOff());
-        Animator.Play("Jump");
+        Animator.Play("ObstacleR");
         
+    }
+
+    public void JumpL()
+    {
+        //rb.AddForce(new Vector3(0, 2, 0) * 180);
+        StartCoroutine(ColliderOff());
+        Animator.Play("OBSTACLELEFT");
+
     }
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.tag == "Prov" && QuizView.IsCorrectAnswer == true)
+        if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
             CheckArrived(3);
-            Jump();
+            JumpR();
+            QuizView.SetColorGreen();
+        }
+        if (other.tag == "ProvL" && QuizView.IsCorrectAnswer == true)
+        {
+            CheckArrived(3);
+            JumpL();
             QuizView.SetColorGreen();
         }
         if (other.tag == "Prov" && QuizView.IsCorrectAnswer == false)
