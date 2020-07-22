@@ -119,11 +119,10 @@ namespace SupremumStudio
         {
             foreach (var item in AnswerButton) // TODO: not work in for
             {
-                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer) //TODO: переосмыслить
+                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer && item.GetComponentInChildren<Image>().color== Color.yellow) //TODO: переосмыслить
                 {
                     item.GetComponentInChildren<Image>().color = Color.red;
-                }
-               
+                }               
             }
         }
 
