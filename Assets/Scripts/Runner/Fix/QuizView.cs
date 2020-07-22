@@ -25,6 +25,7 @@ namespace SupremumStudio
         public bool? IsCorrectAnswer { get; private set; }
         public event Action<float> CorrectAnswer;
         public event Action InCorrectAnswer;
+        public GameObject TextTable;
 
         public Slider Timer;
 
@@ -74,7 +75,8 @@ namespace SupremumStudio
                         IsCorrectAnswer = true;
                         //QuestinIsTrueOff();
                         //ResetTime();
-                        item.GetComponentInChildren<Image>().color = Color.yellow;
+                        //item.GetComponentInChildren<Image>().color = Color.yellow;
+                        item.GetComponentInChildren<Image>().color = new Color(1, 0.4117647f, 0, 0.5f);
 
                     }
                     else
@@ -84,7 +86,7 @@ namespace SupremumStudio
                         IsCorrectAnswer = false;
                         //QuestinIsTrueOff();
                         //ResetTime();
-                        item.GetComponentInChildren<Image>().color = Color.yellow;
+                        item.GetComponentInChildren<Image>().color = new Color(1, 0.4117647f, 0, 0.5f);
                     }
                 });
             }
@@ -103,6 +105,7 @@ namespace SupremumStudio
             {
                 AnswerButton[i].GetComponentInChildren<Image>().color = new Color(0, 0, 0, 0.5f);
             }
+            TextTable.GetComponentInChildren<Image>().color = new Color(0, 0, 0, 0.5f);
 
         }
         public void SetColorGreen()
@@ -111,7 +114,7 @@ namespace SupremumStudio
             {
                 if (item.GetComponentInChildren<Text>().text == Quiz.currentAnswer) //TODO: переосмыслить
                 {
-                    item.GetComponentInChildren<Image>().color = Color.green;
+                    item.GetComponentInChildren<Image>().color = new Color(0.01176471f, 0.6862745f, 0.01176471f, 0.5f);
                 }
             }
         }
@@ -119,11 +122,15 @@ namespace SupremumStudio
         {
             foreach (var item in AnswerButton) // TODO: not work in for
             {
-                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer && item.GetComponentInChildren<Image>().color== Color.yellow) //TODO: переосмыслить
+                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer && item.GetComponentInChildren<Image>().color== new Color(1, 0.4117647f, 0, 0.5f)) //TODO: переосмыслить
                 {
-                    item.GetComponentInChildren<Image>().color = Color.red;
+                    item.GetComponentInChildren<Image>().color = new Color(0.6862745f, 0f, 0f, 0.5f);
                 }               
             }
+        }
+        public void RedText()
+        {
+            TextTable.GetComponentInChildren<Image>().color = new Color(0.6862745f, 0f, 0f, 0.5f);
         }
 
         public void ResetTime()

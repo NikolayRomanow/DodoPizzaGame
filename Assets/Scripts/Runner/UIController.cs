@@ -6,7 +6,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel,DarkScreen;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenu, BestRatingInRestartMenu, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame;
     public bool Start;
@@ -31,7 +31,10 @@ public class UIController : MonoBehaviour
         RatingInRestartMenu.text = "";
         NewStartPanel.Play("on");
     }
-
+    public void DarkScreenOn()
+    {
+        DarkScreen.SetTrigger("on");
+    }
     public void SetRatingInMenu(int rating)
     {
         RatingInMenu.text = rating.ToString();
@@ -118,6 +121,7 @@ public class UIController : MonoBehaviour
     }
     public void RestartTheGame()
     {
+        DarkScreenOn();
         FirstVoprosTrigger.SetActive(true);
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");

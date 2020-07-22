@@ -93,6 +93,7 @@ public class Run : MonoBehaviour
             UIController.VictorineZoneOff();
             UIController.TimerOff();
             NotTrueAnswer();
+            QuizView.RedText();
         }
         if (other.tag == "Prep")
         {
