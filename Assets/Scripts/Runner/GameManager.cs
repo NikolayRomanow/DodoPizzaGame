@@ -292,6 +292,8 @@ public class GameManager : MonoBehaviour
     {
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
+        UIController.House.SetActive(false);
+        UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
         UIController.CanvasScoreZoneOn();
         if (QuizView.QuestionIsOn == true)

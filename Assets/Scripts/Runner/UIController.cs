@@ -17,6 +17,8 @@ public class UIController : MonoBehaviour
     public GameObject LoadServer;
     public GameObject RunnerDodo;
     public GameObject FirstVoprosTrigger;
+    public GameObject House;
+    public GameObject Spruces;
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
 
@@ -220,6 +222,8 @@ public class UIController : MonoBehaviour
     IEnumerator WaitRun()
     {
         yield return new WaitForSeconds(1.0f);
+        House.SetActive(true);
+        Spruces.SetActive(false);
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");
     }
