@@ -150,7 +150,7 @@ namespace SupremumStudio
 
         public void CalcTime()
         {
-            TimeForQuestion -= Time.deltaTime;
+            //TimeForQuestion -= Time.deltaTime;
             CurrentTime += Time.deltaTime;
             DeltaTime = TimeForQuestion - CurrentTime;
             if (DeltaTime < 0)
@@ -165,9 +165,9 @@ namespace SupremumStudio
         private void Update()
         {
 
-            //print(TimeForQuestion);
-            //print(CurrentTime);
-            //print(DeltaTime);
+            print(TimeForQuestion);
+            print(CurrentTime);
+            print(DeltaTime);
 
             if (QuestionIsOn == true)
             {
