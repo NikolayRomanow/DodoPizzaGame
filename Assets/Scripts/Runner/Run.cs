@@ -108,10 +108,10 @@ public class Run : MonoBehaviour
             NewVopros();
             FirstVopros.SetActive(false);
         }
-        if (other.tag == "WinOrNot")
-        {
-            WinOrNot();
-        }
+        //if (other.tag == "WinOrNot")
+        //{
+        //    WinOrNot();
+        //}
 
     }
     private void Update()

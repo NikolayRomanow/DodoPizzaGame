@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour
             UIController.WinZoneOff();
         }
         GameScore.ResetScore();
+        SetRatingInGame();
         user.Score = 0;
         Quiz.ResetQuiz();
         SetSpeed(9);

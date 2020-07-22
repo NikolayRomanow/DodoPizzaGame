@@ -65,7 +65,7 @@ namespace SupremumStudio
 
                 currentAnswer = string.Empty;
                 currentWeight = 0;
-                return ("Как вы думаете разработчики выиграют?", new string[] { "Нет", "Нет", "Нет" });
+                return ("Как вы думаете, разработчики выиграют?", new string[] { "Нет", "Нет", "Нет" });
             }
             else
             {

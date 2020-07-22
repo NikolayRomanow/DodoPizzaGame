@@ -111,7 +111,7 @@ public class UIController : MonoBehaviour
         StartBackOn();
         
     }
-    public void StartTheGame()
+    public void StartTheGame()  
     {
         DodoIdle.SetActive(false);
         StartGame();        
