@@ -150,9 +150,9 @@ namespace SupremumStudio
 
         public void CalcTime()
         {
-            //TimeForQuestion -= Time.deltaTime;
-            CurrentTime += Time.deltaTime;
-            DeltaTime = TimeForQuestion - CurrentTime;
+            TimeForQuestion -= Time.deltaTime;
+            //CurrentTime += Time.deltaTime;
+            DeltaTime = TimeForQuestion /*- CurrentTime*/;
             if (DeltaTime < 0)
             {
                 DeltaTime = 0;
