@@ -18,6 +18,7 @@ public class Run : MonoBehaviour
     public static event Action WinOrNot;
     public static event Action<float> CheckArrived;
 
+    public GameObject StartTile;
     public GameObject Tile1;
     public GameObject Tile2;
     public GameObject Tile3;
@@ -27,6 +28,7 @@ public class Run : MonoBehaviour
 
     private Animator Animator;
     private CapsuleCollider Collider;
+    public Transform StartTileTransform;
     public Transform Tile1Transform;
     public Transform Tile2Transform;
     public Transform Tile3Transform;
@@ -65,7 +67,6 @@ public class Run : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
             CheckArrived(9);
@@ -123,18 +124,19 @@ public class Run : MonoBehaviour
     IEnumerator ColliderOff2()
     {
         Collider.enabled = false;
-        yield return new WaitForSeconds(3.0f);
-        //Collider.enabled = true;
+        yield return new WaitForSeconds(1.3f);
+        Collider.enabled = true;
     }
 
     IEnumerator BadFinish()
     {
         yield return new WaitForSeconds(0.0f);
         Death();
-        //Tile1.transform.position = Tile1Transform.position;
-        //Tile2.transform.position = Tile2Transform.position;
-        //Tile3.transform.position = Tile3Transform.position;
-        //Tile4.transform.position = Tile4Transform.position;
+        yield return new WaitForSeconds(1.1f);
+        Tile1.transform.position = Tile1Transform.position;
+        Tile2.transform.position = Tile2Transform.position;
+        Tile3.transform.position = Tile3Transform.position;
+        Tile4.transform.position = Tile4Transform.position;
 
     }
 }

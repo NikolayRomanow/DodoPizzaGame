@@ -255,6 +255,7 @@ public class GameManager : MonoBehaviour
         //}
         //else
         //{
+        Statistic.Speed = 3f;
         if (QuizView.QuestionIsOn == false)
         {
             UIController.VictorineZoneOn();
@@ -324,5 +325,10 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         hubConnection.StopAsync();
+    }
+
+    IEnumerator ZaderjkaInterfeicov()
+    {
+        yield return new WaitForSeconds(1.0f);
     }
 }
