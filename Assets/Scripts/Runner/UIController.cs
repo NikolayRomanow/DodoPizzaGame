@@ -121,7 +121,7 @@ public class UIController : MonoBehaviour
     }
     public void RestartTheGame()
     {
-        DarkScreenOn();
+        DarkScreenOn(); 
         FirstVoprosTrigger.SetActive(true);
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");
