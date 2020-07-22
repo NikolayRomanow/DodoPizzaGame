@@ -90,8 +90,8 @@ public class Run : MonoBehaviour
         }
         if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == null)
         {
-            UIController.VictorineZoneOff();
-            UIController.TimerOff();
+            //UIController.VictorineZoneOff();
+            //UIController.TimerOff();
             NotTrueAnswer();
             QuizView.RedText();
         }
