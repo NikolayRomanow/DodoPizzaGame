@@ -95,7 +95,7 @@ namespace SupremumStudio
             //AnimationOn();
             var data = Quiz.GetQuestionData();
             SetQuiz(data.Item1, data.Item2);
-            IsCorrectAnswer = null;
+            //IsCorrectAnswer = null;
         }
         public void ResetColors()
         {
