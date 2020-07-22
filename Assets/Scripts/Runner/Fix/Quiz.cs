@@ -190,5 +190,6 @@ namespace SupremumStudio
         //        Statistic.Scores += model[i].Weight;                
         //    }
         //}
+        
     }
 }

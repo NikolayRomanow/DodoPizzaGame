@@ -17,6 +17,8 @@ public class Run : MonoBehaviour
     public static event Action NewVopros;
     public static event Action WinOrNot;
     public static event Action<float> CheckArrived;
+    public static event Action ProvL;
+    public static event Action ProvR;
 
     public GameObject StartTile;
     public GameObject Tile1;
@@ -64,18 +66,19 @@ public class Run : MonoBehaviour
         //rb.AddForce(new Vector3(0, 2, 0) * 180);
         //StartCoroutine(ColliderOff());
         Animator.Play("OBSTACLELEFT");
-
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
+            ProvR();
             CheckArrived(9);
             JumpR();
             QuizView.SetColorGreen();
         }
         if (other.tag == "ProvL" && QuizView.IsCorrectAnswer == true)
         {
+            ProvL();
             CheckArrived(9);
             JumpL();
             QuizView.SetColorGreen();
