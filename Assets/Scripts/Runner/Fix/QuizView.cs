@@ -49,7 +49,7 @@ namespace SupremumStudio
         }
         public void IsCorrectAnswerFalse()
         {
-            IsCorrectAnswer = false;
+            IsCorrectAnswer = null;
         }
         //public void AnimationOff()
         //{

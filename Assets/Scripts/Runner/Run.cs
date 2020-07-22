@@ -38,8 +38,9 @@ public class Run : MonoBehaviour
     {
         //Statistic.Speed = 3f;
         SoundOfDeath();
-        StartCoroutine(ColliderOff2());
-        StartCoroutine(BadFinish());
+        //StartCoroutine(ColliderOff2());
+        //StartCoroutine(BadFinish());
+        Death();
         Animator.Play("Bad Finish");
     }
 
@@ -53,7 +54,7 @@ public class Run : MonoBehaviour
     public void JumpR()
     {
         //rb.AddForce(new Vector3(0, 2, 0) * 180);
-        StartCoroutine(ColliderOff());
+        //StartCoroutine(ColliderOff());
         Animator.Play("ObstacleR");
         
     }
@@ -61,11 +62,11 @@ public class Run : MonoBehaviour
     public void JumpL()
     {
         //rb.AddForce(new Vector3(0, 2, 0) * 180);
-        StartCoroutine(ColliderOff());
+        //StartCoroutine(ColliderOff());
         Animator.Play("OBSTACLELEFT");
 
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
@@ -84,7 +85,7 @@ public class Run : MonoBehaviour
             NotTrueAnswer();
             QuizView.SetColorRed();
         }
-        if ((other.tag == "ProvL" || other.tag == "ProvL") && QuizView.IsCorrectAnswer == null)
+        if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == null)
         {
             UIController.VictorineZoneOff();
             UIController.TimerOff();
@@ -114,29 +115,32 @@ public class Run : MonoBehaviour
         //if(Vector3.Distance(gameObject.transform.position,))
     }
 
-    IEnumerator ColliderOff()
-    {
-        Collider.enabled = false;
-        yield return new WaitForSeconds(0.5f);
-        Collider.enabled = true;
-    }
+    //IEnumerator ColliderOff()
+    //{
+    //    Collider.enabled = false;
+    //    yield return new WaitForSeconds(0.5f);
+    //    Collider.enabled = true;
+    //}
 
-    IEnumerator ColliderOff2()
-    {
-        Collider.enabled = false;
-        yield return new WaitForSeconds(1.3f);
-        Collider.enabled = true;
-    }
+    //IEnumerator ColliderOff2()
+    //{
 
-    IEnumerator BadFinish()
-    {
-        yield return new WaitForSeconds(0.0f);
-        Death();
-        yield return new WaitForSeconds(1.1f);
-        Tile1.transform.position = Tile1Transform.position;
-        Tile2.transform.position = Tile2Transform.position;
-        Tile3.transform.position = Tile3Transform.position;
-        Tile4.transform.position = Tile4Transform.position;
+    //    Collider.enabled = false;
+    //    yield return new WaitForSeconds(1.3f);
+    //    Collider.enabled = true;
 
-    }
+    //}
+
+
+    //IEnumerator BadFinish()
+    //{
+    //    yield return new WaitForSeconds(0.0f);
+    //    Death();
+    //    yield return new WaitForSeconds(1.1f);
+    //    //Tile1.transform.position = Tile1Transform.position;
+    //    //Tile2.transform.position = Tile2Transform.position;
+    //    //Tile3.transform.position = Tile3Transform.position;
+    //    //Tile4.transform.position = Tile4Transform.position;
+
+    //}
 }

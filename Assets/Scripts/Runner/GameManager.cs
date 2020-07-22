@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_RestartGame()
     {
+        UIController.RunnerDodo.GetComponent<Collider>().enabled = true;
         if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
         {
             UIController.WinZoneOff();
@@ -255,7 +256,7 @@ public class GameManager : MonoBehaviour
         //}
         //else
         //{
-        Statistic.Speed = 3f;
+        Statistic.Speed = 9f;
         if (QuizView.QuestionIsOn == false)
         {
             UIController.VictorineZoneOn();
@@ -274,7 +275,7 @@ public class GameManager : MonoBehaviour
 
     private async void Run_Death()
     {
-        
+        //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
         SoundController.SoundInGameOff();
         UIController.CanvasScoreZoneOn();
@@ -327,8 +328,4 @@ public class GameManager : MonoBehaviour
         hubConnection.StopAsync();
     }
 
-    IEnumerator ZaderjkaInterfeicov()
-    {
-        yield return new WaitForSeconds(1.0f);
-    }
 }
