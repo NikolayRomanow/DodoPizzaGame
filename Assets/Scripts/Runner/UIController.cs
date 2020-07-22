@@ -113,7 +113,8 @@ public class UIController : MonoBehaviour
     }
     public void StartTheGame()  
     {
-        DodoIdle.SetActive(false);
+        DarkScreenOn();
+        StartCoroutine(WaitIdle());
         StartGame();        
         MainCameraOn();
         StartBackOff();
@@ -123,8 +124,7 @@ public class UIController : MonoBehaviour
     {
         DarkScreenOn(); 
         FirstVoprosTrigger.SetActive(true);
-        Animator = RunnerDodo.GetComponent<Animator>();
-        Animator.Play("Ride");
+        StartCoroutine(WaitRun());
         RestartGame();        
         MainCameraOn();
         ScoreZoneOff();
@@ -134,17 +134,16 @@ public class UIController : MonoBehaviour
     }
     public void BackToTheMenu()
     {
+        DarkScreenOn();
         BackToMenu();
         ScoreZoneOff();
         StartBackOn();
         CanvasScoreZoneOff();
         CanvasStartBackOn();
-        DodoIdle.SetActive(true);
-        RunnerDodo.SetActive(false);
         StartCoroutine(StayRunner());
         MainCamera.Play("ToHomeCamera");
         FirstVoprosTrigger.SetActive(true);
-
+        StartCoroutine(BackToMenuCorutine());
     }
     public void InfoPanelOn()
     {
@@ -208,7 +207,28 @@ public class UIController : MonoBehaviour
     IEnumerator StayRunner()
     {
         yield return new WaitForSeconds(1);
-        RunnerDodo.SetActive(true);
-        RunnerDodo.GetComponent<Animator>().Play("Ride");
+        //RunnerDodo.SetActive(true);
+        //RunnerDodo.GetComponent<Animator>().Play("Ride");
+    }
+
+    IEnumerator WaitIdle()
+    {
+        yield return new WaitForSeconds(1.0f);
+        DodoIdle.SetActive(false);
+    }
+
+    IEnumerator WaitRun()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Animator = RunnerDodo.GetComponent<Animator>();
+        Animator.Play("Ride");
+    }
+
+    IEnumerator BackToMenuCorutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+        DodoIdle.SetActive(true);
+        Animator = RunnerDodo.GetComponent<Animator>();
+        Animator.Play("Ride");
     }
 }
