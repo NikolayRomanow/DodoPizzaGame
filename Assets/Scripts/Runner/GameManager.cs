@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_RestartGame()
     {
-        UIController.RunnerDodo.GetComponent<Collider>().enabled = true;
+        //UIController.RunnerDodo.GetComponent<Collider>().enabled = true;
         if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
         {
             UIController.WinZoneOff();
