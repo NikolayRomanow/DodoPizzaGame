@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Runner.unity
     guid: 4f4b937b129499040822ddf7b626158e
+  - enabled: 1
+    path: Assets/Scenes/Draft/Scene2.unity
+    guid: 46aa205d833d35e4b82f984d880d909b
   m_configObjects: {}

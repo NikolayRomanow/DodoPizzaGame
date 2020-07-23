@@ -87,6 +87,7 @@ public class Run : MonoBehaviour
         {
             NotTrueAnswer();
             QuizView.SetColorRed();
+            StartCoroutine(BadFinish());
         }
         if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == null)
         {
@@ -94,6 +95,7 @@ public class Run : MonoBehaviour
             //UIController.TimerOff();
             NotTrueAnswer();
             QuizView.RedText();
+            StartCoroutine(BadFinish());
         }
         if (other.tag == "Prep")
         {
@@ -136,15 +138,12 @@ public class Run : MonoBehaviour
     //}
 
 
-    //IEnumerator BadFinish()
-    //{
-    //    yield return new WaitForSeconds(0.0f);
-    //    Death();
-    //    yield return new WaitForSeconds(1.1f);
-    //    //Tile1.transform.position = Tile1Transform.position;
-    //    //Tile2.transform.position = Tile2Transform.position;
-    //    //Tile3.transform.position = Tile3Transform.position;
-    //    //Tile4.transform.position = Tile4Transform.position;
-
-    //}
+    IEnumerator BadFinish()
+    {
+        yield return new WaitForSeconds(1.1f);
+        Tile1.transform.position = Tile1Transform.position;
+        Tile2.transform.position = Tile2Transform.position;
+        Tile3.transform.position = Tile3Transform.position;
+        Tile4.transform.position = Tile4Transform.position;
+    }
 }

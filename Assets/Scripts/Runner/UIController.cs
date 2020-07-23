@@ -232,6 +232,8 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         DodoIdle.SetActive(true);
+        House.SetActive(true);
+        Spruces.SetActive(false);
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");
     }

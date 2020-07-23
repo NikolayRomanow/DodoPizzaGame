@@ -199,11 +199,12 @@ public class GameManager : MonoBehaviour
     }
     private void UIController_BackToMenu()
     {
+        GameScore.ResetScore();
+        SetRatingInGame();
         if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
         {
             UIController.WinZoneOff();
         }
-        GameScore.ResetScore();
         Quiz.ResetQuiz();
         SoundController.SoundOfPressedButton();
         SoundController.SoundInMenuOn();
@@ -212,8 +213,8 @@ public class GameManager : MonoBehaviour
 
     private void UIController_StartGame()
     {
-        UIController.SetBestRatingInGame(bestRating);
         GameScore.ResetScore();
+        UIController.SetBestRatingInGame(bestRating);
         Statistic.isGameStart = true;
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
