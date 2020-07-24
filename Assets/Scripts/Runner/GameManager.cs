@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public Score GameScore;
     public SpeedController SpeedController;
     public SoundController SoundController;
+    public RandomChislo RandomChislo;
     public int bestRating, currentRating;
 
 
@@ -127,7 +128,11 @@ public class GameManager : MonoBehaviour
     }
 
     private async void Update()
-    {        
+    {
+        if (Statistic.DA == true)
+        {
+            UIController.SetCurrentRatingInGame(RandomChislo.Chislo());
+        }
         if (isConnect == false)
         {
             if (timeTenSec >= 0)
@@ -224,7 +229,7 @@ public class GameManager : MonoBehaviour
 
     private void QuizView_InCorrectAnswer()
     {
-
+        Statistic.DA = true;
         //UIController.VictorineZoneOff();
         //UIController.TimerOff();
         SoundController.SoundOfInCorrectAnswer();
@@ -234,6 +239,7 @@ public class GameManager : MonoBehaviour
 
     private void QuizView_CorrectAnswer(float deltaTime)
     {
+        Statistic.DA = true;
         //UIController.VictorineZoneOff();
         //GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
         GameScore.AddScore(deltaTime, Quiz.Coefficient);
@@ -292,6 +298,7 @@ public class GameManager : MonoBehaviour
 
     private async void Run_Death()
     {
+        Statistic.DA = false;
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
         UIController.House.SetActive(false);
@@ -351,5 +358,6 @@ public class GameManager : MonoBehaviour
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
     }
+    
 
 }

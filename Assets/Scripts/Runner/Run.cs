@@ -71,6 +71,7 @@ public class Run : MonoBehaviour
     {
         if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
+            Statistic.DA = false;
             ProvR();
             CheckArrived(9);
             JumpR();
@@ -78,6 +79,7 @@ public class Run : MonoBehaviour
         }
         if (other.tag == "ProvL" && QuizView.IsCorrectAnswer == true)
         {
+            Statistic.DA = false;
             ProvL();
             CheckArrived(9);
             JumpL();
@@ -85,12 +87,14 @@ public class Run : MonoBehaviour
         }
         if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == false)
         {
+            Statistic.DA = false;
             NotTrueAnswer();
             QuizView.SetColorRed();
             StartCoroutine(BadFinish());
         }
         if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == null)
         {
+            Statistic.DA = false;
             //UIController.VictorineZoneOff();
             //UIController.TimerOff();
             NotTrueAnswer();

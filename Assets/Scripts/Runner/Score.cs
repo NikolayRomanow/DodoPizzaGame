@@ -14,7 +14,7 @@ public class Score
     //{
     //    score += time * numberOfQuestion;
     //}
-    public void AddScore(float time, float x)
+    public void AddScore(float time, float x)   
     {
         score += time * x;
     }
