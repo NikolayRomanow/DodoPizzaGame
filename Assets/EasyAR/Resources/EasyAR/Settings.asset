@@ -29,4 +29,4 @@ MonoBehaviour:
     APIKey: 
     APISecret: 
     CloudRecognizerAppID: 
-  ARCoreSupport: 1
+  ARCoreSupport: 0
