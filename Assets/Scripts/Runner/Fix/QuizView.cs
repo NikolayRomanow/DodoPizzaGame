@@ -27,6 +27,11 @@ namespace SupremumStudio
         public event Action InCorrectAnswer;
         public GameObject TextTable;
 
+        private Color Red = new Color(0.6862745f, 0f, 0f, 0.5f);
+        private Color Orange = new Color(1, 0.4117647f, 0, 0.5f);
+        private Color Green = new Color(0.01176471f, 0.6862745f, 0.01176471f, 0.5f);
+        private Color Standart = new Color(0, 0, 0, 0.5f);
+
         public Slider Timer;
 
         public void SetSliderMaxValue()
@@ -76,7 +81,7 @@ namespace SupremumStudio
                         //QuestinIsTrueOff();
                         //ResetTime();
                         //item.GetComponentInChildren<Image>().color = Color.yellow;
-                        item.GetComponentInChildren<Image>().color = new Color(1, 0.4117647f, 0, 0.5f);
+                        item.GetComponentInChildren<Image>().color = Orange;
 
                     }
                     else
@@ -86,7 +91,7 @@ namespace SupremumStudio
                         IsCorrectAnswer = false;
                         //QuestinIsTrueOff();
                         //ResetTime();
-                        item.GetComponentInChildren<Image>().color = new Color(1, 0.4117647f, 0, 0.5f);
+                        item.GetComponentInChildren<Image>().color = Orange;
                     }
                 });
             }
@@ -103,9 +108,9 @@ namespace SupremumStudio
         {
             for (int i = 0; i <= 2; i++)
             {
-                AnswerButton[i].GetComponentInChildren<Image>().color = new Color(0, 0, 0, 0.5f);
+                AnswerButton[i].GetComponentInChildren<Image>().color = Standart;
             }
-            TextTable.GetComponentInChildren<Image>().color = new Color(0, 0, 0, 0.5f);
+            TextTable.GetComponentInChildren<Image>().color = Standart;
 
         }
         public void SetColorGreen()
@@ -114,7 +119,7 @@ namespace SupremumStudio
             {
                 if (item.GetComponentInChildren<Text>().text == Quiz.currentAnswer) //TODO: переосмыслить
                 {
-                    item.GetComponentInChildren<Image>().color = new Color(0.01176471f, 0.6862745f, 0.01176471f, 0.5f);
+                    item.GetComponentInChildren<Image>().color = Green;
                 }
             }
         }
@@ -122,15 +127,15 @@ namespace SupremumStudio
         {
             foreach (var item in AnswerButton) // TODO: not work in for
             {
-                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer && item.GetComponentInChildren<Image>().color== new Color(1, 0.4117647f, 0, 0.5f)) //TODO: переосмыслить
+                if (item.GetComponentInChildren<Text>().text != Quiz.currentAnswer && item.GetComponentInChildren<Image>().color == Orange) //TODO: переосмыслить
                 {
-                    item.GetComponentInChildren<Image>().color = new Color(0.6862745f, 0f, 0f, 0.5f);
-                }               
+                    item.GetComponentInChildren<Image>().color = Red;
+                }
             }
         }
         public void RedText()
         {
-            TextTable.GetComponentInChildren<Image>().color = new Color(0.6862745f, 0f, 0f, 0.5f);
+            TextTable.GetComponentInChildren<Image>().color = Red;
         }
 
         public void ResetTime()
@@ -165,9 +170,9 @@ namespace SupremumStudio
         private void Update()
         {
 
-            print(TimeForQuestion);
-            print(CurrentTime);
-            print(DeltaTime);
+            //print(TimeForQuestion);
+            //print(CurrentTime);
+            //print(DeltaTime);
 
             if (QuestionIsOn == true)
             {

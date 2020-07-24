@@ -10,9 +10,13 @@ public class Score
     {
         score = 0;
     }
-    public void AddScore(float time,int numberOfQuestion)
+    //public void AddScore(float time,int numberOfQuestion)
+    //{
+    //    score += time * numberOfQuestion;
+    //}
+    public void AddScore(float time, float x)
     {
-        score += time * numberOfQuestion;
+        score += time * x;
     }
     public int GetTotalScore()
     {

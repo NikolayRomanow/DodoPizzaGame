@@ -184,10 +184,10 @@ public class GameManager : MonoBehaviour
     private void UIController_RestartGame()
     {
         //UIController.RunnerDodo.GetComponent<Collider>().enabled = true;
-        if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
-        {
-            UIController.WinZoneOff();
-        }
+        //if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
+        //{
+        //    UIController.WinZoneOff();
+        //}
         GameScore.ResetScore();
         SetRatingInGame();
         user.Score = 0;
@@ -201,10 +201,10 @@ public class GameManager : MonoBehaviour
     {
         GameScore.ResetScore();
         SetRatingInGame();
-        if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
-        {
-            UIController.WinZoneOff();
-        }
+        //if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
+        //{
+        //    UIController.WinZoneOff();
+        //}
         Quiz.ResetQuiz();
         SoundController.SoundOfPressedButton();
         SoundController.SoundInMenuOn();
@@ -235,7 +235,8 @@ public class GameManager : MonoBehaviour
     private void QuizView_CorrectAnswer(float deltaTime)
     {
         //UIController.VictorineZoneOff();
-        GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
+        //GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
+        GameScore.AddScore(deltaTime, Quiz.Coefficient);
         BestRatingInGame();
         //UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         //UIController.SetBestRatingInGame(bestRating);

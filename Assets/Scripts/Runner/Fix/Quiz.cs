@@ -15,6 +15,7 @@ namespace SupremumStudio
         public List<QuestionModel> questions;
         public string currentAnswer;
         public int currentWeight;
+        public float Coefficient = 5;
         // Простые вопросы
         public List<QuestionModel> simpleQuestions;
         // Средней сложности вопросы
@@ -78,6 +79,7 @@ namespace SupremumStudio
         }
         public void ResetQuiz()
         {
+            Coefficient = 5f;
             CurrentQuestion = -1;
             ShuffleAllQuestions();
         }
@@ -148,10 +150,10 @@ namespace SupremumStudio
 
         }
       public void NextQuestion()
-        {   
+        {
+            Coefficient -= 0.1f;
             CurrentQuestion++;
-            QuestionChanged();
-            
+            QuestionChanged();            
             //SetQuestion();
         }
       //public void SetQuiz(string questionText, string[] answer)
@@ -183,6 +185,7 @@ namespace SupremumStudio
                 model[r] = t;
             }
         }
+        
         //public void SendWeight(List<QuestionModel> model)
         //{
         //    for (int i = 0; i < model.Count; i++)
@@ -190,6 +193,6 @@ namespace SupremumStudio
         //        Statistic.Scores += model[i].Weight;                
         //    }
         //}
-        
+
     }
 }
