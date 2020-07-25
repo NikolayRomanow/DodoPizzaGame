@@ -12,6 +12,8 @@ TagManager:
   - ProverkaVoprosa
   - ProvR
   - ProvL
+  - Fire
+  - Jump
   layers:
   - Default
   - TransparentFX
