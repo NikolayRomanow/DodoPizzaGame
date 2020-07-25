@@ -8,7 +8,7 @@ public class RandomChislo : MonoBehaviour
 {
     
     public int Rand;
-    public int lenghtOfScore=4;
+    public int lenghtOfScore = 4;
     // Start is called before the first frame update
     
     

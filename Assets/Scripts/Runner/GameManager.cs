@@ -343,7 +343,16 @@ public class GameManager : MonoBehaviour
         UIController.House.SetActive(false);
         UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
-        UIController.CanvasScoreZoneOn();
+        if (GameScore.GetTotalScore() == bestRating)
+        {
+            UIController.CanvasScoreZoneOn();
+            UIController.ResultRecordOn();
+        }
+        else
+        {
+            UIController.CanvasScoreZoneOn();
+            UIController.ResultOn();
+        }
         if (QuizView.QuestionIsOn == true)
         {
             UIController.VictorineZoneOff();

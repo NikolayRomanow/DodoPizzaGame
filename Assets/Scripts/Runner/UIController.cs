@@ -6,9 +6,9 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel,DarkScreen;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel,DarkScreen,Result,ResultRecord;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
-    public Text BestRatingInMenu, CurrentRatingInRestartMenu, BestRatingInRestartMenu, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame;
+    public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame;
     public bool Start;
     public event Action StartGame;
     public event Action RestartGame;
@@ -33,6 +33,22 @@ public class UIController : MonoBehaviour
         RatingInRestartMenu.text = "";
         NewStartPanel.Play("on");
     }
+    public void ResultOn()
+    {
+        Result.SetTrigger("on");
+    }
+    public void ResultOff()
+    {
+        Result.SetTrigger("off");
+    }
+    public void ResultRecordOn()
+    {
+        ResultRecord.SetTrigger("on");
+    }
+    public void ResultRecordOff()
+    {
+        ResultRecord.SetTrigger("of");
+    }
     public void DarkScreenOn()
     {
         DarkScreen.SetTrigger("on");
@@ -46,7 +62,8 @@ public class UIController : MonoBehaviour
     public void SetBestRating(int bestRating)
     {
         BestRatingInMenu.text = bestRating.ToString();
-        BestRatingInRestartMenu.text = bestRating.ToString();
+        BestRatingInRestartMenuResultRecord.text = bestRating.ToString();
+        BestRatingInRestartMenuResult.text=bestRating.ToString();
     }
 
     public void SetBestRatingInGame(int bestRatingInGame)
@@ -59,7 +76,8 @@ public class UIController : MonoBehaviour
     }
     public void SetCurrentRating(int currentRating)
     {
-        CurrentRatingInRestartMenu.text = currentRating.ToString();
+        CurrentRatingInRestartMenuResultRecord.text = currentRating.ToString();
+        CurrentRatingInRestartMenuResult.text = currentRating.ToString();
     }
     public void InteractableCanvasOn()
     {
@@ -133,6 +151,8 @@ public class UIController : MonoBehaviour
         CanvasStartBack.interactable = false;
         CanvasScoreZoneOff();
         CanvasStartBackOn();
+        ResultOff();
+        ResultRecordOff();
     }
     public void BackToTheMenu()
     {
@@ -146,6 +166,8 @@ public class UIController : MonoBehaviour
         MainCamera.Play("ToHomeCamera");
         FirstVoprosTrigger.SetActive(true);
         StartCoroutine(BackToMenuCorutine());
+        ResultOff();
+        ResultRecordOff();
     }
     public void InfoPanelOn()
     {
