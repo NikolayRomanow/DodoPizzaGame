@@ -6,40 +6,17 @@ using UnityEngine.UI;
 
 public class RandomChislo : MonoBehaviour
 {
-    public Text[] Cifra;
-    public int Rand;   
+    
+    public int Rand;
+    public int lenghtOfScore=4;
     // Start is called before the first frame update
     
-    public void RandomCifra()
-    {
-        for (int i = 0; i < Cifra.Length; i++) 
-        {
-            var randChislo = Random.Range(0, 10);
-            Cifra[i].text = randChislo.ToString();
-        }
-    }
-    public void SlotMachine()
-    {
-        Rand = Random.Range(99999, 1000000);
-    }
+    
+    
     public int Chislo()
     {
         return Rand;
-    }
-
-    // Update is called once per frame
-    
-    void Update()
-    {
-        //SlotMachine();
-        
-    }
-    private void FixedUpdate()
-    {
-        //SlotMachine();
-        //RandomCifra();
-        //randCifraa();
-    }
+    }    
     void Start()
     {
         StartCoroutine(randCifraa());
@@ -47,11 +24,45 @@ public class RandomChislo : MonoBehaviour
     IEnumerator randCifraa()
     {
         yield return new WaitForSeconds(0.05f);
-        Rand = Random.Range(99999, 1000000);
+        switch (lenghtOfScore)
+        {
+            case 0:
+                Rand = Random.Range(0, 9999);
+                break;
+            case 1:
+                Rand = Random.Range(0, 9999);
+                break;
+            case 2:
+                Rand = Random.Range(0, 9999);
+                break;
+            case 3:
+                Rand = Random.Range(0, 9999);
+                break;
+            case 4:
+                Rand = Random.Range(999, 10000);   
+                break;
+            case 5:
+                Rand = Random.Range(9999, 100000);
+                break;
+            case 6:
+                Rand = Random.Range(99999, 1000000);
+                break;
+            case 7:
+                Rand = Random.Range(999999, 10000000);
+                break;
+            case 8:
+                Rand = Random.Range(9999999, 100000000);
+                break;
+            case 9:
+                Rand = Random.Range(99999999, 1000000000);
+                break;            
+        }
+        StartCoroutine(randCifraa());    
+        
         //for (int i = 0; i < Cifra.Length; i++)
         //{
             
         //}            
-        StartCoroutine(randCifraa());        
+            
     }
 }

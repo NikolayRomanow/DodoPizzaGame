@@ -55,13 +55,50 @@ public class GameManager : MonoBehaviour
     }
 
     private void Run_ProvL()
-    {        
+    {
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
     }
 
+    public void SendLenght()
+    {
+        switch (UIController.CurrentRatingInGame.text.Length)
+        {
+            case 1:
+                RandomChislo.lenghtOfScore = 1;
+                break;
+            case 2:
+                RandomChislo.lenghtOfScore = 2;
+                break;
+            case 3:
+                RandomChislo.lenghtOfScore = 3;
+                break;
+            case 4:
+                RandomChislo.lenghtOfScore = 4;
+                break;
+            case 5:
+                RandomChislo.lenghtOfScore = 5;
+                break;
+            case 6:
+                RandomChislo.lenghtOfScore = 6;
+                break;
+            case 7:
+                RandomChislo.lenghtOfScore = 7;
+                break;
+            case 8:
+                RandomChislo.lenghtOfScore = 8;
+                break;
+            case 9:
+                RandomChislo.lenghtOfScore = 9;
+                break;
+            default:
+                RandomChislo.lenghtOfScore = 0;
+                break;
+        }
+
+    }
     private void Run_ProvR()
-    {       
+    {
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
     }
@@ -230,6 +267,7 @@ public class GameManager : MonoBehaviour
     private void QuizView_InCorrectAnswer()
     {
         Statistic.DA = true;
+        SendLenght();
         //UIController.VictorineZoneOff();
         //UIController.TimerOff();
         SoundController.SoundOfInCorrectAnswer();
@@ -240,6 +278,7 @@ public class GameManager : MonoBehaviour
     private void QuizView_CorrectAnswer(float deltaTime)
     {
         Statistic.DA = true;
+        SendLenght();
         //UIController.VictorineZoneOff();
         //GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
         GameScore.AddScore(deltaTime, Quiz.Coefficient);
@@ -292,7 +331,7 @@ public class GameManager : MonoBehaviour
         Quiz.NextQuestion();
         QuizView.QuestinIsTrueOn();
         UIController.CanvasVictorineZoneOn();
-        
+
         //}
     }
 
@@ -358,6 +397,6 @@ public class GameManager : MonoBehaviour
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
     }
-    
+
 
 }
