@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
 {
     public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel,DarkScreen,Result,ResultRecord;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
-    public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame;
+    public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, PositionCountResultRecord;
     public bool Start, NewRecord;
     public event Action StartGame;
     public event Action RestartGame;
@@ -65,7 +65,24 @@ public class UIController : MonoBehaviour
         BestRatingInRestartMenuResultRecord.text = bestRating.ToString();
         BestRatingInRestartMenuResult.text=bestRating.ToString();
     }
-
+    public void SetDoHalyavnoyPizzaCount(float doHalyavnoyPizzaCount)
+    {
+        if (doHalyavnoyPizzaCount > 0)
+        {
+            DoHalyavnoyPizzaCountResult.text = doHalyavnoyPizzaCount.ToString();
+            DoHalyavnoyPizzaCountResultRecord.text = doHalyavnoyPizzaCount.ToString();
+        }
+        else
+        {
+            DoHalyavnoyPizzaCountResult.text = "Ты в топе";
+            DoHalyavnoyPizzaCountResultRecord.text = "Ты в топе";
+        }
+    }
+    public void PositionCount(int positionCount)
+    {
+        PositionCountResultRecord.text = positionCount.ToString();
+        PositionCountResult.text = positionCount.ToString();
+    }
     public void SetBestRatingInGame(int bestRatingInGame)
     {
         BestRatingInGame.text = bestRatingInGame.ToString();        

@@ -344,7 +344,9 @@ public class GameManager : MonoBehaviour
     }
     private async void Run_Death()
     {
+        
         RandomNumbersOff();
+        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
         UIController.House.SetActive(false);
@@ -371,13 +373,17 @@ public class GameManager : MonoBehaviour
         UIController.ScoreZoneOn();
         SaveRating();
         UIController.SetBestRating(bestRating);
-        UIController.SetCurrentRating(GameScore.GetTotalScore());
+        UIController.SetCurrentRating(GameScore.GetTotalScore());        
         UIController.MainCameraOff();
         user.Score = PlayerPrefs.GetInt("BestScore");
+        float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
+        DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
         await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         user.Score = GameScore.GetTotalScore();
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
+        UIController.PositionCount(temp);
         UIController.SetRatingInMenu(temp);
     }
     public void NewRecordOrNot()
