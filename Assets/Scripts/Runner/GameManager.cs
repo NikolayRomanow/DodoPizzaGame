@@ -128,6 +128,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        var i= PlayerPrefs.GetInt("FirstStartTheGame");
+        if (i == 0)
+        {
+            UIController.PrivetFirstOn();
+            PlayerPrefs.SetInt("FirstStartTheGame", 1);
+        }
         UIController.NewStartPanel.gameObject.SetActive(false);
         //PlayerPrefs.SetString("GUID", String.Empty);
         //PlayerPrefs.SetInt("BestScore", 0);
@@ -344,7 +350,15 @@ public class GameManager : MonoBehaviour
     }
     private async void Run_Death()
     {
-        
+
+        var i = PlayerPrefs.GetInt("FirstDeath");
+        if (i == 0)
+        {
+            UIController.InteractableCanvasOff();
+            UIController.OcenkaOn();
+            PlayerPrefs.SetInt("FirstDeath", 1);
+        }
+
         RandomNumbersOff();
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
@@ -433,6 +447,7 @@ public class GameManager : MonoBehaviour
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
     }
+    
 
 
 }

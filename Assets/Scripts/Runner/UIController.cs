@@ -6,7 +6,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel,DarkScreen,Result,ResultRecord;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, PrivetTap, Ocenka;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, PositionCountResultRecord;
     public bool Start, NewRecord;
@@ -32,6 +32,48 @@ public class UIController : MonoBehaviour
         RatingInMenu.text = "";
         RatingInRestartMenu.text = "";
         NewStartPanel.Play("on");
+    }
+    //private void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.L))
+    //    {
+    //        OcenkaOn();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.K))
+    //    {
+    //        PrivetFirstOn();
+    //    }
+    //}
+    public void BadOcenka()
+    {
+        OcenkaOff();
+    }
+    public void GoodOcenka()
+    {
+        Application.OpenURL("https://dodopizza.ru/");
+        OcenkaOff();
+    }
+    public void PrivetFirstOn()
+    {
+        PrivetFirst.SetTrigger("on");
+        PrivetTap.SetTrigger("on");
+        InteractableCanvasOff();
+    }
+    public void PrivetFirstOff()
+    {
+        PrivetFirst.SetTrigger("off");
+        PrivetTap.SetTrigger("off");
+        InteractableCanvasOn();
+    }
+    public void OcenkaOn()
+    {
+        Ocenka.SetTrigger("on");
+        InteractableCanvasOff();
+    }
+    public void OcenkaOff()
+    {
+        Ocenka.SetTrigger("off");
+        InteractableCanvasOn();
     }
     public void ResultOn()
     {
@@ -63,7 +105,7 @@ public class UIController : MonoBehaviour
     {
         BestRatingInMenu.text = bestRating.ToString();
         BestRatingInRestartMenuResultRecord.text = bestRating.ToString();
-        BestRatingInRestartMenuResult.text=bestRating.ToString();
+        BestRatingInRestartMenuResult.text = bestRating.ToString();
     }
     public void SetDoHalyavnoyPizzaCount(float doHalyavnoyPizzaCount)
     {
@@ -85,11 +127,11 @@ public class UIController : MonoBehaviour
     }
     public void SetBestRatingInGame(int bestRatingInGame)
     {
-        BestRatingInGame.text = bestRatingInGame.ToString();        
+        BestRatingInGame.text = bestRatingInGame.ToString();
     }
     public void SetCurrentRatingInGame(int currentRatingInGame)
     {
-        CurrentRatingInGame.text = currentRatingInGame.ToString();       
+        CurrentRatingInGame.text = currentRatingInGame.ToString();
     }
     public void SetCurrentRating(int currentRating)
     {
@@ -98,9 +140,9 @@ public class UIController : MonoBehaviour
     }
     public void InteractableCanvasOn()
     {
-        
+
         CanvasStartBack.interactable = true;
-        CanvasVictorineZone.interactable = true;        
+        CanvasVictorineZone.interactable = true;
     }
     public void InteractableCanvasOff()
     {
@@ -146,23 +188,23 @@ public class UIController : MonoBehaviour
     {
         InfoPanelOff();
         StartBackOn();
-        
+
     }
-    public void StartTheGame()  
+    public void StartTheGame()
     {
         DarkScreenOn();
         StartCoroutine(WaitIdle());
-        StartGame();        
+        StartGame();
         MainCameraOn();
         StartBackOff();
         CanvasStartBackOff();
     }
     public void RestartTheGame()
     {
-        DarkScreenOn(); 
+        DarkScreenOn();
         FirstVoprosTrigger.SetActive(true);
         StartCoroutine(WaitRun());
-        RestartGame();        
+        RestartGame();
         MainCameraOn();
         ScoreZoneOff();
         CanvasStartBack.interactable = false;
@@ -178,7 +220,7 @@ public class UIController : MonoBehaviour
                 break;
         }
 
-            
+
     }
     public void BackToTheMenu()
     {
@@ -228,21 +270,21 @@ public class UIController : MonoBehaviour
     }
     public void ScoreZoneOn()
     {
-        ScoreZone.SetTrigger("on");        
+        ScoreZone.SetTrigger("on");
     }
     public void ScoreZoneOff()
     {
-        ScoreZone.SetTrigger("off");        
+        ScoreZone.SetTrigger("off");
     }
     public void VictorineZoneOn()
-    {       
-        VictorineZone.SetTrigger("on");        
+    {
+        VictorineZone.SetTrigger("on");
     }
     public void VictorineZoneOff()
     {
-        
+
         VictorineZone.SetTrigger("off");
-        
+
     }
     public void MainCameraOn()
     {
@@ -253,12 +295,12 @@ public class UIController : MonoBehaviour
         MainCamera.SetTrigger("Start");
     }
     public void StartBackOn()
-    {        
-        StartBack.SetTrigger("on");        
+    {
+        StartBack.SetTrigger("on");
     }
     public void StartBackOff()
-    {        
-        StartBack.SetTrigger("off");        
+    {
+        StartBack.SetTrigger("off");
     }
 
     IEnumerator StayRunner()
@@ -282,7 +324,7 @@ public class UIController : MonoBehaviour
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");
     }
-
+    
     IEnumerator BackToMenuCorutine()
     {
         yield return new WaitForSeconds(1.0f);
