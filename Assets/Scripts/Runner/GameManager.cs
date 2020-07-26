@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
 
     private async void Update()
     {
-        if (Statistic.DA == true)
+        if (Statistic.RandomNumbersOn == true)
         {
             UIController.SetCurrentRatingInGame(RandomChislo.Chislo());
         }
@@ -266,7 +266,7 @@ public class GameManager : MonoBehaviour
 
     private void QuizView_InCorrectAnswer()
     {
-        Statistic.DA = true;
+        RandomNumbersOn(); 
         SendLenght();
         //UIController.VictorineZoneOff();
         //UIController.TimerOff();
@@ -277,7 +277,7 @@ public class GameManager : MonoBehaviour
 
     private void QuizView_CorrectAnswer(float deltaTime)
     {
-        Statistic.DA = true;
+        RandomNumbersOn();
         SendLenght();
         //UIController.VictorineZoneOff();
         //GameScore.AddScore(deltaTime, Quiz.currentQuestion + 1);
@@ -334,25 +334,34 @@ public class GameManager : MonoBehaviour
 
         //}
     }
-
+    public void RandomNumbersOn()
+    {
+        Statistic.RandomNumbersOn = true;
+    }
+    public void RandomNumbersOff()
+    {
+        Statistic.RandomNumbersOn = false;
+    }
     private async void Run_Death()
     {
-        Statistic.DA = false;
+        RandomNumbersOff();
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
         UIController.House.SetActive(false);
         UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
-        if (GameScore.GetTotalScore() == bestRating)
+        switch (UIController.NewRecord)
         {
-            UIController.CanvasScoreZoneOn();
-            UIController.ResultRecordOn();
+            case true:
+                UIController.CanvasScoreZoneOn();
+                UIController.ResultRecordOn();
+                break;
+            case false:
+                UIController.CanvasScoreZoneOn();
+                UIController.ResultOn();
+                break;
         }
-        else
-        {
-            UIController.CanvasScoreZoneOn();
-            UIController.ResultOn();
-        }
+        
         if (QuizView.QuestionIsOn == true)
         {
             UIController.VictorineZoneOff();
@@ -370,6 +379,18 @@ public class GameManager : MonoBehaviour
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         UIController.SetRatingInMenu(temp);
+    }
+    public void NewRecordOrNot()
+    {
+        switch(GameScore.GetTotalScore() == bestRating)
+        {
+            case true:
+                UIController.NewRecord = true;
+                break;
+            case false:
+                UIController.NewRecord = false;
+                break;
+        }
     }
     public void BestRatingInGame()
     {

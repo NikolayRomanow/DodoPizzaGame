@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
     public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel,DarkScreen,Result,ResultRecord;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame;
-    public bool Start;
+    public bool Start, NewRecord;
     public event Action StartGame;
     public event Action RestartGame;
     public event Action BackToMenu;
@@ -47,7 +47,7 @@ public class UIController : MonoBehaviour
     }
     public void ResultRecordOff()
     {
-        ResultRecord.SetTrigger("of");
+        ResultRecord.SetTrigger("off");
     }
     public void DarkScreenOn()
     {
@@ -151,8 +151,17 @@ public class UIController : MonoBehaviour
         CanvasStartBack.interactable = false;
         CanvasScoreZoneOff();
         CanvasStartBackOn();
-        ResultOff();
-        ResultRecordOff();
+        switch (NewRecord)
+        {
+            case true:
+                ResultRecordOff();
+                break;
+            case false:
+                ResultOff();
+                break;
+        }
+
+            
     }
     public void BackToTheMenu()
     {
@@ -166,8 +175,15 @@ public class UIController : MonoBehaviour
         MainCamera.Play("ToHomeCamera");
         FirstVoprosTrigger.SetActive(true);
         StartCoroutine(BackToMenuCorutine());
-        ResultOff();
-        ResultRecordOff();
+        switch (NewRecord)
+        {
+            case true:
+                ResultRecordOff();
+                break;
+            case false:
+                ResultOff();
+                break;
+        }
     }
     public void InfoPanelOn()
     {

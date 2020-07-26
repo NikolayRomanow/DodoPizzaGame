@@ -71,7 +71,7 @@ public class Run : MonoBehaviour
     {
         if (other.tag == "ProvR" && QuizView.IsCorrectAnswer == true)
         {
-            Statistic.DA = false;
+            RandomNumbersOff();
             ProvR();
             CheckArrived(9);
             JumpR();
@@ -79,7 +79,7 @@ public class Run : MonoBehaviour
         }
         if (other.tag == "ProvL" && QuizView.IsCorrectAnswer == true)
         {
-            Statistic.DA = false;
+            RandomNumbersOff();
             ProvL();
             CheckArrived(9);
             JumpL();
@@ -87,14 +87,14 @@ public class Run : MonoBehaviour
         }
         if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == false)
         {
-            Statistic.DA = false;
+            RandomNumbersOff();
             NotTrueAnswer();
             QuizView.SetColorRed();
             StartCoroutine(BadFinish());
         }
         if ((other.tag == "ProvL" || other.tag == "ProvR") && QuizView.IsCorrectAnswer == null)
         {
-            Statistic.DA = false;
+            RandomNumbersOff();
             //UIController.VictorineZoneOff();
             //UIController.TimerOff();
             NotTrueAnswer();
@@ -140,6 +140,14 @@ public class Run : MonoBehaviour
     //    Collider.enabled = true;
 
     //}
+    public void RandomNumbersOff()
+    {
+        Statistic.RandomNumbersOn = false;
+    }
+    public void RandomNumbersOn()
+    {
+        Statistic.RandomNumbersOn = true;
+    }
 
 
     IEnumerator BadFinish()
