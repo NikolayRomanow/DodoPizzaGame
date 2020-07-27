@@ -370,10 +370,12 @@ public class GameManager : MonoBehaviour
                 case true:
                     UIController.CanvasScoreZoneOn();
                     UIController.ResultRecordOn();
+                    Notifications.CreateNotification();
                     break;
                 case false:
                     UIController.CanvasScoreZoneOn();
                     UIController.ResultOn();
+                    Notifications.CreateNotification();
                     break;
             }
         }
@@ -433,7 +435,7 @@ public class GameManager : MonoBehaviour
                 UIController.ResultOn();
                 break;
         }
-        Notifications.CreateNotification();
+        //Notifications.CreateNotification();
     }
     public void BestRatingInGame()
     {
