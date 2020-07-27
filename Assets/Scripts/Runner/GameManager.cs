@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        var i= PlayerPrefs.GetInt("FirstStartTheGame");
+        var i = PlayerPrefs.GetInt("FirstStartTheGame");
         if (i == 0)
         {
             UIController.PrivetFirstOn();
@@ -272,7 +272,7 @@ public class GameManager : MonoBehaviour
 
     private void QuizView_InCorrectAnswer()
     {
-        RandomNumbersOn(); 
+        RandomNumbersOn();
         SendLenght();
         //UIController.VictorineZoneOff();
         //UIController.TimerOff();
@@ -351,14 +351,10 @@ public class GameManager : MonoBehaviour
     private async void Run_Death()
     {
 
-        var i = PlayerPrefs.GetInt("FirstDeath");
-        if (i == 0)
-        {
-            UIController.InteractableCanvasOff();
-            UIController.OcenkaOn();
-            PlayerPrefs.SetInt("FirstDeath", 1);
-        }
 
+        // else
+        //{
+        var i = PlayerPrefs.GetInt("FirstDeath");
         RandomNumbersOff();
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
@@ -366,18 +362,28 @@ public class GameManager : MonoBehaviour
         UIController.House.SetActive(false);
         UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
-        switch (UIController.NewRecord)
+        if (i == 1)
         {
-            case true:
-                UIController.CanvasScoreZoneOn();
-                UIController.ResultRecordOn();
-                break;
-            case false:
-                UIController.CanvasScoreZoneOn();
-                UIController.ResultOn();
-                break;
+            switch (UIController.NewRecord)
+            {
+                case true:
+                    UIController.CanvasScoreZoneOn();
+                    UIController.ResultRecordOn();
+                    break;
+                case false:
+                    UIController.CanvasScoreZoneOn();
+                    UIController.ResultOn();
+                    break;
+            }
         }
-        
+
+        if (i == 0)
+        {
+            UIController.InteractableCanvasOff();
+            UIController.OcenkaOn();
+            PlayerPrefs.SetInt("FirstDeath", 1);
+        }
+
         if (QuizView.QuestionIsOn == true)
         {
             UIController.VictorineZoneOff();
@@ -387,7 +393,7 @@ public class GameManager : MonoBehaviour
         UIController.ScoreZoneOn();
         SaveRating();
         UIController.SetBestRating(bestRating);
-        UIController.SetCurrentRating(GameScore.GetTotalScore());        
+        UIController.SetCurrentRating(GameScore.GetTotalScore());
         UIController.MainCameraOff();
         user.Score = PlayerPrefs.GetInt("BestScore");
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
@@ -399,16 +405,31 @@ public class GameManager : MonoBehaviour
         UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
         UIController.PositionCount(temp);
         UIController.SetRatingInMenu(temp);
+        // }
     }
     public void NewRecordOrNot()
     {
-        switch(GameScore.GetTotalScore() == bestRating)
+        switch (GameScore.GetTotalScore() == bestRating)
         {
             case true:
                 UIController.NewRecord = true;
                 break;
             case false:
                 UIController.NewRecord = false;
+                break;
+        }
+    }
+    public void FirstOcenkaOff()
+    {
+        switch (UIController.NewRecord)
+        {
+            case true:
+                UIController.CanvasScoreZoneOn();
+                UIController.ResultRecordOn();
+                break;
+            case false:
+                UIController.CanvasScoreZoneOn();
+                UIController.ResultOn();
                 break;
         }
     }
@@ -447,7 +468,7 @@ public class GameManager : MonoBehaviour
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         UIController.SetBestRatingInGame(bestRating);
     }
-    
+
 
 
 }
