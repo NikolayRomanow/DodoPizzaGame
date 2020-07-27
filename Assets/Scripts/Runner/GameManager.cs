@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public SpeedController SpeedController;
     public SoundController SoundController;
     public RandomChislo RandomChislo;
+    public Notifications Notifications;
     public int bestRating, currentRating;
 
 
@@ -432,6 +433,7 @@ public class GameManager : MonoBehaviour
                 UIController.ResultOn();
                 break;
         }
+        Notifications.CreateNotification();
     }
     public void BestRatingInGame()
     {

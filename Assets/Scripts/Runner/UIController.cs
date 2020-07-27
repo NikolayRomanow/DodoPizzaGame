@@ -6,7 +6,7 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, PrivetTap, Ocenka;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, Ocenka;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
     public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, PositionCountResultRecord;
     public bool Start, NewRecord;
@@ -55,14 +55,12 @@ public class UIController : MonoBehaviour
     }
     public void PrivetFirstOn()
     {
-        PrivetFirst.SetTrigger("on");
-        PrivetTap.SetTrigger("on");
+        PrivetFirst.SetTrigger("on");        
         InteractableCanvasOff();
     }
     public void PrivetFirstOff()
     {
-        PrivetFirst.SetTrigger("off");
-        PrivetTap.SetTrigger("off");
+        PrivetFirst.SetTrigger("off");        
         InteractableCanvasOn();
     }
     public void OcenkaOn()
