@@ -27,19 +27,19 @@ public class RandomChislo : MonoBehaviour
         switch (lenghtOfScore)
         {
             case 0:
-                Rand = Random.Range(0, 9999);
+                Rand = Random.Range(9, 100);
                 break;
             case 1:
-                Rand = Random.Range(0, 9999);
+                Rand = Random.Range(9, 100);
                 break;
             case 2:
-                Rand = Random.Range(0, 9999);
+                Rand = Random.Range(9, 1000);
                 break;
             case 3:
-                Rand = Random.Range(0, 9999);
+                Rand = Random.Range(99, 10000);
                 break;
             case 4:
-                Rand = Random.Range(999, 10000);   
+                Rand = Random.Range(999, 100000);
                 break;
             case 5:
                 Rand = Random.Range(9999, 100000);
@@ -55,14 +55,14 @@ public class RandomChislo : MonoBehaviour
                 break;
             case 9:
                 Rand = Random.Range(99999999, 1000000000);
-                break;            
+                break;
         }
-        StartCoroutine(randCifraa());    
-        
+        StartCoroutine(randCifraa());
+
         //for (int i = 0; i < Cifra.Length; i++)
         //{
-            
+
         //}            
-            
+
     }
 }
