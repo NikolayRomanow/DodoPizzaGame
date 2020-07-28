@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     public GameObject FirstVoprosTrigger;
     public GameObject House;
     public GameObject Spruces;
+    public GameManager GameManager;
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
 
@@ -60,7 +61,8 @@ public class UIController : MonoBehaviour
     }
     public void PrivetFirstOff()
     {
-        PrivetFirst.SetTrigger("off");        
+        PrivetFirst.SetTrigger("off");
+        GameManager.StartServer();
         InteractableCanvasOn();
     }
     public void OcenkaOn()

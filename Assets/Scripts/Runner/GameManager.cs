@@ -129,27 +129,41 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        UIController.LoadServer.gameObject.SetActive(false);
         var i = PlayerPrefs.GetInt("FirstStartTheGame");
         if (i == 0)
         {
+            UIController.NewStartPanel.gameObject.SetActive(false);
             UIController.PrivetFirstOn();
             PlayerPrefs.SetInt("FirstStartTheGame", 1);
+            UIController.NewStartPanel.gameObject.SetActive(false);
+            //PlayerPrefs.SetString("GUID", String.Empty);
+            //PlayerPrefs.SetInt("BestScore", 0);
+            GameScore.ResetScore();
+            UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
+            //myStart();
+            SaveRating();
+            SoundController.SoundInMenuOn();
+            _dispatcher = UnityMainThreadDispatcher.Instance();
         }
-        UIController.NewStartPanel.gameObject.SetActive(false);
-        //PlayerPrefs.SetString("GUID", String.Empty);
-        //PlayerPrefs.SetInt("BestScore", 0);
-        GameScore.ResetScore();
-        UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
-        //myStart();
-        SaveRating();
-        SoundController.SoundInMenuOn();
-        _dispatcher = UnityMainThreadDispatcher.Instance();
-        StartServer();
-
+        else
+        {
+            UIController.NewStartPanel.gameObject.SetActive(false);
+            //PlayerPrefs.SetString("GUID", String.Empty);
+            //PlayerPrefs.SetInt("BestScore", 0);
+            GameScore.ResetScore();
+            UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
+            //myStart();
+            SaveRating();
+            SoundController.SoundInMenuOn();
+            _dispatcher = UnityMainThreadDispatcher.Instance();
+            StartServer();
+        }
     }
 
-    private async void StartServer()
+    public async void StartServer()
     {
+        UIController.LoadServer.gameObject.SetActive(true);
         await this.StartSignalRAsync();
     }
 
