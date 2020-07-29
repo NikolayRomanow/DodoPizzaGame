@@ -57,8 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void Run_ProvL()
     {
-        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
-        UIController.SetBestRatingInGame(bestRating);
+        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());       
     }
 
     public void SendLenght()
@@ -98,18 +97,19 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private void Run_ProvR()
+    private async void Run_ProvR()
     {
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
-        UIController.SetBestRatingInGame(bestRating);
+        float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
+        DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
     }
 
     private void Run_WinOrNot()
     {
         if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
         {
-            SetSpeed(0);
-            UIController.WinZoneOn();
+            SetSpeed(0);            
             SoundController.SoundInGameOff();
             UIController.CanvasScoreZoneOn();
             UIController.ScoreZoneOn();
@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //PlayerPrefs.DeleteAll();
         UIController.LoadServer.gameObject.SetActive(false);
         var i = PlayerPrefs.GetInt("FirstStartTheGame");
         if (i == 0)
@@ -223,6 +224,9 @@ public class GameManager : MonoBehaviour
                     }
                     int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
                     UIController.SetRatingInMenu(temp);
+                    float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
+                    DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+                    UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
                     UIController.NewStartPanel.gameObject.SetActive(true);
                     UIController.NewStartPanel.Play("on");
                     UIController.LoadServer.SetActive(false);
@@ -276,8 +280,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_StartGame()
     {
-        GameScore.ResetScore();
-        UIController.SetBestRatingInGame(bestRating);
+        GameScore.ResetScore();       
         Statistic.isGameStart = true;
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
@@ -365,11 +368,12 @@ public class GameManager : MonoBehaviour
     }
     private async void Run_Death()
     {
+       
 
 
         // else
         //{
-        var i = PlayerPrefs.GetInt("FirstDeath");
+
         RandomNumbersOff();
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
@@ -377,14 +381,117 @@ public class GameManager : MonoBehaviour
         UIController.House.SetActive(false);
         UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
+        float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
+        DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
+        await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        user.Score = GameScore.GetTotalScore();
+        await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        NewRecordOrNot();
+        print(PlayerPrefs.GetInt("FirstDeath"));
+        print(UIController.NewRecord);
+        print(GameScore.GetTotalScore());
+        print(bestRating);
+        var i = PlayerPrefs.GetInt("FirstDeath");        
+        if (i == 0)
+        {
+            switch (UIController.NewRecord)
+            {
+                case true:
+                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount)
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordTopTenOn();
+                        Notifications.CreateNotification();
+                        
+                    }
+                    else
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordOn();
+                        Notifications.CreateNotification();
+                        PlayerPrefs.SetInt("FirstDeath", 1);
+                    }
+                    break;
+                case false:
+                    UIController.CanvasScoreZoneOn();
+                    UIController.ResultOn();
+                    Notifications.CreateNotification();
+                    break;
+            }
+        }
         if (i == 1)
         {
             switch (UIController.NewRecord)
             {
                 case true:
+                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount)
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordTopTenOn();
+                        Notifications.CreateNotification();
+                        
+                    }
+                    else
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordOn();
+                        Notifications.CreateNotification();
+                        PlayerPrefs.SetInt("FirstDeath", 2);
+                    }
+                    break;
+                case false:
                     UIController.CanvasScoreZoneOn();
-                    UIController.ResultRecordOn();
+                    UIController.ResultOn();
                     Notifications.CreateNotification();
+                    break;
+            }
+        }
+        if (i == 2)
+        {
+            switch (UIController.NewRecord)
+            {
+                case true:
+                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount)
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordTopTenOn();
+                        Notifications.CreateNotification();
+                       
+                    }
+                    else
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordOn();
+                        Notifications.CreateNotification();
+                        PlayerPrefs.SetInt("FirstDeath", 3);
+                    }
+                    break;
+                case false:
+                    UIController.CanvasScoreZoneOn();
+                    UIController.ResultOn();
+                    Notifications.CreateNotification();
+                    break;
+            }
+        }
+        if (i == 4)
+        {
+            switch (UIController.NewRecord)
+            {
+                case true:
+                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount)
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordTopTenOn();
+                        Notifications.CreateNotification();                        
+                    }
+                    else
+                    {
+                        UIController.CanvasScoreZoneOn();
+                        UIController.ResultRecordOn();
+                        Notifications.CreateNotification();
+                    }
                     break;
                 case false:
                     UIController.CanvasScoreZoneOn();
@@ -394,11 +501,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (i == 0)
+        if (i == 3)
         {
             UIController.InteractableCanvasOff();
             UIController.OcenkaOn();
-            PlayerPrefs.SetInt("FirstDeath", 1);
+            PlayerPrefs.SetInt("FirstDeath", 4);
         }
 
         if (QuizView.QuestionIsOn == true)
@@ -413,13 +520,8 @@ public class GameManager : MonoBehaviour
         UIController.SetCurrentRating(GameScore.GetTotalScore());
         UIController.MainCameraOff();
         user.Score = PlayerPrefs.GetInt("BestScore");
-        float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
-        DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
-        await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-        user.Score = GameScore.GetTotalScore();
-        await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-        int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
+        
+        
         UIController.PositionCount(temp);
         UIController.SetRatingInMenu(temp);
         // }
@@ -483,8 +585,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetRatingInGame()
     {
-        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
-        UIController.SetBestRatingInGame(bestRating);
+        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());        
     }
 
 

@@ -6,9 +6,9 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, WinZone, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, Ocenka;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, Ocenka, LanguagePanel, ResultRecordTop10;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
-    public Text BestRatingInMenu, CurrentRatingInRestartMenuResultRecord, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, BestRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, PositionCountResultRecord;
+    public Text BestRatingInMenu, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountInMenu, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, DoHalyavnoyPizzaCountInGame,ScoreRecordCount;
     public bool Start, NewRecord;
     public event Action StartGame;
     public event Action RestartGame;
@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
 
+    //public void 
     public void InternetErorr()
     {
         NewStartPanel.gameObject.SetActive(true);
@@ -91,13 +92,21 @@ public class UIController : MonoBehaviour
     {
         ResultRecord.SetTrigger("off");
     }
+    public void ResultRecordTopTenOn()
+    {
+        ResultRecordTop10.SetTrigger("on");
+    }
+    public void ResultRecordTopTenOff()
+    {
+        ResultRecordTop10.SetTrigger("off");
+    }
     public void DarkScreenOn()
     {
         DarkScreen.SetTrigger("on");
     }
     public void SetRatingInMenu(int rating)
     {
-        RatingInMenu.text = rating.ToString();
+        RatingInMenu.text = rating.ToString()+" из 137";
         RatingInRestartMenu.text = rating.ToString();
     }
 
@@ -106,36 +115,37 @@ public class UIController : MonoBehaviour
         BestRatingInMenu.text = bestRating.ToString();
         BestRatingInRestartMenuResultRecord.text = bestRating.ToString();
         BestRatingInRestartMenuResult.text = bestRating.ToString();
+        ScoreRecordCount.text = bestRating.ToString();
     }
     public void SetDoHalyavnoyPizzaCount(float doHalyavnoyPizzaCount)
     {
         if (doHalyavnoyPizzaCount > 0)
         {
+            DoHalyavnoyPizzaCountInMenu.text = doHalyavnoyPizzaCount.ToString();
             DoHalyavnoyPizzaCountResult.text = doHalyavnoyPizzaCount.ToString();
             DoHalyavnoyPizzaCountResultRecord.text = doHalyavnoyPizzaCount.ToString();
+            DoHalyavnoyPizzaCountInGame.text = doHalyavnoyPizzaCount.ToString();
         }
         else
         {
+            DoHalyavnoyPizzaCountInMenu.text = "Ты в топе";
             DoHalyavnoyPizzaCountResult.text = "Ты в топе";
             DoHalyavnoyPizzaCountResultRecord.text = "Ты в топе";
+            DoHalyavnoyPizzaCountInGame.text = "Ты в топе";
         }
-    }
+    }    
     public void PositionCount(int positionCount)
     {
-        PositionCountResultRecord.text = positionCount.ToString();
-        PositionCountResult.text = positionCount.ToString();
-    }
-    public void SetBestRatingInGame(int bestRatingInGame)
-    {
-        BestRatingInGame.text = bestRatingInGame.ToString();
-    }
+        //PositionCountResultRecord.text = positionCount.ToString();
+        //PositionCountResult.text = positionCount.ToString();
+    }    
     public void SetCurrentRatingInGame(int currentRatingInGame)
     {
         CurrentRatingInGame.text = currentRatingInGame.ToString();
     }
     public void SetCurrentRating(int currentRating)
     {
-        CurrentRatingInRestartMenuResultRecord.text = currentRating.ToString();
+        //CurrentRatingInRestartMenuResultRecord.text = currentRating.ToString();
         CurrentRatingInRestartMenuResult.text = currentRating.ToString();
     }
     public void InteractableCanvasOn()
@@ -154,6 +164,7 @@ public class UIController : MonoBehaviour
     {
         CanvasScoreZone.interactable = true;
     }
+
     public void CanvasScoreZoneOff()
     {
         CanvasScoreZone.interactable = false;
@@ -188,7 +199,24 @@ public class UIController : MonoBehaviour
     {
         InfoPanelOff();
         StartBackOn();
-
+    }
+    public void LanguageButtonOn()
+    {
+        StartBackOff();
+        LanguageOn();
+    }
+    public void LanguageButtonOff()
+    {
+        LanguageOff();
+        StartBackOn();
+    }
+    public void LanguageOn()
+    {
+        LanguagePanel.SetTrigger("on");
+    }
+    public void LanguageOff()
+    {
+        LanguagePanel.SetTrigger("off");
     }
     public void StartTheGame()
     {
@@ -259,15 +287,7 @@ public class UIController : MonoBehaviour
     public void TimerOff()
     {
         Timer.SetTrigger("off");
-    }
-    public void WinZoneOn()
-    {
-        WinZone.SetTrigger("on");
-    }
-    public void WinZoneOff()
-    {
-        WinZone.SetTrigger("off");
-    }
+    }   
     public void ScoreZoneOn()
     {
         ScoreZone.SetTrigger("on");

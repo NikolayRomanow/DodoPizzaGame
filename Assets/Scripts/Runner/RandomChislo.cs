@@ -8,7 +8,7 @@ public class RandomChislo : MonoBehaviour
 {
     
     public int Rand;
-    public int lenghtOfScore = 4;
+    public int lenghtOfScore = 0;
     // Start is called before the first frame update
     
     
@@ -19,6 +19,7 @@ public class RandomChislo : MonoBehaviour
     }    
     void Start()
     {
+        lenghtOfScore = 0;
         StartCoroutine(randCifraa());
     }
     IEnumerator randCifraa()
@@ -36,10 +37,10 @@ public class RandomChislo : MonoBehaviour
                 Rand = Random.Range(9, 1000);
                 break;
             case 3:
-                Rand = Random.Range(99, 10000);
+                Rand = Random.Range(99, 1000);
                 break;
             case 4:
-                Rand = Random.Range(999, 100000);
+                Rand = Random.Range(999, 10000);
                 break;
             case 5:
                 Rand = Random.Range(9999, 100000);
