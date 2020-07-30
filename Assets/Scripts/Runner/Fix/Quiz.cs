@@ -110,9 +110,9 @@ namespace SupremumStudio
         }
         public void ReadQuestions()
         {
-            //var JsonQuestion = Resources.Load<TextAsset>("Questions/Question"); // прочитать файл
+            var JsonQuestion = Resources.Load<TextAsset>("Questions/Questions_v2"); // прочитать файл
             //var JsonQuestion = Resources.Load<TextAsset>("Questions/test"); // прочитать файл
-            var JsonQuestion = Resources.Load<TextAsset>("Questions/QuestionsFromNikita"); // прочитать файл
+            //var JsonQuestion = Resources.Load<TextAsset>("Questions/QuestionsFromNikita"); // прочитать файл
             //var JsonQuestion = Resources.Load<TextAsset>("Questions/test2"); // прочитать файл
             List<QuestionModel> allQuestions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString()); // распознать его
             OrderByWeight(allQuestions);            

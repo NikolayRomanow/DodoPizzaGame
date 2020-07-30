@@ -99,8 +99,7 @@ public class GameManager : MonoBehaviour
     }
     private async void CountPlayers()
     {
-        float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
-        Debug.Log(CountOfPlayers);
+        float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");        
     }
 
     private async void Run_ProvR()
@@ -136,6 +135,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+
         //PlayerPrefs.DeleteAll();
         UIController.LoadServer.gameObject.SetActive(false);
         var i = PlayerPrefs.GetInt("FirstStartTheGame");
@@ -230,8 +230,9 @@ public class GameManager : MonoBehaviour
                         }
                     }
                     int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-                    UIController.SetRatingInMenu(temp);
-                    float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
+                    float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
+                    UIController.SetRatingInMenu(temp, (int)CountOfPlayers);
+                    float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");                   
                     DoHalyavnoyPizzaCount += 1.0f;
                     //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
                     UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
@@ -412,21 +413,19 @@ public class GameManager : MonoBehaviour
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
-                        Notifications.CreateNotification();
+                        //Notifications.CreateNotification();
                         
                     }
                     else
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordOn();
-                        Notifications.CreateNotification();
                         PlayerPrefs.SetInt("FirstDeath", 1);
                     }
                     break;
                 case false:
                     UIController.CanvasScoreZoneOn();
                     UIController.ResultOn();
-                    Notifications.CreateNotification();
                     break;
             }
         }
@@ -439,21 +438,18 @@ public class GameManager : MonoBehaviour
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
-                        Notifications.CreateNotification();
                         
                     }
                     else
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordOn();
-                        Notifications.CreateNotification();
                         PlayerPrefs.SetInt("FirstDeath", 2);
                     }
                     break;
                 case false:
                     UIController.CanvasScoreZoneOn();
                     UIController.ResultOn();
-                    Notifications.CreateNotification();
                     break;
             }
         }
@@ -466,21 +462,18 @@ public class GameManager : MonoBehaviour
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
-                        Notifications.CreateNotification();
                        
                     }
                     else
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordOn();
-                        Notifications.CreateNotification();
                         PlayerPrefs.SetInt("FirstDeath", 3);
                     }
                     break;
                 case false:
                     UIController.CanvasScoreZoneOn();
                     UIController.ResultOn();
-                    Notifications.CreateNotification();
                     break;
             }
         }
@@ -493,19 +486,18 @@ public class GameManager : MonoBehaviour
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
-                        Notifications.CreateNotification();                        
                     }
                     else
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordOn();
-                        Notifications.CreateNotification();
                     }
                     break;
                 case false:
                     UIController.CanvasScoreZoneOn();
                     UIController.ResultOn();
-                    Notifications.CreateNotification();
+                    //Notifications.CreateNotification();
+
                     break;
             }
         }
@@ -532,7 +524,8 @@ public class GameManager : MonoBehaviour
         
         
         UIController.PositionCount(temp);
-        UIController.SetRatingInMenu(temp);
+        float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
+        UIController.SetRatingInMenu(temp,(int)CountOfPlayers);
         // }
     }
     public void NewRecordOrNot()

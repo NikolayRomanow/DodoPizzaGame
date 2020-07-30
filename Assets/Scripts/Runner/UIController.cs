@@ -104,9 +104,9 @@ public class UIController : MonoBehaviour
     {
         DarkScreen.SetTrigger("on");
     }
-    public void SetRatingInMenu(int rating)
+    public void SetRatingInMenu(int rating, int placeCount)
     {
-        RatingInMenu.text = rating.ToString()+" из 137";
+        RatingInMenu.text = rating.ToString()+" из "+ placeCount.ToString();
         RatingInRestartMenu.text = rating.ToString();
     }
 
@@ -137,7 +137,7 @@ public class UIController : MonoBehaviour
     public void PositionCount(int positionCount)
     {
         //PositionCountResultRecord.text = positionCount.ToString();
-        //PositionCountResult.text = positionCount.ToString();
+       PositionCountResult.text = positionCount.ToString();
     }    
     public void SetCurrentRatingInGame(int currentRatingInGame)
     {
