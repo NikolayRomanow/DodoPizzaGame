@@ -218,8 +218,16 @@ public class UIController : MonoBehaviour
     {
         LanguagePanel.SetTrigger("off");
     }
+    
+    public void FirstLaunch()
+    {
+        PrivetFirstOff();
+        NewStartPanel.SetTrigger("on");
+    }
+
     public void StartTheGame()
     {
+        //PrivetFirstOff();
         DarkScreenOn();
         StartCoroutine(WaitIdle());
         StartGame();

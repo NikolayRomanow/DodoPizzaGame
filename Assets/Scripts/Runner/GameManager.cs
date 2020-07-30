@@ -97,11 +97,18 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    private async void CountPlayers()
+    {
+        float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
+        Debug.Log(CountOfPlayers);
+    }
+
     private async void Run_ProvR()
     {
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
-        DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+        DoHalyavnoyPizzaCount += 1.0f;
+        //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
         UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
     }
 
@@ -225,7 +232,8 @@ public class GameManager : MonoBehaviour
                     int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
                     UIController.SetRatingInMenu(temp);
                     float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
-                    DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+                    DoHalyavnoyPizzaCount += 1.0f;
+                    //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
                     UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
                     UIController.NewStartPanel.gameObject.SetActive(true);
                     UIController.NewStartPanel.Play("on");
@@ -382,7 +390,8 @@ public class GameManager : MonoBehaviour
         UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
-        DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+        DoHalyavnoyPizzaCount += 1.0f;
+        //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
         UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
         await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         user.Score = GameScore.GetTotalScore();
