@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NewMoveimentPlatform : MonoBehaviour
 {
-    public GameObject Tile1, Tile2, Tile3, Tile4;
+    public GameObject Tile1, Tile2;
     private Vector3 Tile1OriginPosition, Tile2OriginPosition;
     private bool check = false;
 
@@ -16,19 +16,22 @@ public class NewMoveimentPlatform : MonoBehaviour
 
     private void Update()
     {
-        if (!check)
-            Movement(Tile1, Tile2, Tile1OriginPosition);
-        if (check)
-            Movement(Tile2, Tile1, Tile1OriginPosition);
-        if (Tile2.transform.position == Tile1OriginPosition)
+        if (Statistic.isGameStart)
         {
-            check = true;
-            Tile1.transform.position = Tile2OriginPosition;
-        }
-        if (Tile1.transform.position == Tile1OriginPosition)
-        {
-            check = false;
-            Tile2.transform.position = Tile2OriginPosition;
+            if (!check)
+                Movement(Tile1, Tile2, Tile1OriginPosition);
+            if (check)
+                Movement(Tile2, Tile1, Tile1OriginPosition);
+            if (Tile2.transform.position == Tile1OriginPosition)
+            {
+                check = true;
+                Tile1.transform.position = Tile2OriginPosition;
+            }
+            if (Tile1.transform.position == Tile1OriginPosition)
+            {
+                check = false;
+                Tile2.transform.position = Tile2OriginPosition;
+            }
         }
     }
 
