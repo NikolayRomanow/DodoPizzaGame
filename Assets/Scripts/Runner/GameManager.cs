@@ -378,7 +378,7 @@ public class GameManager : MonoBehaviour
     }
     private async void Run_Death()
     {
-
+        UIController.MainCameraOff();
 
 
         // else
@@ -400,10 +400,10 @@ public class GameManager : MonoBehaviour
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         NewRecordOrNot();
-        print(PlayerPrefs.GetInt("FirstDeath"));
-        print(UIController.NewRecord);
-        print(GameScore.GetTotalScore());
-        print(bestRating);
+        //print(PlayerPrefs.GetInt("FirstDeath"));
+        //print(UIController.NewRecord);
+        //print(GameScore.GetTotalScore());
+        //print(bestRating);
         var i = PlayerPrefs.GetInt("FirstDeath");        
         if (i == 0)
         {
@@ -502,7 +502,6 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
-
         if (i == 3)
         {
             UIController.InteractableCanvasOff();
@@ -520,7 +519,7 @@ public class GameManager : MonoBehaviour
         SaveRating();
         UIController.SetBestRating(bestRating);
         UIController.SetCurrentRating(GameScore.GetTotalScore());
-        UIController.MainCameraOff();
+        //UIController.MainCameraOff();
         user.Score = PlayerPrefs.GetInt("BestScore");
         
         

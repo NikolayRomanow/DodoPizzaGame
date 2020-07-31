@@ -36,7 +36,7 @@ namespace SupremumStudio
 
         public void SetSliderMaxValue()
         {
-            Timer.maxValue = 580;
+            Timer.maxValue = 560;
             Timer.value = TimeForQuestion * 100;
         }
         public void SetSliderValue()
@@ -45,7 +45,7 @@ namespace SupremumStudio
         }
         public void ResetSliderValue()
         {
-            Timer.value = 580;
+            Timer.value = 560;
         }
 
 
@@ -65,7 +65,7 @@ namespace SupremumStudio
         {
             SetSliderMaxValue();
             Quiz.QuestionChanged += Quiz_QuestionChanged;
-            TimeForQuestion = 5.8f;
+            TimeForQuestion = 5.6f;
             Quiz.ReadQuestions();
             //SetQuestion(); // Можно использовать из другого класса
 
@@ -140,7 +140,7 @@ namespace SupremumStudio
 
         public void ResetTime()
         {
-            TimeForQuestion = 5.8f;
+            TimeForQuestion = 5.6f;
             CurrentTime = 0;
         }
         public void QuestinIsTrueOn()

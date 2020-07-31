@@ -241,7 +241,8 @@ public class UIController : MonoBehaviour
         FirstVoprosTrigger.SetActive(true);
         StartCoroutine(WaitRun());
         RestartGame();
-        MainCameraOn();
+        StartCoroutine(ThreeMSCoolDown());
+        //MainCameraOn();
         ScoreZoneOff();
         CanvasStartBack.interactable = false;
         CanvasScoreZoneOff();
@@ -258,6 +259,11 @@ public class UIController : MonoBehaviour
 
 
     }
+    IEnumerator ThreeMSCoolDown()
+    {
+        yield return new WaitForSeconds(0.3f);
+        MainCameraOn();
+    }
     public void BackToTheMenu()
     {
         DarkScreenOn();
@@ -267,7 +273,8 @@ public class UIController : MonoBehaviour
         CanvasScoreZoneOff();
         CanvasStartBackOn();
         StartCoroutine(StayRunner());
-        MainCamera.Play("ToHomeCamera");
+        StartCoroutine(ThreeMSCoolDownToHome());
+        //MainCamera.Play("ToHomeCamera");
         FirstVoprosTrigger.SetActive(true);
         StartCoroutine(BackToMenuCorutine());
         switch (NewRecord)
@@ -280,6 +287,12 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
+    IEnumerator ThreeMSCoolDownToHome()
+    {
+        yield return new WaitForSeconds(0.3f);
+        MainCamera.Play("ToHomeCamera");
+    }
+
     public void InfoPanelOn()
     {
         InfoPanel.SetTrigger("on");

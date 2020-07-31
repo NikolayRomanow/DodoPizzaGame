@@ -152,7 +152,7 @@ public class Run : MonoBehaviour
 
     IEnumerator BadFinish()
     {
-        yield return new WaitForSeconds(1.1f);
+        yield return// new WaitForSeconds(1.1f);
         Tile1.transform.position = Tile1Transform.position;
         Tile2.transform.position = Tile2Transform.position;
         //Tile3.transform.position = Tile3Transform.position;
