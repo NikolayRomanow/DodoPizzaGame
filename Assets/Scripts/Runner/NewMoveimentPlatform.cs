@@ -41,4 +41,10 @@ public class NewMoveimentPlatform : MonoBehaviour
         Tile1.transform.position = Vector3.MoveTowards(Tile1.transform.position, Tile1.transform.position + new Vector3(0, 0, -1), Time.deltaTime * Statistic.Speed * 3);
         Tile2.transform.position = Vector3.MoveTowards(Tile2.transform.position, Tile1OriginPosition, Time.deltaTime * Statistic.Speed * 3);
     }
+
+    public void ResetPosition()
+    {
+        Tile1.transform.position = Tile1OriginPosition;
+        Tile2.transform.position = Tile2OriginPosition;
+    }
 }

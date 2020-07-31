@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 {
     private float Rating;
     public UIController UIController;
+    public NewMoveimentPlatform NewMoveimentPlatform;
     public Run Run;
     public QuizView QuizView;
     public Quiz Quiz;
@@ -377,17 +378,17 @@ public class GameManager : MonoBehaviour
     }
     private async void Run_Death()
     {
-       
+
 
 
         // else
         //{
-
         RandomNumbersOff();
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
         UIController.House.SetActive(false);
+        UIController.Spruces.SetActive(true);
         //UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");

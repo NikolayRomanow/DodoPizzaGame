@@ -230,10 +230,10 @@ public class UIController : MonoBehaviour
         //PrivetFirstOff();
         DarkScreenOn();
         StartCoroutine(WaitIdle());
-        StartGame();
-        MainCameraOn();
-        StartBackOff();
-        CanvasStartBackOff();
+        //StartGame();
+        //MainCameraOn();
+        //StartBackOff();
+        //CanvasStartBackOff();
     }
     public void RestartTheGame()
     {
@@ -340,14 +340,19 @@ public class UIController : MonoBehaviour
 
     IEnumerator WaitIdle()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         DodoIdle.SetActive(false);
+        StartGame();
+        MainCameraOn();
+        StartBackOff();
+        CanvasStartBackOff();
     }
 
     IEnumerator WaitRun()
     {
         yield return new WaitForSeconds(1.0f);
         House.SetActive(true);
+        Spruces.SetActive(false);
         //Spruces.SetActive(false);
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");
@@ -355,7 +360,7 @@ public class UIController : MonoBehaviour
     
     IEnumerator BackToMenuCorutine()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.0f);
         DodoIdle.SetActive(true);
         House.SetActive(true);
         //Spruces.SetActive(false);
