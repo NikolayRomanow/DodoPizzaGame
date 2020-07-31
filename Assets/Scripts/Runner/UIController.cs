@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     public GameObject FirstVoprosTrigger;
     public GameObject House;
     public GameObject Spruces;
+    public RectTransform MoreButton;    
     public GameManager GameManager;
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
@@ -218,7 +219,24 @@ public class UIController : MonoBehaviour
     {
         LanguagePanel.SetTrigger("off");
     }
-    
+    public void MoreButtonOn()
+    {
+
+        if (MoreButton.transform.position.x < 100)
+        {
+            StartBack.SetTrigger("ButtonOn");
+        }
+        else
+        {
+            StartBack.SetTrigger("ButtonOff");
+        }
+        
+    }
+    public void MoreButtonOff()
+    {
+        StartBack.SetTrigger("ButtonOff");
+    }
+
     public void FirstLaunch()
     {
         PrivetFirstOff();
