@@ -33,8 +33,8 @@ public class Run : MonoBehaviour
     public Transform StartTileTransform;
     public Transform Tile1Transform;
     public Transform Tile2Transform;
-    public Transform Tile3Transform;
-    public Transform Tile4Transform;
+    //public Transform Tile3Transform;
+    //public Transform Tile4Transform;
 
     private void NotTrueAnswer()
     {
@@ -73,7 +73,7 @@ public class Run : MonoBehaviour
         {
             RandomNumbersOff();
             ProvR();
-            CheckArrived(9);
+            CheckArrived(3);
             JumpR();
             QuizView.SetColorGreen();
         }
@@ -81,7 +81,7 @@ public class Run : MonoBehaviour
         {
             RandomNumbersOff();
             ProvL();
-            CheckArrived(9);
+            CheckArrived(3);
             JumpL();
             QuizView.SetColorGreen();
         }
@@ -155,7 +155,7 @@ public class Run : MonoBehaviour
         yield return new WaitForSeconds(1.1f);
         Tile1.transform.position = Tile1Transform.position;
         Tile2.transform.position = Tile2Transform.position;
-        Tile3.transform.position = Tile3Transform.position;
-        Tile4.transform.position = Tile4Transform.position;
+        //Tile3.transform.position = Tile3Transform.position;
+        //Tile4.transform.position = Tile4Transform.position;
     }
 }

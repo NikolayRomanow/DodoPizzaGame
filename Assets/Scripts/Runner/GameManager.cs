@@ -268,7 +268,7 @@ public class GameManager : MonoBehaviour
         SetRatingInGame();
         user.Score = 0;
         Quiz.ResetQuiz();
-        SetSpeed(9);
+        SetSpeed(3);
         SoundController.SoundOfPressedButton();
         SoundController.SoundInGameOn();
 
@@ -351,7 +351,7 @@ public class GameManager : MonoBehaviour
         //}
         //else
         //{
-        SetSpeed(9);
+        //SetSpeed(9);
         if (QuizView.QuestionIsOn == false)
         {
             UIController.VictorineZoneOn();
@@ -388,7 +388,7 @@ public class GameManager : MonoBehaviour
         //UIController.RunnerDodo.GetComponent<CapsuleCollider>().isTrigger = true;
         SetSpeed(0);
         UIController.House.SetActive(false);
-        UIController.Spruces.SetActive(true);
+        //UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
         DoHalyavnoyPizzaCount += 1.0f;
