@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     public GameManager GameManager;
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
+    private bool MoreButtonBool;
 
     //public void 
     public void InternetErorr()
@@ -194,6 +195,7 @@ public class UIController : MonoBehaviour
     public void InfoButtonOn()
     {
         StartBackOff();
+        MoreButtonBool = false;
         InfoPanelOn();
     }
     public void InfoButtonOff()
@@ -204,6 +206,7 @@ public class UIController : MonoBehaviour
     public void LanguageButtonOn()
     {
         StartBackOff();
+        MoreButtonBool = false;
         LanguageOn();
     }
     public void LanguageButtonOff()
@@ -222,19 +225,22 @@ public class UIController : MonoBehaviour
     public void MoreButtonOn()
     {
 
-        if (MoreButton.transform.position.x < 100)
+        if (!MoreButtonBool)
         {
             StartBack.SetTrigger("ButtonOn");
+            MoreButtonBool = true;
         }
         else
         {
             StartBack.SetTrigger("ButtonOff");
+            MoreButtonBool = false;
         }
         
     }
     public void MoreButtonOff()
     {
         StartBack.SetTrigger("ButtonOff");
+        MoreButtonBool = false;
     }
 
     public void FirstLaunch()
@@ -256,24 +262,25 @@ public class UIController : MonoBehaviour
     public void RestartTheGame()
     {
         DarkScreenOn();
-        FirstVoprosTrigger.SetActive(true);
-        StartCoroutine(WaitRun());
-        RestartGame();
-        StartCoroutine(ThreeMSCoolDown());
-        //MainCameraOn();
-        ScoreZoneOff();
-        CanvasStartBack.interactable = false;
-        CanvasScoreZoneOff();
-        CanvasStartBackOn();
-        switch (NewRecord)
-        {
-            case true:
-                ResultRecordOff();
-                break;
-            case false:
-                ResultOff();
-                break;
-        }
+        StartCoroutine(RestartGameCorutine());
+        //FirstVoprosTrigger.SetActive(true);
+        //StartCoroutine(WaitRun());
+        //RestartGame();
+        //StartCoroutine(ThreeMSCoolDown());
+        ////MainCameraOn();
+        //ScoreZoneOff();
+        //CanvasStartBack.interactable = false;
+        //CanvasScoreZoneOff();
+        //CanvasStartBackOn();
+        //switch (NewRecord)
+        //{
+        //    case true:
+        //        ResultRecordOff();
+        //        break;
+        //    case false:
+        //        ResultOff();
+        //        break;
+        //}
 
 
     }
@@ -391,11 +398,36 @@ public class UIController : MonoBehaviour
     
     IEnumerator BackToMenuCorutine()
     {
-        yield return new WaitForSeconds(0.0f);
+        yield return new WaitForSeconds(0.5f);
         DodoIdle.SetActive(true);
         House.SetActive(true);
         //Spruces.SetActive(false);
         Animator = RunnerDodo.GetComponent<Animator>();
         Animator.Play("Ride");
+        GameManager.NewMoveimentPlatform.ResetPosition();
+        Spruces.SetActive(false);
+    }
+
+    IEnumerator RestartGameCorutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        FirstVoprosTrigger.SetActive(true);
+        StartCoroutine(WaitRun());
+        RestartGame();
+        StartCoroutine(ThreeMSCoolDown());
+        //MainCameraOn();
+        ScoreZoneOff();
+        CanvasStartBack.interactable = false;
+        CanvasScoreZoneOff();
+        CanvasStartBackOn();
+        switch (NewRecord)
+        {
+            case true:
+                ResultRecordOff();
+                break;
+            case false:
+                ResultOff();
+                break;
+        }
     }
 }

@@ -27,10 +27,10 @@ namespace SupremumStudio
         public event Action InCorrectAnswer;
         public GameObject TextTable;
 
-        private Color Red = new Color(0.6862745f, 0f, 0f, 0.5f);
-        private Color Orange = new Color(1, 0.4117647f, 0, 0.5f);
-        private Color Green = new Color(0.01176471f, 0.6862745f, 0.01176471f, 0.5f);
-        private Color Standart = new Color(0, 0, 0, 0.5f);
+        private Color Red = new Color(0.6862745f, 0f, 0f, 1f);
+        private Color Orange = new Color(1, 0.4117647f, 0, 1f);
+        private Color Green = new Color(0.01176471f, 0.6862745f, 0.01176471f, 1f);
+        private Color Standart = new Color(0, 0, 0, 0.7843137f);
 
         public Slider Timer;
 
