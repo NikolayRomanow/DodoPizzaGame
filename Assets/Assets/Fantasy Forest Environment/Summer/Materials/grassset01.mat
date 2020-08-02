@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: grassset01
   m_Shader: {fileID: 4800000, guid: 47cebecd0b7981c4e8acb2ac81351b7e, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _ALPHATEST_ON _EMISSION
+  m_LightmapFlags: 5
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -113,7 +113,7 @@ Material:
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
-    - _GlossyReflections: 0
+    - _GlossyReflections: 1
     - _LeavesWindSpeed: 0
     - _LeavesWindStrength: 0
     - _Metallic: 0
@@ -125,7 +125,7 @@ Material:
     - _Shininess: 0.078125
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 0
+    - _SpecularHighlights: 1
     - _SquashAmount: 1
     - _SrcBlend: 1
     - _TranslucencyViewDependency: 0.575

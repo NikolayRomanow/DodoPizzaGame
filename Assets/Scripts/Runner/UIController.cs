@@ -399,6 +399,7 @@ public class UIController : MonoBehaviour
     IEnumerator BackToMenuCorutine()
     {
         yield return new WaitForSeconds(0.5f);
+        FirstVoprosTrigger.SetActive(true);
         DodoIdle.SetActive(true);
         House.SetActive(true);
         //Spruces.SetActive(false);
@@ -411,7 +412,7 @@ public class UIController : MonoBehaviour
     IEnumerator RestartGameCorutine()
     {
         yield return new WaitForSeconds(0.5f);
-        FirstVoprosTrigger.SetActive(true);
+        //FirstVoprosTrigger.SetActive(true);
         StartCoroutine(WaitRun());
         RestartGame();
         StartCoroutine(ThreeMSCoolDown());
