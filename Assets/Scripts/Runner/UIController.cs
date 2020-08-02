@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using DodoDataModel;
+using SupremumStudio;
 
 public class UIController : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class UIController : MonoBehaviour
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
     private bool MoreButtonBool;
+    public Text TimerToDayZ;
+    public Quiz Quiz;
     
     public InputField NameOfWinner, TownOfWinner, NumberOfWinner;
     
@@ -124,6 +127,10 @@ public class UIController : MonoBehaviour
     {
         RatingInMenu.text = rating.ToString()+" из "+ placeCount.ToString();
         RatingInRestartMenu.text = rating.ToString();
+    }
+    public void SetTimerInMenu(int Days, int Hours, int Minutes, int Secconds)
+    {
+        TimerToDayZ.text=("ДО БЕСПЛАТНОЙ ПИЦЦЫ ОСТАЛОСЬ \n" + Days + " дней " + Hours + " часов " + Minutes + " минут " + Secconds + " секунд(ы)") ;
     }
 
     public void SetBestRating(int bestRating)
@@ -265,6 +272,7 @@ public class UIController : MonoBehaviour
 
     public void StartTheGame()
     {
+        
         //PrivetFirstOff();
         DarkScreenOn();
         StartCoroutine(WaitIdle());
@@ -395,6 +403,7 @@ public class UIController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         DodoIdle.SetActive(false);
         StartGame();
+        Quiz.ReadQuestions();
         MainCameraOn();
         StartBackOff();
         CanvasStartBackOff();

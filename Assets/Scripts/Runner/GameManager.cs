@@ -202,13 +202,17 @@ public class GameManager : MonoBehaviour
 
             await this.hubConnection.StartAsync();
 
-            time = await hubConnection.InvokeAsync<uint>("GetTime");
+            time = await hubConnection.InvokeAsync<uint>("GetTime");  
         }
 
     }
 
     private async void Update()
-    {
+    {        time -= 17;
+                    var ts = TimeSpan.FromMilliseconds(time);
+                    UIController.SetTimerInMenu(ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+        
+        
         if (Statistic.RandomNumbersOn == true)
         {
             UIController.SetCurrentRatingInGame(RandomChislo.Chislo());
@@ -219,7 +223,10 @@ public class GameManager : MonoBehaviour
             {
                 if (this.hubConnection.State.ToString() == "Connected")
                 {
-                    //time -= Time.deltaTime;//TODO
+                    
+
+                    Console.ReadKey();
+                    
                     //Debug.Log("Подключен");
                     isConnect = true;
                     timeTenSec = -3;
@@ -254,6 +261,8 @@ public class GameManager : MonoBehaviour
                     UIController.NewStartPanel.gameObject.SetActive(true);
                     UIController.NewStartPanel.Play("on");
                     UIController.LoadServer.SetActive(false);
+                    
+
                 }
 
                 timeTenSec -= Time.deltaTime;

@@ -54,18 +54,16 @@ public class LangSystem : MonoBehaviour
         lng = JsonUtility.FromJson<lang>(json);
 #endif
     }
-    public void SwitchButton()
+    public void SwitchButtonRUS()
     {
-        if (langIndex != langArray.Length)
-        {
-            langIndex++;
-        }
-        else
-        {
-            langIndex = 1;
-        }
-        langButttonImage.sprite = flags[langIndex - 1];
-        PlayerPrefs.SetString("Language", langArray[langIndex - 1]);
+        Statistic.Russian = true;
+        PlayerPrefs.SetString("Language", langArray[1]);
+        langLoad();
+    }
+    public void SwitchButtonENG()
+    {    
+        Statistic.Russian = false;
+        PlayerPrefs.SetString("Language", langArray[0]);
         langLoad();
     }
 }
