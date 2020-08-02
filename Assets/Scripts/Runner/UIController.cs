@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DodoDataModel;
 
 public class UIController : MonoBehaviour
 {
@@ -24,13 +25,19 @@ public class UIController : MonoBehaviour
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
     private bool MoreButtonBool;
-    public Text TapToPlay;
+    
+    public InputField NameOfWinner, TownOfWinner, NumberOfWinner;
+    
+    public Text TapToPlay,RatingForFreePizzaInStartText, RatingInMenuCount;
     public void EnText()
     {   
         print(LangSystem.lng.TapToPlay);
         print(LangSystem.lng.TapToPlay);
-        TapToPlay.text = LangSystem.lng.TapToPlay;        
+        TapToPlay.text = LangSystem.lng.TapToPlay;
+        RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
+        RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
     }
+    
 
     //public void 
     public void InternetErorr()

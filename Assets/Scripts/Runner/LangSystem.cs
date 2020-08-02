@@ -73,4 +73,6 @@ public class lang
 {
     public string Menu;
     public string TapToPlay;
+    public string RatingForFreePizzaInStartPanel;
+    public string RatingInMenuCount;
 }

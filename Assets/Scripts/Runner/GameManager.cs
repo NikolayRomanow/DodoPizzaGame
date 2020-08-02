@@ -15,6 +15,8 @@ using System.Net.Sockets;
 public class GameManager : MonoBehaviour
 {
     private float Rating;
+    private bool WinnerYes;//Если да то что-то делать;
+    private uint time; 
     public UIController UIController;
     public NewMoveimentPlatform NewMoveimentPlatform;
     public Run Run;
@@ -54,6 +56,14 @@ public class GameManager : MonoBehaviour
         QuizView.Quiz = Quiz;
         GameScore = new Score();
 
+    }
+    public async void SendButton()
+    {
+        Winner Player = new Winner();
+        Player.Name = UIController.NameOfWinner.text;
+        Player.City = UIController.TownOfWinner.text;
+        Player.Number = UIController.NumberOfWinner.text;
+        await hubConnection.InvokeAsync("SetWinner", Newtonsoft.Json.JsonConvert.SerializeObject(Player));
     }
 
     private void Run_ProvL()
@@ -137,6 +147,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        
 
         //PlayerPrefs.DeleteAll();
         UIController.LoadServer.gameObject.SetActive(false);
@@ -175,6 +186,7 @@ public class GameManager : MonoBehaviour
     {
         UIController.LoadServer.gameObject.SetActive(true);
         await this.StartSignalRAsync();
+        WinnerYes = await hubConnection.InvokeAsync<bool>("CheckWinner", Newtonsoft.Json.JsonConvert.SerializeObject(user));        
     }
 
     async Task StartSignalRAsync()
@@ -190,7 +202,7 @@ public class GameManager : MonoBehaviour
 
             await this.hubConnection.StartAsync();
 
-
+            time = await hubConnection.InvokeAsync<uint>("GetTime");
         }
 
     }
@@ -207,6 +219,7 @@ public class GameManager : MonoBehaviour
             {
                 if (this.hubConnection.State.ToString() == "Connected")
                 {
+                    //time -= Time.deltaTime;//TODO
                     //Debug.Log("Подключен");
                     isConnect = true;
                     timeTenSec = -3;
@@ -392,14 +405,15 @@ public class GameManager : MonoBehaviour
         UIController.Spruces.SetActive(true);
         //UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
+        WinnerYes = await hubConnection.InvokeAsync<bool>("CheckWinner", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
-        DoHalyavnoyPizzaCount += 1.0f;
-        //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
-        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
         await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-        user.Score = GameScore.GetTotalScore();
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
+        user.Score = GameScore.GetTotalScore();
+        DoHalyavnoyPizzaCount += 1.0f;
+        //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
+        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount); 
         NewRecordOrNot();
         //print(PlayerPrefs.GetInt("FirstDeath"));
         //print(UIController.NewRecord);
