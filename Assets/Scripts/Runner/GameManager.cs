@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 {
     private float Rating;
     private bool WinnerYes;//Если да то что-то делать;
-    private uint time; 
+    private uint time;
     public UIController UIController;
     public NewMoveimentPlatform NewMoveimentPlatform;
     public Run Run;
@@ -68,9 +68,9 @@ public class GameManager : MonoBehaviour
 
     private void Run_ProvL()
     {
-        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());       
+        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
     }
-    
+
 
     public void SendLenght()
     {
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     }
     private async void CountPlayers()
     {
-        float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");        
+        float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
     }
 
     private async void Run_ProvR()
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
     {
         if (Quiz.CurrentQuestion == Quiz.questions.Count - 1)
         {
-            SetSpeed(0);            
+            SetSpeed(0);
             SoundController.SoundInGameOff();
             UIController.CanvasScoreZoneOn();
             UIController.ScoreZoneOn();
@@ -147,16 +147,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+
 
         //PlayerPrefs.DeleteAll();
         UIController.LoadServer.gameObject.SetActive(false);
-        var i = PlayerPrefs.GetInt("FirstStartTheGame");
-        if (i == 0)
+        var g = PlayerPrefs.GetInt("FirstLanguageInTheGame");
+        if (g == 0)
         {
-            UIController.NewStartPanel.gameObject.SetActive(false);
-            UIController.PrivetFirstOn();
-            PlayerPrefs.SetInt("FirstStartTheGame", 1);
+            UIController.LanguageOn();
+            PlayerPrefs.SetInt("FirstLanguageInTheGame", 1);
             UIController.NewStartPanel.gameObject.SetActive(false);
             //PlayerPrefs.SetString("GUID", String.Empty);
             //PlayerPrefs.SetInt("BestScore", 0);
@@ -169,16 +168,35 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            UIController.NewStartPanel.gameObject.SetActive(false);
-            //PlayerPrefs.SetString("GUID", String.Empty);
-            //PlayerPrefs.SetInt("BestScore", 0);
-            GameScore.ResetScore();
-            UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
-            //myStart();
-            SaveRating();
-            SoundController.SoundInMenuOn();
-            _dispatcher = UnityMainThreadDispatcher.Instance();
-            StartServer();
+            var i = PlayerPrefs.GetInt("FirstStartTheGame");
+            if (i == 0)
+            {
+                UIController.NewStartPanel.gameObject.SetActive(false);
+                UIController.PrivetFirstOn();
+                PlayerPrefs.SetInt("FirstStartTheGame", 1);
+                UIController.NewStartPanel.gameObject.SetActive(false);
+                ////PlayerPrefs.SetString("GUID", String.Empty);
+                ////PlayerPrefs.SetInt("BestScore", 0);
+                //GameScore.ResetScore();
+                //UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
+                ////myStart();
+                //SaveRating();
+                //SoundController.SoundInMenuOn();
+                //_dispatcher = UnityMainThreadDispatcher.Instance();
+            }
+            else
+            {
+                UIController.NewStartPanel.gameObject.SetActive(false);
+                //PlayerPrefs.SetString("GUID", String.Empty);
+                //PlayerPrefs.SetInt("BestScore", 0);
+                GameScore.ResetScore();
+                UIController.SetBestRating(PlayerPrefs.GetInt("BestScore"));
+                //myStart();
+                SaveRating();
+                SoundController.SoundInMenuOn();
+                _dispatcher = UnityMainThreadDispatcher.Instance();
+                StartServer();
+            }
         }
     }
 
@@ -186,7 +204,7 @@ public class GameManager : MonoBehaviour
     {
         UIController.LoadServer.gameObject.SetActive(true);
         await this.StartSignalRAsync();
-        WinnerYes = await hubConnection.InvokeAsync<bool>("CheckWinner", Newtonsoft.Json.JsonConvert.SerializeObject(user));        
+        WinnerYes = await hubConnection.InvokeAsync<bool>("CheckWinner", Newtonsoft.Json.JsonConvert.SerializeObject(user));
     }
 
     async Task StartSignalRAsync()
@@ -209,6 +227,11 @@ public class GameManager : MonoBehaviour
 
     private async void Update()
     {
+        time -= 17;
+        var ts = TimeSpan.FromMilliseconds(time);
+        UIController.SetTimerInMenu(ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+
+
         if (Statistic.RandomNumbersOn == true)
         {
             UIController.SetCurrentRatingInGame(RandomChislo.Chislo());
@@ -219,8 +242,9 @@ public class GameManager : MonoBehaviour
             {
                 if (this.hubConnection.State.ToString() == "Connected")
                 {
-                    //time -= Time.deltaTime;//TODO
-                    //Debug.Log("Подключен");
+
+
+
                     isConnect = true;
                     timeTenSec = -3;
                     user.guid = PlayerPrefs.GetString("GUID");
@@ -247,13 +271,15 @@ public class GameManager : MonoBehaviour
                     int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
                     float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
                     UIController.SetRatingInMenu(temp, (int)CountOfPlayers);
-                    float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");                   
+                    float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
                     DoHalyavnoyPizzaCount += 1.0f;
                     //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
                     UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
                     UIController.NewStartPanel.gameObject.SetActive(true);
                     UIController.NewStartPanel.Play("on");
                     UIController.LoadServer.SetActive(false);
+
+
                 }
 
                 timeTenSec -= Time.deltaTime;
@@ -304,7 +330,7 @@ public class GameManager : MonoBehaviour
 
     private void UIController_StartGame()
     {
-        GameScore.ResetScore();       
+        GameScore.ResetScore();
         Statistic.isGameStart = true;
         SetSpeed(3);
         SoundController.SoundOfPressedButton();
@@ -389,7 +415,7 @@ public class GameManager : MonoBehaviour
     public void RandomNumbersOff()
     {
         Statistic.RandomNumbersOn = false;
-    }    
+    }
     private async void Run_Death()
     {
         UIController.MainCameraOff();
@@ -413,24 +439,24 @@ public class GameManager : MonoBehaviour
         user.Score = GameScore.GetTotalScore();
         DoHalyavnoyPizzaCount += 1.0f;
         //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
-        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount); 
+        UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
         NewRecordOrNot();
         //print(PlayerPrefs.GetInt("FirstDeath"));
         //print(UIController.NewRecord);
         //print(GameScore.GetTotalScore());
         //print(bestRating);
-        var i = PlayerPrefs.GetInt("FirstDeath");        
+        var i = PlayerPrefs.GetInt("FirstDeath");
         if (i == 0)
         {
             switch (UIController.NewRecord)
             {
                 case true:
-                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount && GameScore.GetTotalScore() > 0) 
+                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount && GameScore.GetTotalScore() > 0)
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
                         //Notifications.CreateNotification();
-                        
+
                     }
                     else
                     {
@@ -454,7 +480,7 @@ public class GameManager : MonoBehaviour
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
-                        
+
                     }
                     else
                     {
@@ -478,7 +504,7 @@ public class GameManager : MonoBehaviour
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
-                       
+
                     }
                     else
                     {
@@ -538,12 +564,12 @@ public class GameManager : MonoBehaviour
         user.Score = PlayerPrefs.GetInt("BestScore");
         UIController.PositionCount(temp);
         float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
-        UIController.SetRatingInMenu(temp,(int)CountOfPlayers);
+        UIController.SetRatingInMenu(temp, (int)CountOfPlayers);
         // }
     }
     public void NewRecordOrNot()
     {
-        switch (GameScore.GetTotalScore() == bestRating&& GameScore.GetTotalScore()>0)
+        switch (GameScore.GetTotalScore() == bestRating && GameScore.GetTotalScore() > 0)
         {
             case true:
                 UIController.NewRecord = true;
@@ -600,7 +626,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetRatingInGame()
     {
-        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());        
+        UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());
     }
 
 

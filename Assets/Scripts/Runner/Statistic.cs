@@ -8,5 +8,6 @@ public class Statistic
     public static float Speed = 3f;
     public static bool isGameStart = false;//TODO: Переосмыслить первое состояние.
     public static bool RandomNumbersOn = false;
+    public static bool Russian = true;
 }
 

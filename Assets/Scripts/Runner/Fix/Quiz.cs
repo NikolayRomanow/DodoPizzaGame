@@ -110,12 +110,24 @@ namespace SupremumStudio
         }
         public void ReadQuestions()
         {
-            var JsonQuestion = Resources.Load<TextAsset>("Questions/Questions_v2"); // прочитать файл
+            if (PlayerPrefs.GetString("Language")== "ru_RU")
+            {
+                var JsonQuestion = Resources.Load<TextAsset>("Questions/Questions_v2RUS");
+                List<QuestionModel> allQuestions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString());
+                OrderByWeight(allQuestions);
+            }
+            else
+            {
+                var JsonQuestion = Resources.Load<TextAsset>("Questions/Questions_v2 ENG");
+                List<QuestionModel> allQuestions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString());
+                OrderByWeight(allQuestions);
+            }
+
             //var JsonQuestion = Resources.Load<TextAsset>("Questions/test"); // прочитать файл
             //var JsonQuestion = Resources.Load<TextAsset>("Questions/QuestionsFromNikita"); // прочитать файл
             //var JsonQuestion = Resources.Load<TextAsset>("Questions/test2"); // прочитать файл
-            List<QuestionModel> allQuestions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString()); // распознать его
-            OrderByWeight(allQuestions);            
+             // распознать его
+            //OrderByWeight(allQuestions);            
             //questions = allQuestions;
             //countQuestionFile = questions.Count;
 

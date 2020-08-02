@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using DodoDataModel;
+using SupremumStudio;
 
 public class UIController : MonoBehaviour
 {
@@ -25,19 +26,43 @@ public class UIController : MonoBehaviour
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
     private bool MoreButtonBool;
+    public Text TimerToDayZ;
+    public Quiz Quiz;
     
     public InputField NameOfWinner, TownOfWinner, NumberOfWinner;
     
     public Text TapToPlay,RatingForFreePizzaInStartText, RatingInMenuCount;
-    public void EnText()
-    {   
-        print(LangSystem.lng.TapToPlay);
-        print(LangSystem.lng.TapToPlay);
-        TapToPlay.text = LangSystem.lng.TapToPlay;
-        RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
-        RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
+    public void ENGText()
+    {
+        if (PlayerPrefs.GetInt("FirstLanguageInTheGame") == 2)
+        {
+
+        }
+        else
+        {
+            print(LangSystem.lng.TapToPlay);
+            print(LangSystem.lng.TapToPlay);
+            TapToPlay.text = LangSystem.lng.TapToPlay;
+            RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
+            RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
+        }
     }
-    
+    public void RUSText()
+    {
+        if (PlayerPrefs.GetInt("FirstLanguageInTheGame") == 2)
+        {
+
+        }
+        else
+        {
+            print(LangSystem.lng.TapToPlay);
+            print(LangSystem.lng.TapToPlay);
+            TapToPlay.text = LangSystem.lng.TapToPlay;
+            RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
+            RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
+        }
+    }
+
 
     //public void 
     public void InternetErorr()
@@ -124,6 +149,10 @@ public class UIController : MonoBehaviour
     {
         RatingInMenu.text = rating.ToString()+" из "+ placeCount.ToString();
         RatingInRestartMenu.text = rating.ToString();
+    }
+    public void SetTimerInMenu(int Days, int Hours, int Minutes, int Secconds)
+    {
+        TimerToDayZ.text=("ДО БЕСПЛАТНОЙ ПИЦЦЫ ОСТАЛОСЬ \n" + Days + " дней " + Hours + " часов " + Minutes + " минут " + Secconds + " секунд(ы)") ;
     }
 
     public void SetBestRating(int bestRating)
@@ -234,6 +263,11 @@ public class UIController : MonoBehaviour
     }
     public void LanguageOff()
     {
+        if(PlayerPrefs.GetInt("FirstLanguageInTheGame")==1)
+        {
+            PrivetFirstOn();
+            PlayerPrefs.SetInt("FirstLanguageInTheGame", 2);
+        }
         LanguagePanel.SetTrigger("off");
     }
     public void MoreButtonOn()
@@ -265,6 +299,7 @@ public class UIController : MonoBehaviour
 
     public void StartTheGame()
     {
+        
         //PrivetFirstOff();
         DarkScreenOn();
         StartCoroutine(WaitIdle());
@@ -395,6 +430,7 @@ public class UIController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         DodoIdle.SetActive(false);
         StartGame();
+        Quiz.ReadQuestions();
         MainCameraOn();
         StartBackOff();
         CanvasStartBackOff();
