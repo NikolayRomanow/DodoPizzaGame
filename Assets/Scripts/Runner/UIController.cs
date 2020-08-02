@@ -32,15 +32,37 @@ public class UIController : MonoBehaviour
     public InputField NameOfWinner, TownOfWinner, NumberOfWinner;
     
     public Text TapToPlay,RatingForFreePizzaInStartText, RatingInMenuCount;
-    public void EnText()
-    {   
-        print(LangSystem.lng.TapToPlay);
-        print(LangSystem.lng.TapToPlay);
-        TapToPlay.text = LangSystem.lng.TapToPlay;
-        RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
-        RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
+    public void ENGText()
+    {
+        if (PlayerPrefs.GetInt("FirstLanguageInTheGame") == 2)
+        {
+
+        }
+        else
+        {
+            print(LangSystem.lng.TapToPlay);
+            print(LangSystem.lng.TapToPlay);
+            TapToPlay.text = LangSystem.lng.TapToPlay;
+            RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
+            RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
+        }
     }
-    
+    public void RUSText()
+    {
+        if (PlayerPrefs.GetInt("FirstLanguageInTheGame") == 2)
+        {
+
+        }
+        else
+        {
+            print(LangSystem.lng.TapToPlay);
+            print(LangSystem.lng.TapToPlay);
+            TapToPlay.text = LangSystem.lng.TapToPlay;
+            RatingForFreePizzaInStartText.text = LangSystem.lng.RatingForFreePizzaInStartPanel;
+            RatingInMenuCount.text = LangSystem.lng.RatingInMenuCount;
+        }
+    }
+
 
     //public void 
     public void InternetErorr()
@@ -241,6 +263,11 @@ public class UIController : MonoBehaviour
     }
     public void LanguageOff()
     {
+        if(PlayerPrefs.GetInt("FirstLanguageInTheGame")==1)
+        {
+            PrivetFirstOn();
+            PlayerPrefs.SetInt("FirstLanguageInTheGame", 2);
+        }
         LanguagePanel.SetTrigger("off");
     }
     public void MoreButtonOn()
