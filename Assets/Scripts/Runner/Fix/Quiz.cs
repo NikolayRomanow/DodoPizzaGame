@@ -110,7 +110,7 @@ namespace SupremumStudio
         }
         public void ReadQuestions()
         {
-            if (Statistic.Russian == true)
+            if (PlayerPrefs.GetString("Language")== "ru_RU")
             {
                 var JsonQuestion = Resources.Load<TextAsset>("Questions/Questions_v2RUS");
                 List<QuestionModel> allQuestions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<QuestionModel>>(JsonQuestion.ToString());

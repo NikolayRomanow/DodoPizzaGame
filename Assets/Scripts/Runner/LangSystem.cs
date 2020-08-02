@@ -55,15 +55,13 @@ public class LangSystem : MonoBehaviour
 #endif
     }
     public void SwitchButtonRUS()
-    {
-        Statistic.Russian = true;
-        PlayerPrefs.SetString("Language", langArray[1]);
+    {        
+        PlayerPrefs.SetString("Language", langArray[0]);
         langLoad();
     }
     public void SwitchButtonENG()
-    {    
-        Statistic.Russian = false;
-        PlayerPrefs.SetString("Language", langArray[0]);
+    {            
+        PlayerPrefs.SetString("Language", langArray[1]);
         langLoad();
     }
 }
