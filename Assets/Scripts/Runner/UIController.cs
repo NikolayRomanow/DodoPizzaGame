@@ -24,6 +24,13 @@ public class UIController : MonoBehaviour
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     private Animator Animator;
     private bool MoreButtonBool;
+    public Text TapToPlay;
+    public void EnText()
+    {   
+        print(LangSystem.lng.TapToPlay);
+        print(LangSystem.lng.TapToPlay);
+        TapToPlay.text = LangSystem.lng.TapToPlay;        
+    }
 
     //public void 
     public void InternetErorr()

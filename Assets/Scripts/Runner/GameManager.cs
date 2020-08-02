@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         UIController.SetCurrentRatingInGame(GameScore.GetTotalScore());       
     }
+    
 
     public void SendLenght()
     {
@@ -375,7 +376,7 @@ public class GameManager : MonoBehaviour
     public void RandomNumbersOff()
     {
         Statistic.RandomNumbersOn = false;
-    }
+    }    
     private async void Run_Death()
     {
         UIController.MainCameraOff();
@@ -410,7 +411,7 @@ public class GameManager : MonoBehaviour
             switch (UIController.NewRecord)
             {
                 case true:
-                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount)
+                    if (GameScore.GetTotalScore() > DoHalyavnoyPizzaCount && GameScore.GetTotalScore() > 0) 
                     {
                         UIController.CanvasScoreZoneOn();
                         UIController.ResultRecordTopTenOn();
@@ -521,8 +522,6 @@ public class GameManager : MonoBehaviour
         UIController.SetCurrentRating(GameScore.GetTotalScore());
         //UIController.MainCameraOff();
         user.Score = PlayerPrefs.GetInt("BestScore");
-        
-        
         UIController.PositionCount(temp);
         float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
         UIController.SetRatingInMenu(temp,(int)CountOfPlayers);
@@ -530,7 +529,7 @@ public class GameManager : MonoBehaviour
     }
     public void NewRecordOrNot()
     {
-        switch (GameScore.GetTotalScore() == bestRating)
+        switch (GameScore.GetTotalScore() == bestRating&& GameScore.GetTotalScore()>0)
         {
             case true:
                 UIController.NewRecord = true;
