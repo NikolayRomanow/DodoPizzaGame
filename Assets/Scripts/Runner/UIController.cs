@@ -350,10 +350,10 @@ public class UIController : MonoBehaviour
         else
         {
 
-            //if ((ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on")))
-            //{
-            //    ResultRecordOff();
-            //}
+            if ((ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on")))
+            {
+                ResultRecordOff();
+            }
         }
         DarkScreenOn();
         StartCoroutine(RestartGameCorutine());
@@ -411,6 +411,12 @@ public class UIController : MonoBehaviour
                     ResultOff();
                     break;
             }
+        }
+        switch (NewRecord)
+        {
+            case false:
+                ResultOff();
+                break;
         }
         ResultRecordTop10Yes = false;
     }
@@ -540,6 +546,12 @@ public class UIController : MonoBehaviour
                     ResultOff();
                     break;
             }
+        }
+        switch (NewRecord)
+        {            
+            case false:
+                ResultOff();
+                break;
         }
         ResultRecordTop10Yes = false;
     }
