@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public SoundController SoundController;
     public RandomChislo RandomChislo;
     public Notifications Notifications;
-    public int bestRating, currentRating;
+    public int bestRating, currentRating;    
 
 
     //Серверная инициализация
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         Player.City = UIController.TownOfWinner.text;
         Player.Number = UIController.NumberOfWinner.text;
         await hubConnection.InvokeAsync("SetWinner", Newtonsoft.Json.JsonConvert.SerializeObject(Player));
+        UIController.SendPobedaOff();
     }
 
     private void Run_ProvL()
@@ -240,6 +241,7 @@ public class GameManager : MonoBehaviour
         {
             if (timeTenSec >= 0)
             {
+                
                 if (this.hubConnection.State.ToString() == "Connected")
                 {
 
@@ -248,6 +250,10 @@ public class GameManager : MonoBehaviour
                     isConnect = true;
                     timeTenSec = -3;
                     user.guid = PlayerPrefs.GetString("GUID");
+                    if(WinnerYes==true)
+                    {
+                        UIController.Pobeda.interactable=true;
+                    }
                     if (PlayerPrefs.GetString("GUID", String.Empty) == String.Empty)
                     {
                         PlayerPrefs.SetString("GUID", Guid.NewGuid().ToString());
@@ -272,7 +278,10 @@ public class GameManager : MonoBehaviour
                     float CountOfPlayers = await hubConnection.InvokeAsync<float>("CountUsers");
                     UIController.SetRatingInMenu(temp, (int)CountOfPlayers);
                     float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
-                    DoHalyavnoyPizzaCount += 1.0f;
+                    if (temp >= 10)
+                    {
+                        DoHalyavnoyPizzaCount += 1.0f;
+                    }
                     //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
                     UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
                     UIController.NewStartPanel.gameObject.SetActive(true);

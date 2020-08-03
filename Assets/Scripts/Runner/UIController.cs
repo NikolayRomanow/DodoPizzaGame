@@ -9,9 +9,9 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, Ocenka, LanguagePanel, ResultRecordTop10;
+    public Animator MainCamera, VictorineZone, ScoreZone, StartBack, Timer, InfoPanel, NewStartPanel, DarkScreen, Result, ResultRecord, PrivetFirst, Ocenka, LanguagePanel, ResultRecordTop10, SendPobeda;
     public CanvasGroup CanvasVictorineZone, CanvasScoreZone, CanvasStartBack;
-    public Text BestRatingInMenu, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountInMenu, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, DoHalyavnoyPizzaCountInGame,ScoreRecordCount;
+    public Text BestRatingInMenu, CurrentRatingInRestartMenuResult, BestRatingInRestartMenuResultRecord, BestRatingInRestartMenuResult, RatingInMenu, RatingInRestartMenu, CurrentRatingInGame, DoHalyavnoyPizzaCountResult, DoHalyavnoyPizzaCountInMenu, DoHalyavnoyPizzaCountResultRecord, PositionCountResult, DoHalyavnoyPizzaCountInGame,ScoreRecordCount,RecordInTOP10, TimerToDayZInTopTen;
     public bool Start, NewRecord;
     public event Action StartGame;
     public event Action RestartGame;
@@ -28,9 +28,10 @@ public class UIController : MonoBehaviour
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
     public GameObject Oshibka;
     private Animator Animator;
-    private bool MoreButtonBool;
+    private bool MoreButtonBool, ResultRecordTop10Yes=false;
     public Text TimerToDayZ;
     public Quiz Quiz;
+    public Button Pobeda;
     
     public InputField NameOfWinner, TownOfWinner, NumberOfWinner;
     
@@ -47,6 +48,16 @@ public class UIController : MonoBehaviour
         //{
         //    Destroy(this.gameObject);
         //}
+    }
+    public void SendPobedaOn()
+    {
+        StartBackOff();
+        SendPobeda.SetTrigger("on");
+    }
+    public void SendPobedaOff()
+    {
+        SendPobeda.SetTrigger("off");
+        StartBackOn();
     }
     public void ENGText()
     {
@@ -172,6 +183,7 @@ public class UIController : MonoBehaviour
     public void SetTimerInMenu(int Days, int Hours, int Minutes, int Secconds)
     {
         TimerToDayZ.text=("ДО БЕСПЛАТНОЙ ПИЦЦЫ ОСТАЛОСЬ \n" + Days + " дней " + Hours + " часов " + Minutes + " минут " + Secconds + " секунд(ы)") ;
+        TimerToDayZInTopTen.text = ("Если Вы продержитесь в списке ещё "+ Days + " дней, " + Hours + " часов, " + Minutes + " минут, то пицца будет Вашей! Учтите, у Вас много соперников. Если кто-то обойдёт Вас по рейтингу, то Вы выбываете из списка победителей");
     }
 
     public void SetBestRating(int bestRating)
@@ -180,6 +192,7 @@ public class UIController : MonoBehaviour
         BestRatingInRestartMenuResultRecord.text = bestRating.ToString();
         BestRatingInRestartMenuResult.text = bestRating.ToString();
         ScoreRecordCount.text = bestRating.ToString();
+        RecordInTOP10.text = bestRating.ToString();
     }
     public void SetDoHalyavnoyPizzaCount(float doHalyavnoyPizzaCount)
     {
@@ -188,7 +201,7 @@ public class UIController : MonoBehaviour
             DoHalyavnoyPizzaCountInMenu.text = doHalyavnoyPizzaCount.ToString();
             DoHalyavnoyPizzaCountResult.text = doHalyavnoyPizzaCount.ToString();
             DoHalyavnoyPizzaCountResultRecord.text = doHalyavnoyPizzaCount.ToString();
-            DoHalyavnoyPizzaCountInGame.text = doHalyavnoyPizzaCount.ToString();
+            DoHalyavnoyPizzaCountInGame.text = doHalyavnoyPizzaCount.ToString();            
         }
         else
         {
@@ -330,9 +343,18 @@ public class UIController : MonoBehaviour
     public void RestartTheGame()
     {
         if (ResultRecordTop10.GetCurrentAnimatorStateInfo(0).IsName("on"))
+        {
             ResultRecordTopTenOff();
-        if (ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on"))
-            ResultRecordOff();
+            ResultRecordTop10Yes = true;
+        }
+        else
+        {
+
+            //if ((ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on")))
+            //{
+            //    ResultRecordOff();
+            //}
+        }
         DarkScreenOn();
         StartCoroutine(RestartGameCorutine());
         //FirstVoprosTrigger.SetActive(true);
@@ -363,10 +385,10 @@ public class UIController : MonoBehaviour
     }
     public void BackToTheMenu()
     {
-        if (ResultRecordTop10.GetCurrentAnimatorStateInfo(0).IsName("on"))
-            ResultRecordTopTenOff();
-        if (ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on"))
-            ResultRecordOff();
+        //if (ResultRecordTop10.GetCurrentAnimatorStateInfo(0).IsName("on"))
+        //    ResultRecordTopTenOff();
+        //if (ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on"))
+        //    ResultRecordOff();
         DarkScreenOn();
         BackToMenu();
         ScoreZoneOff();
@@ -378,15 +400,19 @@ public class UIController : MonoBehaviour
         //MainCamera.Play("ToHomeCamera");
         FirstVoprosTrigger.SetActive(true);
         StartCoroutine(BackToMenuCorutine());
-        switch (NewRecord)
+        if (ResultRecordTop10Yes == false)
         {
-            case true:
-                ResultRecordOff();
-                break;
-            case false:
-                ResultOff();
-                break;
+            switch (NewRecord)
+            {
+                case true:
+                    ResultRecordOff();
+                    break;
+                case false:
+                    ResultOff();
+                    break;
+            }
         }
+        ResultRecordTop10Yes = false;
     }
     IEnumerator ThreeMSCoolDownToHome()
     {
@@ -503,14 +529,18 @@ public class UIController : MonoBehaviour
         CanvasStartBack.interactable = false;
         CanvasScoreZoneOff();
         CanvasStartBackOn();
-        switch (NewRecord)
+        if (ResultRecordTop10 == false)
         {
-            case true:
-                ResultRecordOff();
-                break;
-            case false:
-                ResultOff();
-                break;
+            switch (NewRecord)
+            {
+                case true:
+                    ResultRecordOff();
+                    break;
+                case false:
+                    ResultOff();
+                    break;
+            }
         }
+        ResultRecordTop10Yes = false;
     }
 }
