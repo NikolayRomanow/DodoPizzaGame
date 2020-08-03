@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MejScene : MonoBehaviour
 {
-    public GameObject Scene1, Scene2, Scene3;
+    public GameObject Scene1, Scene2, Scene3, ARcamera;
     public Animator StartMenu, ARMenu1, ARMenu2, ARMenu3;
     public UIController UIController;
 
@@ -24,6 +24,7 @@ public class MejScene : MonoBehaviour
     {
         Scene2.SetActive(false);
         Scene3.SetActive(true);
+        ARcamera.SetActive(true);
         ARMenu3.SetTrigger("On");
     }
 
