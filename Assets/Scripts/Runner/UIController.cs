@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using DodoDataModel;
 using SupremumStudio;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class UIController : MonoBehaviour
     public GameObject Spruces;
     public RectTransform MoreButton;    
     public GameManager GameManager;
+    public GameObject AllTheStuff;
     public GameObject ConnectionOffinStartPanel, ConnectionOffinRestartPanel;
+    public GameObject Oshibka;
     private Animator Animator;
     private bool MoreButtonBool;
     public Text TimerToDayZ;
@@ -32,8 +35,22 @@ public class UIController : MonoBehaviour
     public InputField NameOfWinner, TownOfWinner, NumberOfWinner;
     
     public Text TapToPlay,RatingForFreePizzaInStartText, RatingInMenuCount;
+
+    public static UIController Instance;
+    private void Awake()
+    {
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //}
+        //else
+        //{
+        //    Destroy(this.gameObject);
+        //}
+    }
     public void ENGText()
     {
+
         if (PlayerPrefs.GetInt("FirstLanguageInTheGame") == 2)
         {
 
@@ -67,26 +84,28 @@ public class UIController : MonoBehaviour
     //public void 
     public void InternetErorr()
     {
-        NewStartPanel.gameObject.SetActive(true);
-        NewStartPanel.Play("on");
+        //NewStartPanel.gameObject.SetActive(true);
+        //NewStartPanel.Play("on");
         LoadServer.SetActive(false);
-        ConnectionOffinStartPanel.SetActive(true);
-        ConnectionOffinRestartPanel.SetActive(true);
-        RatingInMenu.text = "";
-        RatingInRestartMenu.text = "";
-        NewStartPanel.Play("on");
+        Oshibka.SetActive(true);
+        //ConnectionOffinStartPanel.SetActive(true);
+        //ConnectionOffinRestartPanel.SetActive(true);
+        //RatingInMenu.text = "";
+        //RatingInRestartMenu.text = "";
+        //NewStartPanel.Play("on");
+        
     }
-    //private void Update()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.L))
-    //    {
-    //        OcenkaOn();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.K))
-    //    {
-    //        PrivetFirstOn();
-    //    }
-    //}
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    OcenkaOn();
+        //}
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    PrivetFirstOn();
+        //}
+    }
     public void BadOcenka()
     {
         OcenkaOff();
@@ -310,6 +329,7 @@ public class UIController : MonoBehaviour
     }
     public void RestartTheGame()
     {
+        ResultRecordTop10.Play("Idle");
         DarkScreenOn();
         StartCoroutine(RestartGameCorutine());
         //FirstVoprosTrigger.SetActive(true);
@@ -416,6 +436,11 @@ public class UIController : MonoBehaviour
     public void StartBackOff()
     {
         StartBack.SetTrigger("off");
+    }
+
+    public void LoadDododrom()
+    {
+        SceneManager.LoadSceneAsync(1);
     }
 
     IEnumerator StayRunner()

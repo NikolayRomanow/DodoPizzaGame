@@ -622,7 +622,7 @@ public class GameManager : MonoBehaviour
     //}
     private void OnDestroy()
     {
-        hubConnection.StopAsync();
+        hubConnection?.StopAsync();
     }
     public void SetRatingInGame()
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DodoDromeScript : MonoBehaviour
 {
@@ -78,5 +79,17 @@ public class DodoDromeScript : MonoBehaviour
     public void Button_AR()
     {
         AR_Button.GetComponent<Animator>().Play("ToARButton");
+        StartCoroutine(AnimUIFordododrom());
+    }
+
+    public void ReturnHome()
+    {
+        SceneManager.LoadSceneAsync(2);
+    }
+
+    IEnumerator AnimUIFordododrom()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadSceneAsync(2);
     }
 }
