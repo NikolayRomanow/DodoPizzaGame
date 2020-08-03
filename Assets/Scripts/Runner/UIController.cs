@@ -329,7 +329,10 @@ public class UIController : MonoBehaviour
     }
     public void RestartTheGame()
     {
-        ResultRecordTop10.Play("Idle");
+        if (ResultRecordTop10.GetCurrentAnimatorStateInfo(0).IsName("on"))
+            ResultRecordTopTenOff();
+        if (ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on"))
+            ResultRecordOff();
         DarkScreenOn();
         StartCoroutine(RestartGameCorutine());
         //FirstVoprosTrigger.SetActive(true);
@@ -360,6 +363,10 @@ public class UIController : MonoBehaviour
     }
     public void BackToTheMenu()
     {
+        if (ResultRecordTop10.GetCurrentAnimatorStateInfo(0).IsName("on"))
+            ResultRecordTopTenOff();
+        if (ResultRecord.GetCurrentAnimatorStateInfo(0).IsName("on"))
+            ResultRecordOff();
         DarkScreenOn();
         BackToMenu();
         ScoreZoneOff();

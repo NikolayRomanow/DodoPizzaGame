@@ -431,12 +431,12 @@ public class GameManager : MonoBehaviour
         UIController.Spruces.SetActive(true);
         //UIController.Spruces.SetActive(true);
         SoundController.SoundInGameOff();
+        user.Score = GameScore.GetTotalScore();
         WinnerYes = await hubConnection.InvokeAsync<bool>("CheckWinner", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         float DoHalyavnoyPizzaCount = await hubConnection.InvokeAsync<float>("TOPScore");
         await hubConnection.InvokeAsync("CheckRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         await hubConnection.InvokeAsync("SetScore", Newtonsoft.Json.JsonConvert.SerializeObject(user));
         int temp = await hubConnection.InvokeAsync<int>("GetRating", Newtonsoft.Json.JsonConvert.SerializeObject(user));
-        user.Score = GameScore.GetTotalScore();
         DoHalyavnoyPizzaCount += 1.0f;
         //DoHalyavnoyPizzaCount = DoHalyavnoyPizzaCount - PlayerPrefs.GetInt("BestScore");
         UIController.SetDoHalyavnoyPizzaCount(DoHalyavnoyPizzaCount);
