@@ -12,7 +12,10 @@ public class ARModeScript : MonoBehaviour
     private void Start()
     {
         _gamersRating = PlayerPrefs.GetInt("BestScore");
-        _gamersRating = 300;
+        if (_gamersRating >= 0)
+        {
+            RunnerGreen.SetActive(true);
+        }
         if (_gamersRating >= 100 && _gamersRating < 200)
         {
             RunnerGreen.SetActive(true);

@@ -32,6 +32,7 @@ public class MejScene : MonoBehaviour
     {
         Scene3.SetActive(false);
         Scene2.SetActive(true);
+        ARcamera.SetActive(false);
         ARMenu1.Play("On");
         ARMenu2.Play("On");
     }
@@ -39,9 +40,18 @@ public class MejScene : MonoBehaviour
     IEnumerator Ojidanuie()
     {
         yield return new WaitForSeconds(1f);
-        Scene1.SetActive(false);
-        Scene2.SetActive(true);
-        ARMenu1.Play("On");
-        ARMenu2.Play("On");
+        var i = PlayerPrefs.GetInt("FirstLaunchDododrom");
+        if (i == 0)
+        {
+            Scene1.SetActive(false);
+            Scene2.SetActive(true);
+        }
+        else
+        {
+            Scene1.SetActive(false);
+            Scene2.SetActive(true);
+            ARMenu1.Play("On");
+            ARMenu2.Play("On");
+        }
     }
 }

@@ -33,6 +33,10 @@ public class DodoDromeScript : MonoBehaviour
         }
         _gamersRating = PlayerPrefs.GetInt("BestScore");
         GamersRatingPanel.text = Convert.ToString(_gamersRating);
+        if (_gamersRating >= 0 )
+        {
+            RunnerGreen.SetActive(true);
+        }
         if (_gamersRating >= 100 && _gamersRating < 200)
         {
             ProgressBarAnimator.Play("From0to100");
